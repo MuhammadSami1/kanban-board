@@ -4,7 +4,6 @@
     "incremental": true, // https://nextjs.org/docs/basic-features/typescript#incremental-type-checking
     "baseUrl": ".",
     "paths": {
-      "@/shadcn/*": ["./components/*"],
       "@/src/*": ["./src/*"],
       "@/app/*": ["./src/app/*"],
       "@/*": ["./*"]

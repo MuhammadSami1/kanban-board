@@ -1,5 +1,12 @@
+import NavbarWrapper from '@/components/NavbarWrapper'
+
 const Home = () => {
-  return <main>Main</main>
+  return (
+    <>
+      <NavbarWrapper />
+      <main>main</main>
+    </>
+  )
 }
 
 export default Home

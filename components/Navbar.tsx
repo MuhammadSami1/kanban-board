@@ -41,7 +41,7 @@ const Navbar = ({ handleOpen }: TNavbar) => {
                     </g>
                   </g>
                 </svg>
-                <div className=" border-r-[1px] sm:ml-24 md:ml-32 h-20 md:h-24 border-Neutral-Secondary hidden sm:flex" />
+                <div className=" border-r-[1px] sm:ml-24 md:ml-28 h-20 md:h-24 border-Neutral-Secondary hidden sm:flex" />
               </div>
 
               <svg
@@ -89,7 +89,7 @@ const Navbar = ({ handleOpen }: TNavbar) => {
             </div>
 
             <div className="flex items-center gap-3 sm:gap-7">
-              <div className="bg-Primary-button px-4 py-2 md:px-5 md:py-3 md:rounded-3xl rounded-2xl hover:bg-Primary-buttonLight">
+              <div className="bg-Primary-button px-4 py-2 md:px-5 md:py-3 md:rounded-3xl rounded-2xl hover:bg-Primary-buttonLight cursor-pointer">
                 <svg
                   width="12"
                   height="12"

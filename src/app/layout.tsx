@@ -2,8 +2,6 @@ import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import './globals.css'
 
-import NavbarWrapper from '@/components/NavbarWrapper'
-
 const poppins = Poppins({ weight: '400', subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -19,7 +17,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.className} min-h-screen antialiased`}>
-        <NavbarWrapper />
         {children}
       </body>
     </html>

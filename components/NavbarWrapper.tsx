@@ -16,7 +16,7 @@ const NavbarWrapper = () => {
   return (
     <div className="relative">
       <Navbar handleOpen={handleOpen} />
-      {isOpen && <NavbarModel openEdit={openEdit} />}
+      {isOpen && <NavbarModel openEdit={openEdit} setIsOpen={setIsOpen} />}
       {edit && <Editboard />}
     </div>
   )

@@ -1,10 +1,20 @@
 import React from 'react'
 import Button from '../ui/Button'
+import { motion } from 'framer-motion'
+type TEditBorad = {
+  refEdit: React.RefObject<HTMLDivElement>
+}
 
-const Editboard = () => {
+const Editboard = ({ refEdit }: TEditBorad) => {
   return (
     <div className="fixed h-full inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="flex flex-col px-6 bg-foreground w-[350px] sm:w-[450px] lg:w-[500px] rounded-lg py-6">
+      <motion.div
+        initial={{ y: -200, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.3 }}
+        className="flex flex-col px-6 bg-foreground w-[350px] sm:w-[450px] lg:w-[500px] rounded-lg py-6"
+        ref={refEdit}
+      >
         <div className="text-lg text-Neutral-Primary font-semibold">
           Edit Borad
         </div>
@@ -64,7 +74,7 @@ const Editboard = () => {
             Save Changes
           </Button>
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }

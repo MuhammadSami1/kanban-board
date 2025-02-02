@@ -1,21 +1,14 @@
-import { useEffect, useRef } from 'react'
-
 type TNavbarModel = {
   openEdit: () => void
-  setIsOpen: Dispatch<SetStateAction<boolean>>
+  refMenu: React.RefObject<HTMLDivElement>
 }
 
-const NavbarModel = ({ openEdit, setIsOpen }: TNavbarModel) => {
-  const menu = useRef(null)
-
-  const handleClickOutside = (event) => {
-    if (menu.current && !menu.current.contains(event)) {
-      setIsOpen(false)
-    }
-  }
-  useEffect(() => {}, [])
+const NavbarModel = ({ openEdit, refMenu }: TNavbarModel) => {
   return (
-    <div className="rounded-md bg-foreground w-48 px-4 py-3 mr-2 my-1 text-[13px] flex-col flex items-start shadow-2xl shadow-Primary-buttonDark absolute right-0">
+    <div
+      className="rounded-md bg-foreground w-48 px-4 py-3 mr-2 my-1 text-[13px] flex-col flex items-start shadow-2xl shadow-Primary-buttonDark absolute right-0"
+      ref={refMenu}
+    >
       <button
         className="text-Neutral-Secondary hover:text-Neutral-Primary py-2 transition-all duration-300 ease-in-out"
         onClick={openEdit}

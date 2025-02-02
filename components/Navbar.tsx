@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion'
+
 type TNavbar = {
   handleOpen: () => void
 }
@@ -7,7 +9,12 @@ const Navbar = ({ handleOpen }: TNavbar) => {
     <>
       <nav className="bg-foreground px-3 py-4 sm:px-6 sm:py-0">
         <div>
-          <div className="flex justify-between">
+          <motion.div
+            className="flex justify-between"
+            initial={{ y: -100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ type: 'spring', stiffness: 100, damping: 10 }}
+          >
             <div className="flex items-center gap-3">
               <div className="flex items-center">
                 <svg
@@ -119,7 +126,7 @@ const Navbar = ({ handleOpen }: TNavbar) => {
                 </g>
               </svg>
             </div>
-          </div>
+          </motion.div>
         </div>
       </nav>
       <div className="border-b-[1px] border-Neutral-Secondary hidden sm:flex"></div>

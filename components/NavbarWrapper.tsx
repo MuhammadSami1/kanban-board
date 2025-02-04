@@ -6,6 +6,7 @@ import Editboard from './shared/Editboard'
 import ClearBoard from './ClearBoard'
 import ResetBoard from './ResetBoard'
 import DeleteBoard from './deleteBoard'
+import NewTask from './NewTask'
 
 const NavbarWrapper = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -13,12 +14,23 @@ const NavbarWrapper = () => {
   const [clearBoard, setClearBoard] = useState(false)
   const [resetBoard, setResetBoard] = useState(false)
   const [deleteBoard, setDeleteBoard] = useState(false)
+  const [addNewTask, setAddNewTask] = useState(false)
 
   const refMenu = useRef<HTMLDivElement>(null)
   const refEdit = useRef<HTMLDivElement>(null)
   const refClear = useRef<HTMLDivElement>(null)
   const refReset = useRef<HTMLDivElement>(null)
   const refDelete = useRef<HTMLDivElement>(null)
+  const refAddNewTask = useRef<HTMLDivElement>(null)
+
+  const handleClickAddNewTask = (event: MouseEvent) => {
+    if (
+      refAddNewTask.current &&
+      !refAddNewTask.current.contains(event.target as Node)
+    ) {
+      setAddNewTask(false)
+    }
+  }
 
   const handleClickEdit = (event: MouseEvent) => {
     if (refEdit.current && !refEdit.current.contains(event.target as Node)) {
@@ -50,6 +62,10 @@ const NavbarWrapper = () => {
     if (refMenu.current && !refMenu.current.contains(event.target as Node)) {
       setIsOpen(false)
     }
+  }
+
+  const openAddNewTask = () => {
+    setAddNewTask((prev) => !prev)
   }
 
   const openDeleteBoard = () => {
@@ -133,9 +149,20 @@ const NavbarWrapper = () => {
       document.removeEventListener('mousedown', handleClickDelete)
     }
   }, [deleteBoard])
+
+  useEffect(() => {
+    if (addNewTask) {
+      document.addEventListener('mousedown', handleClickAddNewTask)
+    } else {
+      document.removeEventListener('mousedown', handleClickAddNewTask)
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickAddNewTask)
+    }
+  }, [addNewTask])
   return (
     <div className="relative">
-      <Navbar handleOpen={handleOpen} />
+      <Navbar handleOpen={handleOpen} openAddNewTask={openAddNewTask} />
       {isOpen && (
         <NavbarModel
           openEdit={openEdit}
@@ -149,6 +176,7 @@ const NavbarWrapper = () => {
       {clearBoard && <ClearBoard refClear={refClear} />}
       {resetBoard && <ResetBoard refReset={refReset} />}
       {deleteBoard && <DeleteBoard refDelete={refDelete} />}
+      {addNewTask && <NewTask refAddNewTask={refAddNewTask} />}
     </div>
   )
 }

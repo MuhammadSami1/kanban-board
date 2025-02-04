@@ -57,23 +57,23 @@ const Editboard = ({ refEdit }: TEditBorad) => {
               </div>
             </div>
           </div>
-        </form>
 
-        <div className="flex flex-col gap-y-4 ">
-          <Button
-            className="bg-Neutral-Primary text-Primary-button rounded-3xl w-full font-semibold"
-            size="lg"
-          >
-            + Add New Column
-          </Button>
-          <Button
-            variant="button"
-            className="rounded-3xl w-full font-semibold"
-            size="lg"
-          >
-            Save Changes
-          </Button>
-        </div>
+          <div className="flex flex-col gap-y-4 ">
+            <Button
+              className="bg-Neutral-Primary text-Primary-button rounded-3xl w-full font-semibold"
+              size="lg"
+            >
+              + Add New Column
+            </Button>
+            <Button
+              variant="button"
+              className="rounded-3xl w-full font-semibold"
+              size="lg"
+            >
+              Save Changes
+            </Button>
+          </div>
+        </form>
       </motion.div>
     </div>
   )

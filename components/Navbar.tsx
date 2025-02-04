@@ -2,9 +2,10 @@ import { motion } from 'framer-motion'
 
 type TNavbar = {
   handleOpen: () => void
+  openAddNewTask: () => void
 }
 
-const Navbar = ({ handleOpen }: TNavbar) => {
+const Navbar = ({ handleOpen, openAddNewTask }: TNavbar) => {
   return (
     <>
       <nav className="bg-foreground px-3 py-4 sm:px-6 sm:py-0">
@@ -96,7 +97,10 @@ const Navbar = ({ handleOpen }: TNavbar) => {
             </div>
 
             <div className="flex items-center gap-3 sm:gap-7">
-              <div className="bg-Primary-button px-4 py-2 md:px-5 md:py-3 md:rounded-3xl rounded-2xl hover:bg-Primary-buttonLight cursor-pointer">
+              <div
+                className="bg-Primary-button px-4 py-2 md:px-5 md:py-3 md:rounded-3xl rounded-2xl hover:bg-Primary-buttonLight cursor-pointer"
+                onClick={openAddNewTask}
+              >
                 <svg
                   width="12"
                   height="12"

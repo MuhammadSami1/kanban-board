@@ -49,7 +49,7 @@ const Navbar = ({ handleOpen, openAddNewTask }: TNavbar) => {
                     </g>
                   </g>
                 </svg>
-                <div className=" border-r-[1px] sm:ml-24 md:ml-28 h-20 md:h-24 border-Neutral-Secondary hidden sm:flex" />
+                <div className=" border-r-[1px] sm:ml-24 md:ml-28 h-20 md:h-24 border-gray-600  hidden sm:flex" />
               </div>
 
               <svg
@@ -133,7 +133,7 @@ const Navbar = ({ handleOpen, openAddNewTask }: TNavbar) => {
           </motion.div>
         </div>
       </nav>
-      <div className="border-b-[1px] border-Neutral-Secondary hidden sm:flex"></div>
+      <div className="border-b-[1px] border-gray-600 xl:hidden hidden sm:flex"></div>
     </>
   )
 }

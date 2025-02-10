@@ -1,26 +1,27 @@
-import React from 'react'
-import Button from '../ui/Button'
+'use client'
 import { motion } from 'framer-motion'
-import { useForm } from 'react-hook-form'
+import Button from './ui/Button'
+import { AddNewBoardForm } from '@/src/types/forms'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { EditForm } from '@/src/types/forms'
-import { EditFormSchema } from '@/src/lib/validation'
+import { useForm } from 'react-hook-form'
+import { AddNewBoardFormSchema } from '@/src/lib/validation'
 
-type TEditBorad = {
-  refEdit: React.RefObject<HTMLDivElement>
+type TNewBoard = {
+  refNewBoard: React.RefObject<HTMLDivElement>
 }
 
-const Editboard = ({ refEdit }: TEditBorad) => {
+const NewBoard = ({ refNewBoard }: TNewBoard) => {
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<EditForm>({
-    resolver: yupResolver(EditFormSchema)
+  } = useForm<AddNewBoardForm>({
+    resolver: yupResolver(AddNewBoardFormSchema)
   })
-  const onSubmit = (data: EditForm) => {
+  const onSubmit = (data: AddNewBoardForm) => {
     console.log('Form data submitted:', data)
   }
+
   return (
     <div className="fixed h-full inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <motion.div
@@ -28,10 +29,10 @@ const Editboard = ({ refEdit }: TEditBorad) => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.3 }}
         className="flex flex-col px-6 bg-foreground w-[350px] sm:w-[450px] lg:w-[500px] rounded-lg py-6"
-        ref={refEdit}
+        ref={refNewBoard}
       >
         <div className="text-lg text-Neutral-Primary font-semibold">
-          Edit Borad
+          Add New Borad
         </div>
 
         {/* Forms */}
@@ -39,13 +40,14 @@ const Editboard = ({ refEdit }: TEditBorad) => {
           className="text-Neutral-Primary pt-1"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <label htmlFor="BoardName" className="text-xs">
+          <label htmlFor="boardName" className="text-xs">
             Borad Name
           </label>
           <input
             type="text"
+            placeholder="e.g web development"
+            className="w-full p-2 rounded-md bg-foreground border-[1px] border-gray-600 focus:outline-none placeholder:text-sm placeholder:text-gray-600"
             {...register('boradName', { required: true })}
-            className="w-full p-2 rounded-md bg-foreground border-[1px] border-gray-600 focus:outline-none"
           />
           {errors.boradName && (
             <p className="mt-1 text-sm text-red-600">
@@ -54,15 +56,15 @@ const Editboard = ({ refEdit }: TEditBorad) => {
           )}
           <div className="pt-4 pb-3">
             <label htmlFor="BoradColumn" className="text-xs">
-              Borad Column
+              Borad Columns
             </label>
 
             <div className="space-y-4">
               <div className="flex justify-between">
                 <input
                   type="text"
-                  {...register('boradColmn', { required: true })}
                   className="w-64 sm:w-[350px] lg:w-96 p-2 rounded-md bg-foreground border-[1px] border-gray-600 focus:outline-none"
+                  {...register('boradColmn', { required: true })}
                 />
 
                 <Button>
@@ -100,7 +102,7 @@ const Editboard = ({ refEdit }: TEditBorad) => {
               size="lg"
               type="submit"
             >
-              Save Changes
+              Create New Board
             </Button>
           </div>
         </form>
@@ -109,4 +111,4 @@ const Editboard = ({ refEdit }: TEditBorad) => {
   )
 }
 
-export default Editboard
+export default NewBoard

@@ -1,5 +1,5 @@
 import NavbarWrapper from '@/components/NavbarWrapper'
-import Sidebar from '@/components/Sidebar'
+import SidebarWrapper from '@/components/SidebarWrapper'
 
 const Home = () => {
   return (
@@ -8,7 +8,7 @@ const Home = () => {
         <NavbarWrapper />
 
         <div className="flex flex-1">
-          <Sidebar />
+          <SidebarWrapper />
           <main className="flex-1">
             <div className="border-b-[1px] border-gray-600 hidden xl:flex"></div>
             main

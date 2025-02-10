@@ -34,3 +34,16 @@ export const NewTaskSchema = yup.object().shape({
     .required('Status is required')
     .oneOf(['Option 1', 'Option 2', 'Option 3'], 'Invalid status')
 })
+
+export const AddNewBoardFormSchema = yup.object().shape({
+  boradName: yup
+    .string()
+    .required('Board Name is required')
+    .min(3, 'Board Name must be at least 3 characters')
+    .max(50, 'Board Name must be less than 50 characters'),
+  boradColmn: yup
+    .string()
+    .required('Board Column is required')
+    .min(3, 'Board Column must be at least 3 characters')
+    .max(50, 'Board Column must be less than 50 characters')
+})

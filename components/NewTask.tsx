@@ -51,7 +51,7 @@ const NewTask = ({ refAddNewTask }: TNewTask) => {
               type="text"
               placeholder="e.g. Start learning Things"
               {...register('title', { required: true })}
-              className="w-full p-2 rounded-md bg-foreground border-[1px] border-Neutral-Secondary focus:outline-none placeholder:text-xs placeholder:text-gray-500"
+              className="w-full p-2 rounded-md bg-foreground border-[1px] border-gray-600 focus:outline-none placeholder:text-xs placeholder:text-gray-500"
             />
             {errors.title && (
               <p className="mt-1 text-sm text-red-600">
@@ -67,7 +67,7 @@ const NewTask = ({ refAddNewTask }: TNewTask) => {
             <textarea
               placeholder="e.g. Start learning Things"
               {...register('description', { required: true })}
-              className="w-full p-2 rounded-md bg-foreground border-[1px] border-Neutral-Secondary focus:outline-none placeholder:text-xs placeholder:text-gray-500"
+              className="w-full p-2 rounded-md bg-foreground border-[1px] border-gray-600 focus:outline-none placeholder:text-xs placeholder:text-gray-500"
             ></textarea>
             {errors.description && (
               <p className="mt-1 text-sm text-red-600">
@@ -84,7 +84,7 @@ const NewTask = ({ refAddNewTask }: TNewTask) => {
               <input
                 type="text"
                 {...register('subtask', { required: true })}
-                className="w-64 sm:w-[350px] lg:w-96 p-2 rounded-md bg-foreground border-[1px] border-Neutral-Secondary focus:outline-none"
+                className="w-64 sm:w-[350px] lg:w-96 p-2 rounded-md bg-foreground border-[1px] border-gray-600 focus:outline-none"
               />
               <Button>
                 <svg
@@ -125,7 +125,7 @@ const NewTask = ({ refAddNewTask }: TNewTask) => {
                   required: true,
                   onChange: (e) => handleChange(e)
                 })}
-                className="w-full p-2 rounded-md bg-foreground border-[1px] border-Neutral-Secondary focus:outline-none  hover:border-Primary-button appearance-none cursor-pointer shadow-2xl shadow-Primary-buttonDark group"
+                className="w-full p-2 rounded-md bg-foreground border-[1px] border-gray-600 focus:outline-none  hover:border-Primary-button appearance-none cursor-pointer shadow-2xl shadow-Primary-buttonDark group"
               >
                 <option value="" disabled hidden className="">
                   Select Column

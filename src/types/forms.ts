@@ -9,3 +9,8 @@ export type NewTaskForm = {
   subtask: string
   status: string
 }
+
+export type AddNewBoardForm = {
+  boradName: string
+  boradColmn: string
+}

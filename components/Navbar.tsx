@@ -3,9 +3,10 @@ import { motion } from 'framer-motion'
 type TNavbar = {
   handleOpen: () => void
   openAddNewTask: () => void
+  openSideBarMini: () => void
 }
 
-const Navbar = ({ handleOpen, openAddNewTask }: TNavbar) => {
+const Navbar = ({ handleOpen, openAddNewTask, openSideBarMini }: TNavbar) => {
   return (
     <>
       <nav className="bg-foreground px-3 py-4 sm:px-6 sm:py-0">
@@ -86,6 +87,7 @@ const Navbar = ({ handleOpen, openAddNewTask }: TNavbar) => {
                 height="7"
                 xmlns="http://www.w3.org/2000/svg"
                 className="flex sm:hidden"
+                onClick={openSideBarMini}
               >
                 <path
                   stroke="#635FC7"

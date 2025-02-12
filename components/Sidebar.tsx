@@ -1,6 +1,7 @@
 'use client'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useMediaQuery } from 'react-responsive'
 
 type TSidebar = {
   handleOpenNewBoard: () => void
@@ -8,6 +9,19 @@ type TSidebar = {
 
 const Sidebar = ({ handleOpenNewBoard }: TSidebar) => {
   const [sideBarOpen, setSideBarOpen] = useState(true)
+  const [isMediumScreen, setIsMediumScreen] = useState(false)
+
+  // Detect screen size changes
+  const isMedium = useMediaQuery({ query: '(min-width: 768px)' })
+
+  useEffect(() => {
+    // Trigger animation only when transitioning from small to medium
+    if (isMedium) {
+      setIsMediumScreen(true)
+    } else {
+      setIsMediumScreen(false)
+    }
+  }, [isMedium])
 
   const handleSideBarOpen = () => {
     setSideBarOpen((prev) => !prev)
@@ -21,8 +35,10 @@ const Sidebar = ({ handleOpenNewBoard }: TSidebar) => {
     <>
       {sideBarOpen ? (
         <motion.div
-          initial={{ x: -100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
+          initial={{ x: -150, opacity: 0 }}
+          animate={
+            isMediumScreen ? { x: 0, opacity: 1 } : { x: -150, opacity: 0 }
+          }
           transition={{ duration: 0.5 }}
           className="w-[274px] md:w-[290px] border-r-[1px] border-gray-600 bg-foreground hidden sm:flex"
         >

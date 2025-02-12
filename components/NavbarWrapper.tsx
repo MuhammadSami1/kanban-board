@@ -7,6 +7,7 @@ import ClearBoard from './ClearBoard'
 import ResetBoard from './ResetBoard'
 import DeleteBoard from './deleteBoard'
 import NewTask from './NewTask'
+import SidebarMini from './SidebarMini'
 
 const NavbarWrapper = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -15,6 +16,7 @@ const NavbarWrapper = () => {
   const [resetBoard, setResetBoard] = useState(false)
   const [deleteBoard, setDeleteBoard] = useState(false)
   const [addNewTask, setAddNewTask] = useState(false)
+  const [sideBarMini, setSideBarMini] = useState(false)
 
   const refMenu = useRef<HTMLDivElement>(null)
   const refEdit = useRef<HTMLDivElement>(null)
@@ -62,6 +64,10 @@ const NavbarWrapper = () => {
     if (refMenu.current && !refMenu.current.contains(event.target as Node)) {
       setIsOpen(false)
     }
+  }
+
+  const openSideBarMini = () => {
+    setSideBarMini((prev) => !prev)
   }
 
   const openAddNewTask = () => {
@@ -162,7 +168,11 @@ const NavbarWrapper = () => {
   }, [addNewTask])
   return (
     <div className="relative">
-      <Navbar handleOpen={handleOpen} openAddNewTask={openAddNewTask} />
+      <Navbar
+        handleOpen={handleOpen}
+        openAddNewTask={openAddNewTask}
+        openSideBarMini={openSideBarMini}
+      />
       {isOpen && (
         <NavbarModel
           openEdit={openEdit}
@@ -177,6 +187,7 @@ const NavbarWrapper = () => {
       {resetBoard && <ResetBoard refReset={refReset} />}
       {deleteBoard && <DeleteBoard refDelete={refDelete} />}
       {addNewTask && <NewTask refAddNewTask={refAddNewTask} />}
+      {sideBarMini && <SidebarMini />}
     </div>
   )
 }

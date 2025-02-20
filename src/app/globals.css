@@ -10,7 +10,7 @@ body {
 @layer {
   :root {
     --background: hsl(235, 16%, 15%);
-    --foreground: hsl(235, 12%, 19%);
+    --foreground: hsl(235, 12%, 20%);
 
     --neutral1: hsl(0, 0%, 100%);
     --neutral2: hsl(216, 15%, 57%);

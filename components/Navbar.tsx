@@ -4,9 +4,15 @@ type TNavbar = {
   handleOpen: () => void
   openAddNewTask: () => void
   openSideBarMini: () => void
+  sideBarMini: boolean
 }
 
-const Navbar = ({ handleOpen, openAddNewTask, openSideBarMini }: TNavbar) => {
+const Navbar = ({
+  handleOpen,
+  openAddNewTask,
+  openSideBarMini,
+  sideBarMini
+}: TNavbar) => {
   return (
     <>
       <nav className="bg-foreground px-3 py-4 sm:px-6 sm:py-0">
@@ -82,20 +88,31 @@ const Navbar = ({ handleOpen, openAddNewTask, openSideBarMini }: TNavbar) => {
                 Example Board
               </div>
 
-              <svg
-                width="10"
-                height="7"
-                xmlns="http://www.w3.org/2000/svg"
-                className="flex sm:hidden"
-                onClick={openSideBarMini}
-              >
-                <path
-                  stroke="#635FC7"
-                  strokeWidth="2"
-                  fill="none"
-                  d="m1 1 4 4 4-4"
-                ></path>
-              </svg>
+              {sideBarMini ? (
+                <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    stroke="#635FC7"
+                    stroke-width="2"
+                    fill="none"
+                    d="M9 6 5 2 1 6"
+                  ></path>
+                </svg>
+              ) : (
+                <svg
+                  width="10"
+                  height="7"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="flex sm:hidden"
+                  onClick={openSideBarMini}
+                >
+                  <path
+                    stroke="#635FC7"
+                    strokeWidth="2"
+                    fill="none"
+                    d="m1 1 4 4 4-4"
+                  ></path>
+                </svg>
+              )}
             </div>
 
             <div className="flex items-center gap-3 sm:gap-7">

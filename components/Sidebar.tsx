@@ -12,7 +12,7 @@ const Sidebar = ({ handleOpenNewBoard }: TSidebar) => {
   const [isMediumScreen, setIsMediumScreen] = useState(false)
 
   // Detect screen size changes
-  const isMedium = useMediaQuery({ query: '(min-width: 768px)' })
+  const isMedium = useMediaQuery({ query: '(min-width: 643px)' })
 
   useEffect(() => {
     // Trigger animation only when transitioning from small to medium

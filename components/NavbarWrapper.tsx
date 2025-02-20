@@ -24,6 +24,16 @@ const NavbarWrapper = () => {
   const refReset = useRef<HTMLDivElement>(null)
   const refDelete = useRef<HTMLDivElement>(null)
   const refAddNewTask = useRef<HTMLDivElement>(null)
+  const refSideBarMini = useRef<HTMLDivElement>(null)
+
+  const handleClickSideBarMini = (event: MouseEvent) => {
+    if (
+      refSideBarMini.current &&
+      !refSideBarMini.current.contains(event.target as Node)
+    ) {
+      setSideBarMini(false)
+    }
+  }
 
   const handleClickAddNewTask = (event: MouseEvent) => {
     if (
@@ -166,12 +176,24 @@ const NavbarWrapper = () => {
       document.removeEventListener('mousedown', handleClickAddNewTask)
     }
   }, [addNewTask])
+
+  useEffect(() => {
+    if (sideBarMini) {
+      document.addEventListener('mousedown', handleClickSideBarMini)
+    } else {
+      document.removeEventListener('mousedown', handleClickSideBarMini)
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickSideBarMini)
+    }
+  }, [sideBarMini])
   return (
     <div className="relative">
       <Navbar
         handleOpen={handleOpen}
         openAddNewTask={openAddNewTask}
         openSideBarMini={openSideBarMini}
+        sideBarMini={sideBarMini}
       />
       {isOpen && (
         <NavbarModel
@@ -187,7 +209,7 @@ const NavbarWrapper = () => {
       {resetBoard && <ResetBoard refReset={refReset} />}
       {deleteBoard && <DeleteBoard refDelete={refDelete} />}
       {addNewTask && <NewTask refAddNewTask={refAddNewTask} />}
-      {sideBarMini && <SidebarMini />}
+      {sideBarMini && <SidebarMini refSideBarMini={refSideBarMini} />}
     </div>
   )
 }

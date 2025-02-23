@@ -15,7 +15,7 @@ const Navbar = ({
 }: TNavbar) => {
   return (
     <>
-      <nav className="bg-foreground px-3 py-4 sm:px-6 sm:py-0">
+      <nav className="bg-foreground px-3 py-4 sm:px-6 sm:py-0 ">
         <div>
           <motion.div
             className="flex justify-between"

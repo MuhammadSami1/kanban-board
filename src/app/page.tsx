@@ -1,3 +1,4 @@
+import Main from '@/components/Main'
 import NavbarWrapper from '@/components/NavbarWrapper'
 import SidebarWrapper from '@/components/SidebarWrapper'
 
@@ -9,9 +10,9 @@ const Home = () => {
 
         <div className="flex flex-1">
           <SidebarWrapper />
-          <main className="flex-1">
+          <main className="flex-1 overflow-x-auto scrollable-container whitespace-nowrap">
             <div className="border-b-[1px] border-gray-600 hidden xl:flex"></div>
-            main
+            <Main />
           </main>
         </div>
       </div>

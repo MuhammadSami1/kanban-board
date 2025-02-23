@@ -21,7 +21,31 @@ body {
     --secondary: hsl(0, 78%, 63%);
   }
 }
+@layer utilities {
+  /* WebKit browsers (Chrome, Safari, Edge) */
+  .scrollable-container::-webkit-scrollbar {
+    height: 20px; /* Height of the horizontal scrollbar */
+  }
 
+  .scrollable-container::-webkit-scrollbar-track {
+    background: hsl(235, 12%, 20%); /* Light gray background */
+    border-radius: 4px; /* Rounded corners */
+  }
+
+  .scrollable-container::-webkit-scrollbar-thumb {
+    background: hsl(235, 12%, 20%); /* Gray color */
+    border-radius: 4px; /* Rounded corners */
+  }
+
+  .scrollable-container::-webkit-scrollbar-thumb:hover {
+    background: hsl(232, 7%, 23%); /* Darker gray on hover */
+  }
+
+  /* Firefox */
+  .scrollable-container {
+    scrollbar-color: hsl(235, 12%, 20%); /* Thumb color and track color */
+  }
+}
 @layer base {
   body {
     @apply bg-background;

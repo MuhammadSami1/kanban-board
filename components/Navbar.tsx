@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import Border from './ui/Border'
 
 type TNavbar = {
   handleOpen: () => void
@@ -15,7 +16,7 @@ const Navbar = ({
 }: TNavbar) => {
   return (
     <>
-      <nav className="bg-foreground px-3 py-4 sm:px-6 sm:py-0 ">
+      <nav className="bg-foreground px-3 py-4 sm:px-6 sm:py-0">
         <div>
           <motion.div
             className="flex justify-between"
@@ -135,6 +136,7 @@ const Navbar = ({
                   + Add new task
                 </span>
               </div>
+
               <svg
                 width="5"
                 height="20"
@@ -152,7 +154,7 @@ const Navbar = ({
           </motion.div>
         </div>
       </nav>
-      <div className="border-b-[1px] border-gray-600 xl:hidden hidden sm:flex"></div>
+      <Border style="border-b-[1px] border-gray-600 xl:hidden hidden sm:flex" />
     </>
   )
 }

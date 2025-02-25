@@ -107,13 +107,15 @@ const NavbarWrapper = () => {
   }
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickMenu)
-    } else {
-      document.removeEventListener('mousedown', handleClickMenu)
+      timeoutId = setTimeout(() => {
+        document.addEventListener('mousedown', handleClickMenu)
+      }, 450)
     }
 
     return () => {
+      clearTimeout(timeoutId)
       document.removeEventListener('mousedown', handleClickMenu)
     }
   }, [isOpen])

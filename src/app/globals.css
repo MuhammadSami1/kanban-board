@@ -21,6 +21,12 @@ body {
     --secondary: hsl(0, 78%, 63%);
   }
 }
+@layer base {
+  body {
+    @apply bg-background;
+  }
+}
+
 @layer utilities {
   /* WebKit browsers (Chrome, Safari, Edge) */
   .scrollable-container::-webkit-scrollbar {
@@ -45,9 +51,8 @@ body {
   .scrollable-container {
     scrollbar-color: hsl(235, 12%, 20%); /* Thumb color and track color */
   }
-}
-@layer base {
-  body {
-    @apply bg-background;
+
+  .backgroundOpacity {
+    background-color: hsl(240, 14%, 16%);
   }
 }

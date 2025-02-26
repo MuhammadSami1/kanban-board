@@ -33,7 +33,7 @@ const Main = () => {
   return (
     <>
       <motion.div
-        className="p-6 flex gap-x-6  min-w-max"
+        className="p-6 flex gap-x-6  min-w-max h-full"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
@@ -254,10 +254,10 @@ const Main = () => {
         </div>
 
         <div
-          className="min-w-64 bg-foreground rounded-lg flex items-center justify-center  backgroundOpacity hover:scale-105 transition-all duration-500 ease-in-out self-start"
+          className="min-w-64 bg-foreground rounded-lg flex items-center justify-center  backgroundOpacity hover:scale-105 transition-all duration-500 ease-in-out self-stretch"
           onClick={openEdit}
         >
-          <Button className="text-Neutral-Secondary text-xl font-semibold">
+          <Button className="text-Neutral-Secondary text-xl font-semibold h-full w-full">
             <span>+New Column</span>
           </Button>
         </div>

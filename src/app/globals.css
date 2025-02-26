@@ -21,6 +21,7 @@ body {
     --secondary: hsl(0, 78%, 63%);
   }
 }
+
 @layer base {
   body {
     @apply bg-background;

@@ -1,3 +1,4 @@
+import toggleColor from '@/src/store/toggleColor'
 import { useMediaQuery } from 'react-responsive'
 
 type TSidebarMini = {
@@ -6,6 +7,7 @@ type TSidebarMini = {
 
 const SidebarMini = ({ refSideBarMini }: TSidebarMini) => {
   const isMedium = useMediaQuery({ query: '(min-width: 540px)' })
+  const toggle = toggleColor((state) => state.toggle)
 
   return (
     <div className="bg-black bg-opacity-50 fixed h-full inset-0 sm:hidden">
@@ -94,7 +96,10 @@ const SidebarMini = ({ refSideBarMini }: TSidebarMini) => {
               ></path>
             </svg>
 
-            <label className="relative inline-flex items-center cursor-pointer">
+            <label
+              className="relative inline-flex items-center cursor-pointer"
+              onClick={toggle}
+            >
               <input type="checkbox" className="sr-only peer" />
               <div
                 className="w-12 h-6 bg-Primary-button 

@@ -36,7 +36,7 @@ const Editboard = ({ refEdit }: TEditBorad) => {
 
         {/* Forms */}
         <form
-          className="text-Neutral-Primary pt-1"
+          className="text-Neutral-Primary pt-1 flex flex-col"
           onSubmit={handleSubmit(onSubmit)}
         >
           <label htmlFor="BoardName" className="text-xs">

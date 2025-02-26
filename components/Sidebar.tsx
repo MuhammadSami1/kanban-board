@@ -1,4 +1,5 @@
 'use client'
+import toggleColor from '@/src/store/toggleColor'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
@@ -10,6 +11,8 @@ type TSidebar = {
 const Sidebar = ({ handleOpenNewBoard }: TSidebar) => {
   const [sideBarOpen, setSideBarOpen] = useState(true)
   const [isMediumScreen, setIsMediumScreen] = useState(false)
+  const toggle = toggleColor((state) => state.toggle)
+  const isOn = toggleColor((state) => state.isOn)
 
   // Detect screen size changes
   const isMedium = useMediaQuery({ query: '(min-width: 643px)' })
@@ -40,7 +43,7 @@ const Sidebar = ({ handleOpenNewBoard }: TSidebar) => {
             isMediumScreen ? { x: 0, opacity: 1 } : { x: -150, opacity: 0 }
           }
           transition={{ duration: 0.5 }}
-          className="w-[274px] md:w-[290px] border-r-[1px] border-gray-600 bg-foreground hidden sm:flex"
+          className={`${isOn ? 'text-red-500' : 'bg-foreground'} w-[274px] md:w-[290px] border-r-[1px] border-gray-600 bg-foreground hidden sm:flex`}
         >
           <div className="flex flex-col flex-1 items-start text-Neutral-Secondary pb-7">
             <h2 className="pt-4 pb-3 pl-8 text-sm font-semibold tracking-widest">
@@ -126,7 +129,10 @@ const Sidebar = ({ handleOpenNewBoard }: TSidebar) => {
                     ></path>
                   </svg>
 
-                  <label className="relative inline-flex items-center cursor-pointer">
+                  <label
+                    className="relative inline-flex items-center cursor-pointer"
+                    onClick={toggle}
+                  >
                     <input type="checkbox" className="sr-only peer" />
                     <div
                       className="w-12 h-6 bg-Primary-button 

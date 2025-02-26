@@ -11,10 +11,13 @@ const Home = () => {
 
         <div className="flex flex-1">
           <SidebarWrapper />
-          <main className="flex-1 overflow-x-auto scrollable-container whitespace-nowrap ">
-            <Border style="border-b-[1px] border-gray-600 hidden xl:flex" />
-            <Main />
-          </main>
+          <div className="flex-1 flex flex-col overflow-hidden">
+            <Border style="border-b-[1px] border-gray-600 hidden xl:block" />
+
+            <main className="flex-1 overflow-x-auto scrollable-container whitespace-nowrap">
+              <Main />
+            </main>
+          </div>
         </div>
       </div>
     </>

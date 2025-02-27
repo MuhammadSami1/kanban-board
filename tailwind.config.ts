@@ -15,7 +15,10 @@ const config: Config = {
         secondary: 'var(--secondary)',
         Neutral: {
           Primary: 'var(--neutral1)',
-          Secondary: 'var(--neutral2)'
+          Secondary: 'var(--neutral2)',
+          tertiary: 'var(--neutral3)',
+          forth: 'var(--neutral4)',
+          fifth: 'var(--neutral5)'
         },
         Primary: {
           button: 'var(--button)',

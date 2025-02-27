@@ -3,10 +3,12 @@ import { motion } from 'framer-motion'
 import Button from './ui/Button'
 import Editboard from './shared/Editboard'
 import { useEffect, useRef, useState } from 'react'
+import useToggleColor from '@/src/store/toggleColor'
 
 const Main = () => {
   const [edit, setEdit] = useState(false)
   const refEdit = useRef<HTMLDivElement>(null)
+  const isOn = useToggleColor((state) => state.isOn)
 
   const openEdit = () => {
     setEdit((prev) => !prev)
@@ -33,7 +35,7 @@ const Main = () => {
   return (
     <>
       <motion.div
-        className="p-6 flex gap-x-6  min-w-max h-full"
+        className={`${isOn ? 'bg-Neutral-fifth' : 'bg-background'} p-6 flex gap-x-6  min-w-max h-full`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}

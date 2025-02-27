@@ -14,6 +14,9 @@ body {
 
     --neutral1: hsl(0, 0%, 100%);
     --neutral2: hsl(216, 15%, 57%);
+    --neutral3: hsl(237, 100%, 4%);
+    --neutral4: hsl(245, 46%, 95%);
+    --neutral5: hsl(220, 69%, 97%);
 
     --button: hsl(242, 48%, 58%);
     --button-light: hsl(243, 100%, 82%);

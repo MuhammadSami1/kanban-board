@@ -5,9 +5,9 @@ type ToggleColor = {
   toggle: () => void
 }
 
-const toggleColor = create<ToggleColor>((set) => ({
+const useToggleColor = create<ToggleColor>((set) => ({
   isOn: false,
   toggle: () => set((state) => ({ isOn: !state.isOn }))
 }))
 
-export default toggleColor
+export default useToggleColor

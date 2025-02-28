@@ -1,6 +1,6 @@
-import MainWrapper from "@/components/MainWrapper";
-import NavbarWrapper from "@/components/NavbarWrapper";
-import SidebarWrapper from "@/components/SidebarWrapper";
+import MainWrapper from '@/components/MainWrapper'
+import NavbarWrapper from '@/components/NavbarWrapper'
+import SidebarWrapper from '@/components/SidebarWrapper'
 
 const Home = () => {
   return (
@@ -14,7 +14,7 @@ const Home = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

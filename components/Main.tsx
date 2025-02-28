@@ -1,41 +1,41 @@
-"use client";
-import { motion } from "framer-motion";
-import Button from "./ui/Button";
-import Editboard from "./shared/Editboard";
-import { useEffect, useRef, useState } from "react";
-import useToggleColor from "@/src/store/toggleColor";
+'use client'
+import { motion } from 'framer-motion'
+import Button from './ui/Button'
+import Editboard from './shared/Editboard'
+import { useEffect, useRef, useState } from 'react'
+import useToggleColor from '@/src/store/toggleColor'
 
 const Main = () => {
-  const [edit, setEdit] = useState(false);
-  const refEdit = useRef<HTMLDivElement>(null);
-  const isOn = useToggleColor((state) => state.isOn);
+  const [edit, setEdit] = useState(false)
+  const refEdit = useRef<HTMLDivElement>(null)
+  const isOn = useToggleColor((state) => state.isOn)
 
   const openEdit = () => {
-    setEdit((prev) => !prev);
-  };
+    setEdit((prev) => !prev)
+  }
 
   const handleClickEdit = (event: MouseEvent) => {
     if (refEdit.current && !refEdit.current.contains(event.target as Node)) {
-      setEdit(false);
+      setEdit(false)
     }
-  };
+  }
 
   useEffect(() => {
     if (edit) {
-      document.addEventListener("mousedown", handleClickEdit);
+      document.addEventListener('mousedown', handleClickEdit)
     } else {
-      document.removeEventListener("mousedown", handleClickEdit);
+      document.removeEventListener('mousedown', handleClickEdit)
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickEdit);
-    };
-  }, [edit]);
+      document.removeEventListener('mousedown', handleClickEdit)
+    }
+  }, [edit])
 
   return (
     <>
       <motion.div
-        className={`${isOn ? "bg-Neutral-fifth" : "bg-background"} flex h-full min-w-max gap-x-6 p-6`}
+        className={`${isOn ? 'bg-Neutral-fifth' : 'bg-background'} flex h-full min-w-max gap-x-6 p-6`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
@@ -50,10 +50,10 @@ const Main = () => {
 
             <div>
               <div
-                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
               >
                 <h3
-                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
                 >
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Doloremque nulla modi explicabo ipsa. Rerum velit, repudiandae
@@ -68,10 +68,10 @@ const Main = () => {
 
             <div>
               <div
-                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
               >
                 <h3
-                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
                 >
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Doloremque nulla modi explicabo ipsa. Rerum velit, repudiandae
@@ -86,10 +86,10 @@ const Main = () => {
 
             <div>
               <div
-                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
               >
                 <h3
-                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
                 >
                   Lorem ipsum dolor
                 </h3>
@@ -108,10 +108,10 @@ const Main = () => {
 
             <div>
               <div
-                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
               >
                 <h3
-                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
                 >
                   Lorem ipsum dolor sit amet consectetur
                 </h3>
@@ -123,10 +123,10 @@ const Main = () => {
 
             <div>
               <div
-                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
               >
                 <h3
-                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
                 >
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Doloremque nulla modi explicabo ipsa.
@@ -139,10 +139,10 @@ const Main = () => {
 
             <div>
               <div
-                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
               >
                 <h3
-                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
                 >
                   Lorem ipsum dolor
                 </h3>
@@ -161,10 +161,10 @@ const Main = () => {
 
             <div>
               <div
-                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
               >
                 <h3
-                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
                 >
                   Lorem ipsum dolor
                 </h3>
@@ -176,10 +176,10 @@ const Main = () => {
 
             <div>
               <div
-                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
               >
                 <h3
-                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
                 >
                   Lorem ipsum dolor
                 </h3>
@@ -191,10 +191,10 @@ const Main = () => {
 
             <div>
               <div
-                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
               >
                 <h3
-                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
                 >
                   Lorem ipsum dolor
                 </h3>
@@ -213,10 +213,10 @@ const Main = () => {
 
             <div>
               <div
-                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
               >
                 <h3
-                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
                 >
                   Lorem ipsum dolor sit amet
                 </h3>
@@ -228,10 +228,10 @@ const Main = () => {
 
             <div>
               <div
-                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
               >
                 <h3
-                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
                 >
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Doloremque nulla modi explicabo ipsa. Rerum velit, repudiandae
@@ -246,10 +246,10 @@ const Main = () => {
 
             <div>
               <div
-                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
               >
                 <h3
-                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
                 >
                   Lorem ipsum dolor
                 </h3>
@@ -268,10 +268,10 @@ const Main = () => {
 
             <div>
               <div
-                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
               >
                 <h3
-                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
                 >
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Doloremque nulla modi explicabo ipsa. Rerum velit, repudiandae
@@ -286,10 +286,10 @@ const Main = () => {
 
             <div>
               <div
-                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
               >
                 <h3
-                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
                 >
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Doloremque nulla modi explicabo ipsa. Rerum velit, repudiandae
@@ -304,10 +304,10 @@ const Main = () => {
 
             <div>
               <div
-                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
               >
                 <h3
-                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
                 >
                   Lorem ipsum dolor
                 </h3>
@@ -320,7 +320,7 @@ const Main = () => {
         </div>
 
         <div
-          className={`flex min-w-64 items-center justify-center self-stretch rounded-lg transition-all duration-500 ease-in-out hover:scale-105 ${isOn ? "bg-Neutral-sixth" : "backgroundOpacity bg-Neutral-forth"} `}
+          className={`flex min-w-64 items-center justify-center self-stretch rounded-lg transition-all duration-500 ease-in-out hover:scale-105 ${isOn ? 'bg-Neutral-sixth' : 'backgroundOpacity bg-Neutral-forth'} `}
           onClick={openEdit}
         >
           <Button className="h-full w-full text-xl font-semibold text-Neutral-Secondary">
@@ -330,7 +330,7 @@ const Main = () => {
       </motion.div>
       {edit && <Editboard refEdit={refEdit} />}
     </>
-  );
-};
+  )
+}
 
-export default Main;
+export default Main

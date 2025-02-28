@@ -1,46 +1,46 @@
-import React from "react";
-import Button from "../ui/Button";
-import { motion } from "framer-motion";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { EditForm } from "@/src/types/forms";
-import { EditFormSchema } from "@/src/lib/validation";
-import useToggleColor from "@/src/store/toggleColor";
+import React from 'react'
+import Button from '../ui/Button'
+import { motion } from 'framer-motion'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { EditForm } from '@/src/types/forms'
+import { EditFormSchema } from '@/src/lib/validation'
+import useToggleColor from '@/src/store/toggleColor'
 
 type TEditBorad = {
-  refEdit: React.RefObject<HTMLDivElement>;
-};
+  refEdit: React.RefObject<HTMLDivElement>
+}
 
 const Editboard = ({ refEdit }: TEditBorad) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<EditForm>({
-    resolver: yupResolver(EditFormSchema),
-  });
+    resolver: yupResolver(EditFormSchema)
+  })
   const onSubmit = (data: EditForm) => {
-    console.log("Form data submitted:", data);
-  };
-  const isOn = useToggleColor((state) => state.isOn);
+    console.log('Form data submitted:', data)
+  }
+  const isOn = useToggleColor((state) => state.isOn)
   return (
     <div className="fixed inset-0 flex h-full items-center justify-center bg-black bg-opacity-50">
       <motion.div
         initial={{ y: -200, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.3 }}
-        className={`${isOn ? "bg-Neutral-Primary" : "bg-foreground"} flex w-[350px] flex-col rounded-lg px-6 py-6 sm:w-[450px] lg:w-[500px]`}
+        className={`${isOn ? 'bg-Neutral-Primary' : 'bg-foreground'} flex w-[350px] flex-col rounded-lg px-6 py-6 sm:w-[450px] lg:w-[500px]`}
         ref={refEdit}
       >
         <div
-          className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} text-lg font-semibold`}
+          className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} text-lg font-semibold`}
         >
           Edit Borad
         </div>
 
         {/* Forms */}
         <form
-          className={`${isOn ? "text-Neutral-Secondary" : "text-Neutral-Primary"} flex flex-col pt-1`}
+          className={`${isOn ? 'text-Neutral-Secondary' : 'text-Neutral-Primary'} flex flex-col pt-1`}
           onSubmit={handleSubmit(onSubmit)}
         >
           <label htmlFor="BoardName" className="text-xs">
@@ -48,8 +48,8 @@ const Editboard = ({ refEdit }: TEditBorad) => {
           </label>
           <input
             type="text"
-            {...register("boradName", { required: true })}
-            className={`${isOn ? "bg-Neutral-Primary" : "border-gray-600 bg-foreground"} w-full rounded-md border-[1px] p-2 focus:outline-none`}
+            {...register('boradName', { required: true })}
+            className={`${isOn ? 'bg-Neutral-Primary' : 'border-gray-600 bg-foreground'} w-full rounded-md border-[1px] p-2 focus:outline-none`}
           />
           {errors.boradName && (
             <p className="mt-1 text-sm text-red-600">
@@ -65,8 +65,8 @@ const Editboard = ({ refEdit }: TEditBorad) => {
               <div className="flex justify-between">
                 <input
                   type="text"
-                  {...register("boradColmn", { required: true })}
-                  className={`${isOn ? "bg-Neutral-Primary" : "border-gray-600 bg-foreground"} w-64 rounded-md border-[1px] p-2 focus:outline-none sm:w-[350px] lg:w-96`}
+                  {...register('boradColmn', { required: true })}
+                  className={`${isOn ? 'bg-Neutral-Primary' : 'border-gray-600 bg-foreground'} w-64 rounded-md border-[1px] p-2 focus:outline-none sm:w-[350px] lg:w-96`}
                 />
 
                 <Button>
@@ -93,7 +93,7 @@ const Editboard = ({ refEdit }: TEditBorad) => {
 
           <div className="flex flex-col gap-y-4">
             <Button
-              className={`${isOn ? "bg-Neutral-forth" : "bg-Neutral-Primary"} w-full rounded-3xl font-semibold text-Primary-button`}
+              className={`${isOn ? 'bg-Neutral-forth' : 'bg-Neutral-Primary'} w-full rounded-3xl font-semibold text-Primary-button`}
               size="lg"
             >
               + Add New Column
@@ -110,7 +110,7 @@ const Editboard = ({ refEdit }: TEditBorad) => {
         </form>
       </motion.div>
     </div>
-  );
-};
+  )
+}
 
-export default Editboard;
+export default Editboard

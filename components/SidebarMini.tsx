@@ -1,23 +1,23 @@
-import useToggleColor from "@/src/store/toggleColor";
-import { useMediaQuery } from "react-responsive";
+import useToggleColor from '@/src/store/toggleColor'
+import { useMediaQuery } from 'react-responsive'
 
 type TSidebarMini = {
-  refSideBarMini: React.RefObject<HTMLDivElement>;
-};
+  refSideBarMini: React.RefObject<HTMLDivElement>
+}
 
 const SidebarMini = ({ refSideBarMini }: TSidebarMini) => {
-  const isMedium = useMediaQuery({ query: "(min-width: 540px)" });
-  const isOn = useToggleColor((state) => state.isOn);
-  const toggle = useToggleColor((state) => state.toggle);
+  const isMedium = useMediaQuery({ query: '(min-width: 540px)' })
+  const isOn = useToggleColor((state) => state.isOn)
+  const toggle = useToggleColor((state) => state.toggle)
 
   return (
     <div className="fixed inset-0 h-full bg-black bg-opacity-50 sm:hidden">
       <div
-        className={`${isMedium ? "w-80" : "w-64"} ${isOn ? "bg-Neutral-Primary" : "bg-foreground"} absolute flex flex-col items-start rounded-md py-3 text-[13px] text-Neutral-Secondary shadow-2xl shadow-Primary-buttonDark sm:hidden`}
+        className={`${isMedium ? 'w-80' : 'w-64'} ${isOn ? 'bg-Neutral-Primary' : 'bg-foreground'} absolute flex flex-col items-start rounded-md py-3 text-[13px] text-Neutral-Secondary shadow-2xl shadow-Primary-buttonDark sm:hidden`}
         style={{
-          left: "49%",
-          top: "8%",
-          transform: "translateX(-50%)",
+          left: '49%',
+          top: '8%',
+          transform: 'translateX(-50%)'
         }}
         ref={refSideBarMini}
       >
@@ -27,7 +27,7 @@ const SidebarMini = ({ refSideBarMini }: TSidebarMini) => {
 
         <div className="flex flex-col text-sm tracking-wider">
           <div
-            className={`${isOn ? "hover:bg-Neutral-forth" : "hover:bg-Neutral-Primary"} group cursor-pointer py-4 font-semibold transition-all duration-700 ease-in-out hover:rounded-r-full hover:text-Primary-button`}
+            className={`${isOn ? 'hover:bg-Neutral-forth' : 'hover:bg-Neutral-Primary'} group cursor-pointer py-4 font-semibold transition-all duration-700 ease-in-out hover:rounded-r-full hover:text-Primary-button`}
           >
             <div className="ml-6 flex items-center gap-x-2">
               <svg
@@ -44,7 +44,7 @@ const SidebarMini = ({ refSideBarMini }: TSidebarMini) => {
           </div>
 
           <div
-            className={`${isOn ? "hover:bg-Neutral-forth" : "hover:bg-Neutral-Primary"} group cursor-pointer py-4 font-semibold transition-all duration-700 ease-in-out hover:rounded-r-full hover:text-Primary-button`}
+            className={`${isOn ? 'hover:bg-Neutral-forth' : 'hover:bg-Neutral-Primary'} group cursor-pointer py-4 font-semibold transition-all duration-700 ease-in-out hover:rounded-r-full hover:text-Primary-button`}
           >
             <div className="ml-6 flex items-center gap-x-2">
               <svg
@@ -61,7 +61,7 @@ const SidebarMini = ({ refSideBarMini }: TSidebarMini) => {
           </div>
 
           <div
-            className={`${isOn ? "hover:bg-Neutral-forth" : "hover:bg-Neutral-Primary"} group cursor-pointer py-4 font-semibold transition-all duration-700 ease-in-out hover:rounded-r-full hover:text-Primary-button`}
+            className={`${isOn ? 'hover:bg-Neutral-forth' : 'hover:bg-Neutral-Primary'} group cursor-pointer py-4 font-semibold transition-all duration-700 ease-in-out hover:rounded-r-full hover:text-Primary-button`}
           >
             <div className="ml-6 flex items-center gap-x-2">
               <svg
@@ -95,7 +95,7 @@ const SidebarMini = ({ refSideBarMini }: TSidebarMini) => {
 
         <div className="mx-auto pt-3">
           <div
-            className={`${isMedium ? "px-[74px] py-4" : "px-10 py-4"} ${isOn ? "bg-Neutral-fifth" : "bg-background"} flex items-center justify-between gap-x-6 rounded-md`}
+            className={`${isMedium ? 'px-[74px] py-4' : 'px-10 py-4'} ${isOn ? 'bg-Neutral-fifth' : 'bg-background'} flex items-center justify-between gap-x-6 rounded-md`}
           >
             <svg width="19" height="19" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -128,7 +128,7 @@ const SidebarMini = ({ refSideBarMini }: TSidebarMini) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SidebarMini;
+export default SidebarMini

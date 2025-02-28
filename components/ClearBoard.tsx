@@ -1,22 +1,22 @@
-import React from "react";
-import Button from "./ui/Button";
-import { motion } from "framer-motion";
-import useToggleColor from "@/src/store/toggleColor";
+import React from 'react'
+import Button from './ui/Button'
+import { motion } from 'framer-motion'
+import useToggleColor from '@/src/store/toggleColor'
 
 type TClearBoard = {
-  refClear: React.RefObject<HTMLDivElement>;
-};
+  refClear: React.RefObject<HTMLDivElement>
+}
 
 const ClearBoard = ({ refClear }: TClearBoard) => {
-  const isOn = useToggleColor((state) => state.isOn);
+  const isOn = useToggleColor((state) => state.isOn)
   return (
     <div className="fixed inset-0 flex h-full items-center justify-center bg-black bg-opacity-50">
       <motion.div
-        className={`${isOn ? "bg-Neutral-Primary" : "bg-foreground"} flex w-[350px] flex-col rounded-lg px-6 py-6 sm:w-[450px] lg:w-[500px]`}
+        className={`${isOn ? 'bg-Neutral-Primary' : 'bg-foreground'} flex w-[350px] flex-col rounded-lg px-6 py-6 sm:w-[450px] lg:w-[500px]`}
         initial={{ opacity: 0, rotate: 0 }}
         animate={{ opacity: 1, rotate: -360 }}
         transition={{
-          duration: 0.1,
+          duration: 0.1
         }}
         ref={refClear}
       >
@@ -37,7 +37,7 @@ const ClearBoard = ({ refClear }: TClearBoard) => {
             Clear
           </Button>
           <Button
-            className={`${isOn ? "bg-Neutral-forth" : "bg-Neutral-Primary"} w-full rounded-3xl text-xs font-medium text-Primary-button md:font-semibold`}
+            className={`${isOn ? 'bg-Neutral-forth' : 'bg-Neutral-Primary'} w-full rounded-3xl text-xs font-medium text-Primary-button md:font-semibold`}
             size="lg"
           >
             Cancel
@@ -45,7 +45,7 @@ const ClearBoard = ({ refClear }: TClearBoard) => {
         </div>
       </motion.div>
     </div>
-  );
-};
+  )
+}
 
-export default ClearBoard;
+export default ClearBoard

@@ -1,47 +1,47 @@
-import { useState } from "react";
-import Button from "./ui/Button";
-import { motion } from "framer-motion";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { NewTaskForm } from "@/src/types/forms";
-import { NewTaskSchema } from "@/src/lib/validation";
-import useToggleColor from "@/src/store/toggleColor";
+import { useState } from 'react'
+import Button from './ui/Button'
+import { motion } from 'framer-motion'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { NewTaskForm } from '@/src/types/forms'
+import { NewTaskSchema } from '@/src/lib/validation'
+import useToggleColor from '@/src/store/toggleColor'
 
 type TNewTask = {
-  refAddNewTask: React.RefObject<HTMLDivElement>;
-};
+  refAddNewTask: React.RefObject<HTMLDivElement>
+}
 
 const NewTask = ({ refAddNewTask }: TNewTask) => {
   const {
     register,
-    formState: { errors },
+    formState: { errors }
   } = useForm<NewTaskForm>({
-    resolver: yupResolver(NewTaskSchema),
-  });
-  const [selectedOption, setSelectedOption] = useState("");
-  const isOn = useToggleColor((state) => state.isOn);
+    resolver: yupResolver(NewTaskSchema)
+  })
+  const [selectedOption, setSelectedOption] = useState('')
+  const isOn = useToggleColor((state) => state.isOn)
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOption(event.target.value);
-  };
+    setSelectedOption(event.target.value)
+  }
 
   return (
     <div className="fixed inset-0 flex h-full items-center justify-center bg-black bg-opacity-50">
       <motion.div
-        className={`${isOn ? "bg-Neutral-Primary" : "bg-foreground"} flex w-[350px] flex-col rounded-lg px-6 py-6 sm:w-[450px] lg:w-[500px]`}
+        className={`${isOn ? 'bg-Neutral-Primary' : 'bg-foreground'} flex w-[350px] flex-col rounded-lg px-6 py-6 sm:w-[450px] lg:w-[500px]`}
         initial={{ y: -200, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.3 }}
         ref={refAddNewTask}
       >
         <div
-          className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} text-lg font-medium md:font-semibold`}
+          className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} text-lg font-medium md:font-semibold`}
         >
           Add New Task
         </div>
 
         <form
-          className={`${isOn ? "text-Neutral-Secondary" : "text-Neutral-Primary"} flex flex-col gap-y-5 py-3`}
+          className={`${isOn ? 'text-Neutral-Secondary' : 'text-Neutral-Primary'} flex flex-col gap-y-5 py-3`}
         >
           <div className="flex flex-col gap-y-1">
             <label htmlFor="title" className="text-xs">
@@ -50,8 +50,8 @@ const NewTask = ({ refAddNewTask }: TNewTask) => {
             <input
               type="text"
               placeholder="e.g. Start learning Things"
-              {...register("title", { required: true })}
-              className={`${isOn ? "bg-Neutral-Primary" : "border-gray-600 bg-foreground"} w-full rounded-md border-[1px] p-2 placeholder:text-xs placeholder:text-gray-500 focus:outline-none`}
+              {...register('title', { required: true })}
+              className={`${isOn ? 'bg-Neutral-Primary' : 'border-gray-600 bg-foreground'} w-full rounded-md border-[1px] p-2 placeholder:text-xs placeholder:text-gray-500 focus:outline-none`}
             />
             {errors.title && (
               <p className="mt-1 text-sm text-red-600">
@@ -66,8 +66,8 @@ const NewTask = ({ refAddNewTask }: TNewTask) => {
             </label>
             <textarea
               placeholder="e.g. Start learning Things"
-              {...register("description", { required: true })}
-              className={`${isOn ? "bg-Neutral-Primary" : "border-gray-600 bg-foreground"} w-full rounded-md border-[1px] p-2 placeholder:text-xs placeholder:text-gray-500 focus:outline-none`}
+              {...register('description', { required: true })}
+              className={`${isOn ? 'bg-Neutral-Primary' : 'border-gray-600 bg-foreground'} w-full rounded-md border-[1px] p-2 placeholder:text-xs placeholder:text-gray-500 focus:outline-none`}
             ></textarea>
             {errors.description && (
               <p className="mt-1 text-sm text-red-600">
@@ -83,8 +83,8 @@ const NewTask = ({ refAddNewTask }: TNewTask) => {
             <div className="flex justify-between">
               <input
                 type="text"
-                {...register("subtask", { required: true })}
-                className={`${isOn ? "bg-Neutral-Primary" : "border-gray-600 bg-foreground"} w-64 rounded-md border-[1px] p-2 focus:outline-none sm:w-[350px] lg:w-96`}
+                {...register('subtask', { required: true })}
+                className={`${isOn ? 'bg-Neutral-Primary' : 'border-gray-600 bg-foreground'} w-64 rounded-md border-[1px] p-2 focus:outline-none sm:w-[350px] lg:w-96`}
               />
               <Button>
                 <svg
@@ -108,7 +108,7 @@ const NewTask = ({ refAddNewTask }: TNewTask) => {
           </div>
 
           <Button
-            className={`${isOn ? "bg-Neutral-forth" : "bg-Neutral-Primary"} text-md w-full transform rounded-3xl font-semibold text-Primary-button transition-all duration-300 ease-in-out hover:scale-105`}
+            className={`${isOn ? 'bg-Neutral-forth' : 'bg-Neutral-Primary'} text-md w-full transform rounded-3xl font-semibold text-Primary-button transition-all duration-300 ease-in-out hover:scale-105`}
             size="lg"
           >
             + Add New Subtask
@@ -117,7 +117,7 @@ const NewTask = ({ refAddNewTask }: TNewTask) => {
           <div className="flex flex-col gap-y-1">
             <label
               htmlFor="status"
-              className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"}`}
+              className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'}`}
             >
               Status
             </label>
@@ -126,11 +126,11 @@ const NewTask = ({ refAddNewTask }: TNewTask) => {
               <select
                 id="column"
                 value={selectedOption}
-                {...register("status", {
+                {...register('status', {
                   required: true,
-                  onChange: (e) => handleChange(e),
+                  onChange: (e) => handleChange(e)
                 })}
-                className={`${isOn ? "bg-Neutral-Primary" : "border-gray-600 bg-foreground"} group w-full cursor-pointer appearance-none rounded-md border-[1px] p-2 shadow-2xl shadow-Primary-buttonDark hover:border-Primary-button focus:outline-none`}
+                className={`${isOn ? 'bg-Neutral-Primary' : 'border-gray-600 bg-foreground'} group w-full cursor-pointer appearance-none rounded-md border-[1px] p-2 shadow-2xl shadow-Primary-buttonDark hover:border-Primary-button focus:outline-none`}
               >
                 <option value="" disabled hidden>
                   Select Column
@@ -157,7 +157,7 @@ const NewTask = ({ refAddNewTask }: TNewTask) => {
         </form>
       </motion.div>
     </div>
-  );
-};
+  )
+}
 
-export default NewTask;
+export default NewTask

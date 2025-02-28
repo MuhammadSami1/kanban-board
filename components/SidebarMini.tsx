@@ -1,33 +1,35 @@
-import useToggleColor from '@/src/store/toggleColor'
-import { useMediaQuery } from 'react-responsive'
+import useToggleColor from "@/src/store/toggleColor";
+import { useMediaQuery } from "react-responsive";
 
 type TSidebarMini = {
-  refSideBarMini: React.RefObject<HTMLDivElement>
-}
+  refSideBarMini: React.RefObject<HTMLDivElement>;
+};
 
 const SidebarMini = ({ refSideBarMini }: TSidebarMini) => {
-  const isMedium = useMediaQuery({ query: '(min-width: 540px)' })
-  const isOn = useToggleColor((state) => state.isOn)
-  const toggle = useToggleColor((state) => state.toggle)
+  const isMedium = useMediaQuery({ query: "(min-width: 540px)" });
+  const isOn = useToggleColor((state) => state.isOn);
+  const toggle = useToggleColor((state) => state.toggle);
 
   return (
-    <div className="bg-black bg-opacity-50 fixed h-full inset-0 sm:hidden">
+    <div className="fixed inset-0 h-full bg-black bg-opacity-50 sm:hidden">
       <div
-        className={`${isMedium ? 'w-80 rounded-md bg-foreground  py-3 text-[13px] flex-col flex items-start shadow-2xl shadow-Primary-buttonDark absolute sm:hidden text-Neutral-Secondary' : 'rounded-md bg-foreground w-64  py-3 text-[13px] flex-col flex items-start shadow-2xl shadow-Primary-buttonDark absolute sm:hidden text-Neutral-Secondary'}`}
+        className={`${isMedium ? "w-80" : "w-64"} ${isOn ? "bg-Neutral-Primary" : "bg-foreground"} absolute flex flex-col items-start rounded-md py-3 text-[13px] text-Neutral-Secondary shadow-2xl shadow-Primary-buttonDark sm:hidden`}
         style={{
-          left: '49%',
-          top: '8%',
-          transform: 'translateX(-50%)'
+          left: "49%",
+          top: "8%",
+          transform: "translateX(-50%)",
         }}
         ref={refSideBarMini}
       >
-        <h2 className="pb-3 text-sm font-semibold tracking-widest px-4">
+        <h2 className="px-4 pb-3 text-sm font-semibold tracking-widest">
           ALL BOARDS (3)
         </h2>
 
         <div className="flex flex-col text-sm tracking-wider">
-          <div className="py-4 hover:bg-Neutral-Primary hover:text-Primary-button hover:rounded-r-full font-semibold group transition-all duration-700 ease-in-out cursor-pointer">
-            <div className="flex items-center gap-x-2 ml-6">
+          <div
+            className={`${isOn ? "hover:bg-Neutral-forth" : "hover:bg-Neutral-Primary"} group cursor-pointer py-4 font-semibold transition-all duration-700 ease-in-out hover:rounded-r-full hover:text-Primary-button`}
+          >
+            <div className="ml-6 flex items-center gap-x-2">
               <svg
                 width="16"
                 height="16"
@@ -41,22 +43,10 @@ const SidebarMini = ({ refSideBarMini }: TSidebarMini) => {
             </div>
           </div>
 
-          <div className="py-4 hover:bg-Neutral-Primary hover:text-Primary-button hover:rounded-r-full font-semibold group transition-all duration-700 ease-in-out cursor-pointer">
-            <div className="flex items-center gap-x-2 ml-6">
-              <svg
-                width="16"
-                height="16"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="#828FA3"
-                className="group-hover:fill-Primary-button"
-              >
-                <path d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"></path>
-              </svg>
-              <h2>Example Board</h2>
-            </div>
-          </div>
-          <div className="py-4 hover:bg-Neutral-Primary hover:text-Primary-button hover:rounded-r-full font-semibold group transition-all duration-700 ease-in-out cursor-pointer">
-            <div className="flex items-center gap-x-2 ml-6">
+          <div
+            className={`${isOn ? "hover:bg-Neutral-forth" : "hover:bg-Neutral-Primary"} group cursor-pointer py-4 font-semibold transition-all duration-700 ease-in-out hover:rounded-r-full hover:text-Primary-button`}
+          >
+            <div className="ml-6 flex items-center gap-x-2">
               <svg
                 width="16"
                 height="16"
@@ -70,8 +60,25 @@ const SidebarMini = ({ refSideBarMini }: TSidebarMini) => {
             </div>
           </div>
 
-          <div className="py-4 font-semibold text-Primary-button transition-all duration-300 cursor-pointer">
-            <div className="flex items-center gap-x-2 ml-6">
+          <div
+            className={`${isOn ? "hover:bg-Neutral-forth" : "hover:bg-Neutral-Primary"} group cursor-pointer py-4 font-semibold transition-all duration-700 ease-in-out hover:rounded-r-full hover:text-Primary-button`}
+          >
+            <div className="ml-6 flex items-center gap-x-2">
+              <svg
+                width="16"
+                height="16"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="#828FA3"
+                className="group-hover:fill-Primary-button"
+              >
+                <path d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"></path>
+              </svg>
+              <h2>Example Board</h2>
+            </div>
+          </div>
+
+          <div className="cursor-pointer py-4 font-semibold text-Primary-button transition-all duration-300">
+            <div className="ml-6 flex items-center gap-x-2">
               <svg
                 width="16"
                 height="16"
@@ -88,7 +95,7 @@ const SidebarMini = ({ refSideBarMini }: TSidebarMini) => {
 
         <div className="mx-auto pt-3">
           <div
-            className={`${isMedium ? 'bg-background flex items-center justify-between px-[74px] rounded-md py-4 gap-x-6' : 'bg-background flex items-center justify-between px-10 rounded-md py-4 gap-x-6'}`}
+            className={`${isMedium ? "px-[74px] py-4" : "px-10 py-4"} ${isOn ? "bg-Neutral-fifth" : "bg-background"} flex items-center justify-between gap-x-6 rounded-md`}
           >
             <svg width="19" height="19" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -98,23 +105,17 @@ const SidebarMini = ({ refSideBarMini }: TSidebarMini) => {
             </svg>
 
             <label
-              className="relative inline-flex items-center cursor-pointer"
+              className="relative inline-flex cursor-pointer items-center"
               onClick={toggle}
             >
               <input
                 type="checkbox"
-                className="sr-only peer"
+                className="peer sr-only"
                 onChange={toggle}
                 checked={isOn}
+                id="lightModeToggle"
               />
-              <div
-                className="w-12 h-6 bg-Primary-button 
-              rounded-full peer peer-checked:after:translate-x-6 
-              peer-checked:after:border-white after:content-[''] after:absolute 
-              after:top-1 after:left-1 after:bg-white after:border-gray-300 
-              after:border after:rounded-full after:h-4 after:w-4 after:transition-all after:duration-300
-              peer-checked:bg-indigo-500"
-              ></div>
+              <div className="peer h-6 w-12 rounded-full bg-Primary-button after:absolute after:left-1 after:top-1 after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:duration-700 after:content-[''] peer-checked:bg-indigo-500 peer-checked:after:translate-x-6 peer-checked:after:border-white"></div>
             </label>
 
             <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
@@ -127,7 +128,7 @@ const SidebarMini = ({ refSideBarMini }: TSidebarMini) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SidebarMini
+export default SidebarMini;

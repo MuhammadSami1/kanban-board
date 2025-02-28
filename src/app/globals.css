@@ -17,6 +17,7 @@ body {
     --neutral3: hsl(237, 100%, 4%);
     --neutral4: hsl(245, 46%, 95%);
     --neutral5: hsl(220, 69%, 97%);
+    --neutral6: hsl(224, 58%, 96%);
 
     --button: hsl(242, 48%, 58%);
     --button-light: hsl(243, 100%, 82%);
@@ -28,6 +29,9 @@ body {
 @layer base {
   body {
     @apply bg-background;
+  }
+  body:has(#lightModeToggle:checked) {
+    background-color: hsl(220, 69%, 97%); /* Dark mode */
   }
 }
 
@@ -54,6 +58,23 @@ body {
   /* Firefox */
   .scrollable-container {
     scrollbar-color: hsl(235, 12%, 20%); /* Thumb color and track color */
+  }
+
+  .light-scrollable-container::-webkit-scrollbar {
+    height: 20px;
+  }
+
+  .light-scrollable-container::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(222, 42%, 85%);
+    border-radius: 4px;
+  }
+
+  .light-scrollable-container::-webkit-scrollbar-thumb {
+    background-color: hsl(245, 100%, 95%);
+  }
+
+  .light-scrollable-container::-webkit-scrollbar-track {
+    background-color: hsl(0, 0%, 100%);
   }
 
   .backgroundOpacity {

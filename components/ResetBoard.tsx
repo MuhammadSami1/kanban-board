@@ -1,42 +1,44 @@
-import React from 'react'
-import Button from './ui/Button'
-import { motion } from 'framer-motion'
+import React from "react";
+import Button from "./ui/Button";
+import { motion } from "framer-motion";
+import useToggleColor from "@/src/store/toggleColor";
 
 type TResetBoard = {
-  refReset: React.RefObject<HTMLDivElement>
-}
+  refReset: React.RefObject<HTMLDivElement>;
+};
 
 const ResetBoard = ({ refReset }: TResetBoard) => {
+  const isOn = useToggleColor((state) => state.isOn);
   return (
-    <div className="fixed h-full inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex h-full items-center justify-center bg-black bg-opacity-50">
       <motion.div
-        className="flex flex-col px-6 bg-foreground w-[350px] sm:w-[450px] lg:w-[500px] rounded-lg py-6"
+        className={`${isOn ? "bg-Neutral-Primary" : "bg-foreground"} flex w-[350px] flex-col rounded-lg px-6 py-6 sm:w-[450px] lg:w-[500px]`}
         initial={{ opacity: 0, rotate: 0 }}
         animate={{ opacity: 1, rotate: -360 }}
         transition={{
-          duration: 0.1
+          duration: 0.1,
         }}
         ref={refReset}
       >
-        <div className="text-lg text-secondary font-medium md:font-semibold">
+        <div className="text-lg font-medium text-secondary md:font-semibold">
           Reset all Boards?
         </div>
 
-        <p className="text-Neutral-Secondary text-xs leading-5 py-6">
+        <p className="py-6 text-xs leading-5 text-Neutral-Secondary">
           Are you sure you want to reset all boards? This action will remove all
           boards, columns, tasks etc which where created by you. This action
           can't be reversed!
         </p>
 
-        <div className="flex flex-col md:flex-row md:gap-x-4 gap-y-4">
+        <div className="flex flex-col gap-y-4 md:flex-row md:gap-x-4">
           <Button
-            className="bg-secondary text-Neutral-Primary text-xs rounded-3xl w-full font-medium md:font-semibold"
+            className="w-full rounded-3xl bg-secondary text-xs font-medium text-Neutral-Primary md:font-semibold"
             size="lg"
           >
             Reset
           </Button>
           <Button
-            className="text-Primary-button bg-Neutral-Primary rounded-3xl w-full text-xs font-medium md:font-semibold"
+            className={`${isOn ? "bg-Neutral-forth" : "bg-Neutral-Primary"} w-full rounded-3xl text-xs font-medium text-Primary-button md:font-semibold`}
             size="lg"
           >
             Cancel
@@ -44,7 +46,7 @@ const ResetBoard = ({ refReset }: TResetBoard) => {
         </div>
       </motion.div>
     </div>
-  )
-}
+  );
+};
 
-export default ResetBoard
+export default ResetBoard;

@@ -1,41 +1,41 @@
-'use client'
-import { motion } from 'framer-motion'
-import Button from './ui/Button'
-import Editboard from './shared/Editboard'
-import { useEffect, useRef, useState } from 'react'
-import useToggleColor from '@/src/store/toggleColor'
+"use client";
+import { motion } from "framer-motion";
+import Button from "./ui/Button";
+import Editboard from "./shared/Editboard";
+import { useEffect, useRef, useState } from "react";
+import useToggleColor from "@/src/store/toggleColor";
 
 const Main = () => {
-  const [edit, setEdit] = useState(false)
-  const refEdit = useRef<HTMLDivElement>(null)
-  const isOn = useToggleColor((state) => state.isOn)
+  const [edit, setEdit] = useState(false);
+  const refEdit = useRef<HTMLDivElement>(null);
+  const isOn = useToggleColor((state) => state.isOn);
 
   const openEdit = () => {
-    setEdit((prev) => !prev)
-  }
+    setEdit((prev) => !prev);
+  };
 
   const handleClickEdit = (event: MouseEvent) => {
     if (refEdit.current && !refEdit.current.contains(event.target as Node)) {
-      setEdit(false)
+      setEdit(false);
     }
-  }
+  };
 
   useEffect(() => {
     if (edit) {
-      document.addEventListener('mousedown', handleClickEdit)
+      document.addEventListener("mousedown", handleClickEdit);
     } else {
-      document.removeEventListener('mousedown', handleClickEdit)
+      document.removeEventListener("mousedown", handleClickEdit);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickEdit)
-    }
-  }, [edit])
+      document.removeEventListener("mousedown", handleClickEdit);
+    };
+  }, [edit]);
 
   return (
     <>
       <motion.div
-        className={`${isOn ? 'bg-Neutral-fifth' : 'bg-background'} p-6 flex gap-x-6  min-w-max h-full`}
+        className={`${isOn ? "bg-Neutral-fifth" : "bg-background"} flex h-full min-w-max gap-x-6 p-6`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
@@ -44,44 +44,56 @@ const Main = () => {
           {/* tasks */}
           <div className="w-72 space-y-6">
             <div className="flex items-center gap-x-2">
-              <div className="rounded-full bg-yellow-400 h-4 w-4"></div>
+              <div className="h-4 w-4 rounded-full bg-yellow-400"></div>
               <h2 className="text-Neutral-Secondary">Todo (2)</h2>
             </div>
 
             <div>
-              <div className="bg-foreground shadow-lg shadow-Primary-buttonDark rounded-lg p-4 font-semibold space-y-2">
-                <h3 className="text-Neutral-Primary text-sm break-words whitespace-normal hover:text-Primary-button transition-all duration-300">
+              <div
+                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+              >
+                <h3
+                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                >
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Doloremque nulla modi explicabo ipsa. Rerum velit, repudiandae
                   facilis dolorem temporibus quod beatae asperiores ea vero
                   eligendi optio! Libero quod id quos!
                 </h3>
-                <h4 className="text-Neutral-Secondary text-xs">
+                <h4 className="text-xs text-Neutral-Secondary">
                   2 of 3 subtasks
                 </h4>
               </div>
             </div>
 
             <div>
-              <div className="bg-foreground shadow-lg shadow-Primary-buttonDark rounded-lg p-4 font-semibold space-y-2">
-                <h3 className="text-Neutral-Primary text-sm break-words whitespace-normal hover:text-Primary-button transition-all duration-300">
+              <div
+                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+              >
+                <h3
+                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                >
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Doloremque nulla modi explicabo ipsa. Rerum velit, repudiandae
                   facilis dolorem temporibus quod beatae asperiores ea vero
                   eligendi optio! Libero quod id quos!
                 </h3>
-                <h4 className="text-Neutral-Secondary text-xs">
+                <h4 className="text-xs text-Neutral-Secondary">
                   2 of 3 subtasks
                 </h4>
               </div>
             </div>
 
             <div>
-              <div className="bg-foreground shadow-lg shadow-Primary-buttonDark rounded-lg p-4 font-semibold space-y-2">
-                <h3 className="text-Neutral-Primary text-sm break-words whitespace-normal hover:text-Primary-button transition-all duration-300">
+              <div
+                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+              >
+                <h3
+                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                >
                   Lorem ipsum dolor
                 </h3>
-                <h4 className="text-Neutral-Secondary text-xs">
+                <h4 className="text-xs text-Neutral-Secondary">
                   2 of 3 subtasks
                 </h4>
               </div>
@@ -90,49 +102,51 @@ const Main = () => {
 
           <div className="w-72 space-y-6">
             <div className="flex items-center gap-x-2">
-              <div className="rounded-full bg-yellow-400 h-4 w-4"></div>
+              <div className="h-4 w-4 rounded-full bg-yellow-400"></div>
               <h2 className="text-Neutral-Secondary">Todo (2)</h2>
             </div>
 
             <div>
-              <div className="bg-foreground shadow-lg shadow-Primary-buttonDark rounded-lg p-4 font-semibold space-y-2">
-                <h3 className="text-Neutral-Primary text-sm break-words whitespace-normal">
+              <div
+                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+              >
+                <h3
+                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                >
+                  Lorem ipsum dolor sit amet consectetur
+                </h3>
+                <h4 className="text-xs text-Neutral-Secondary">
+                  2 of 3 subtasks
+                </h4>
+              </div>
+            </div>
+
+            <div>
+              <div
+                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+              >
+                <h3
+                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                >
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Doloremque nulla modi explicabo ipsa.
+                </h3>
+                <h4 className="text-xs text-Neutral-Secondary">
+                  2 of 3 subtasks
+                </h4>
+              </div>
+            </div>
+
+            <div>
+              <div
+                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+              >
+                <h3
+                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                >
                   Lorem ipsum dolor
                 </h3>
-                <h4 className="text-Neutral-Secondary text-xs">
-                  2 of 3 subtasks
-                </h4>
-              </div>
-            </div>
-
-            <div>
-              <div className="bg-foreground shadow-lg shadow-Primary-buttonDark rounded-lg p-4 font-semibold space-y-2">
-                <h3 className="text-Neutral-Primary text-sm">
-                  Do your Homework
-                </h3>
-                <h4 className="text-Neutral-Secondary text-xs">
-                  2 of 3 subtasks
-                </h4>
-              </div>
-            </div>
-
-            <div>
-              <div className="bg-foreground shadow-lg shadow-Primary-buttonDark rounded-lg p-4 font-semibold space-y-2">
-                <h3 className="text-Neutral-Primary text-sm">
-                  Do your Homework
-                </h3>
-                <h4 className="text-Neutral-Secondary text-xs">
-                  2 of 3 subtasks
-                </h4>
-              </div>
-            </div>
-
-            <div>
-              <div className="bg-foreground shadow-lg shadow-Primary-buttonDark rounded-lg p-4 font-semibold space-y-2">
-                <h3 className="text-Neutral-Primary text-sm">
-                  Do your Homework
-                </h3>
-                <h4 className="text-Neutral-Secondary text-xs">
+                <h4 className="text-xs text-Neutral-Secondary">
                   2 of 3 subtasks
                 </h4>
               </div>
@@ -141,49 +155,50 @@ const Main = () => {
 
           <div className="w-72 space-y-6">
             <div className="flex items-center gap-x-2">
-              <div className="rounded-full bg-yellow-400 h-4 w-4"></div>
+              <div className="h-4 w-4 rounded-full bg-yellow-400"></div>
               <h2 className="text-Neutral-Secondary">Todo (2)</h2>
             </div>
 
             <div>
-              <div className="bg-foreground shadow-lg shadow-Primary-buttonDark rounded-lg p-4 font-semibold space-y-2">
-                <h3 className="text-Neutral-Primary text-sm break-words whitespace-normal">
+              <div
+                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+              >
+                <h3
+                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                >
                   Lorem ipsum dolor
                 </h3>
-                <h4 className="text-Neutral-Secondary text-xs">
+                <h4 className="text-xs text-Neutral-Secondary">
                   2 of 3 subtasks
                 </h4>
               </div>
             </div>
 
             <div>
-              <div className="bg-foreground shadow-lg shadow-Primary-buttonDark rounded-lg p-4 font-semibold space-y-2">
-                <h3 className="text-Neutral-Primary text-sm">
-                  Do your Homework
+              <div
+                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+              >
+                <h3
+                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                >
+                  Lorem ipsum dolor
                 </h3>
-                <h4 className="text-Neutral-Secondary text-xs">
+                <h4 className="text-xs text-Neutral-Secondary">
                   2 of 3 subtasks
                 </h4>
               </div>
             </div>
 
             <div>
-              <div className="bg-foreground shadow-lg shadow-Primary-buttonDark rounded-lg p-4 font-semibold space-y-2">
-                <h3 className="text-Neutral-Primary text-sm">
-                  Do your Homework
+              <div
+                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+              >
+                <h3
+                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                >
+                  Lorem ipsum dolor
                 </h3>
-                <h4 className="text-Neutral-Secondary text-xs">
-                  2 of 3 subtasks
-                </h4>
-              </div>
-            </div>
-
-            <div>
-              <div className="bg-foreground shadow-lg shadow-Primary-buttonDark rounded-lg p-4 font-semibold space-y-2">
-                <h3 className="text-Neutral-Primary text-sm">
-                  Do your Homework
-                </h3>
-                <h4 className="text-Neutral-Secondary text-xs">
+                <h4 className="text-xs text-Neutral-Secondary">
                   2 of 3 subtasks
                 </h4>
               </div>
@@ -192,30 +207,53 @@ const Main = () => {
 
           <div className="w-72 space-y-6">
             <div className="flex items-center gap-x-2">
-              <div className="rounded-full bg-yellow-400 h-4 w-4"></div>
+              <div className="h-4 w-4 rounded-full bg-yellow-400"></div>
               <h2 className="text-Neutral-Secondary">Todo (2)</h2>
             </div>
 
             <div>
-              <div className="bg-foreground shadow-lg shadow-Primary-buttonDark rounded-lg p-4 font-semibold space-y-2">
-                <h3 className="text-Neutral-Primary text-sm break-words whitespace-normal hover:text-Primary-button transition-all duration-300">
+              <div
+                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+              >
+                <h3
+                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                >
+                  Lorem ipsum dolor sit amet
+                </h3>
+                <h4 className="text-xs text-Neutral-Secondary">
+                  2 of 3 subtasks
+                </h4>
+              </div>
+            </div>
+
+            <div>
+              <div
+                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+              >
+                <h3
+                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                >
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Doloremque nulla modi explicabo ipsa. Rerum velit, repudiandae
                   facilis dolorem temporibus quod beatae asperiores ea vero
                   eligendi optio! Libero quod id quos!
                 </h3>
-                <h4 className="text-Neutral-Secondary text-xs">
+                <h4 className="text-xs text-Neutral-Secondary">
                   2 of 3 subtasks
                 </h4>
               </div>
             </div>
 
             <div>
-              <div className="bg-foreground shadow-lg shadow-Primary-buttonDark rounded-lg p-4 font-semibold space-y-2">
-                <h3 className="text-Neutral-Primary text-sm break-words whitespace-normal hover:text-Primary-button transition-all duration-300">
+              <div
+                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+              >
+                <h3
+                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                >
                   Lorem ipsum dolor
                 </h3>
-                <h4 className="text-Neutral-Secondary text-xs">
+                <h4 className="text-xs text-Neutral-Secondary">
                   2 of 3 subtasks
                 </h4>
               </div>
@@ -224,30 +262,56 @@ const Main = () => {
 
           <div className="w-72 space-y-6">
             <div className="flex items-center gap-x-2">
-              <div className="rounded-full bg-yellow-400 h-4 w-4"></div>
+              <div className="h-4 w-4 rounded-full bg-yellow-400"></div>
               <h2 className="text-Neutral-Secondary">Todo (2)</h2>
             </div>
 
             <div>
-              <div className="bg-foreground shadow-lg shadow-Primary-buttonDark rounded-lg p-4 font-semibold space-y-2">
-                <h3 className="text-Neutral-Primary text-sm break-words whitespace-normal hover:text-Primary-button transition-all duration-300">
+              <div
+                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+              >
+                <h3
+                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                >
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Doloremque nulla modi explicabo ipsa. Rerum velit, repudiandae
                   facilis dolorem temporibus quod beatae asperiores ea vero
                   eligendi optio! Libero quod id quos!
                 </h3>
-                <h4 className="text-Neutral-Secondary text-xs">
+                <h4 className="text-xs text-Neutral-Secondary">
                   2 of 3 subtasks
                 </h4>
               </div>
             </div>
 
             <div>
-              <div className="bg-foreground shadow-lg shadow-Primary-buttonDark rounded-lg p-4 font-semibold space-y-2">
-                <h3 className="text-Neutral-Primary text-sm break-words whitespace-normal hover:text-Primary-button transition-all duration-300">
+              <div
+                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+              >
+                <h3
+                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                >
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Doloremque nulla modi explicabo ipsa. Rerum velit, repudiandae
+                  facilis dolorem temporibus quod beatae asperiores ea vero
+                  eligendi optio! Libero quod id quos!
+                </h3>
+                <h4 className="text-xs text-Neutral-Secondary">
+                  2 of 3 subtasks
+                </h4>
+              </div>
+            </div>
+
+            <div>
+              <div
+                className={`${isOn ? "bg-Neutral-Primary shadow-sm" : "bg-foreground shadow-lg"} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+              >
+                <h3
+                  className={`${isOn ? "text-Neutral-tertiary" : "text-Neutral-Primary"} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                >
                   Lorem ipsum dolor
                 </h3>
-                <h4 className="text-Neutral-Secondary text-xs">
+                <h4 className="text-xs text-Neutral-Secondary">
                   2 of 3 subtasks
                 </h4>
               </div>
@@ -256,17 +320,17 @@ const Main = () => {
         </div>
 
         <div
-          className="min-w-64 bg-foreground rounded-lg flex items-center justify-center  backgroundOpacity hover:scale-105 transition-all duration-500 ease-in-out self-stretch"
+          className={`flex min-w-64 items-center justify-center self-stretch rounded-lg transition-all duration-500 ease-in-out hover:scale-105 ${isOn ? "bg-Neutral-sixth" : "backgroundOpacity bg-Neutral-forth"} `}
           onClick={openEdit}
         >
-          <Button className="text-Neutral-Secondary text-xl font-semibold h-full w-full">
+          <Button className="h-full w-full text-xl font-semibold text-Neutral-Secondary">
             <span>+New Column</span>
           </Button>
         </div>
       </motion.div>
       {edit && <Editboard refEdit={refEdit} />}
     </>
-  )
-}
+  );
+};
 
-export default Main
+export default Main;

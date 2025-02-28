@@ -18,7 +18,8 @@ const config: Config = {
           Secondary: 'var(--neutral2)',
           tertiary: 'var(--neutral3)',
           forth: 'var(--neutral4)',
-          fifth: 'var(--neutral5)'
+          fifth: 'var(--neutral5)',
+          sixth: 'var(--neutral6)'
         },
         Primary: {
           button: 'var(--button)',

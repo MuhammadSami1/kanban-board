@@ -1,27 +1,20 @@
-import Main from '@/components/Main'
-import NavbarWrapper from '@/components/NavbarWrapper'
-import SidebarWrapper from '@/components/SidebarWrapper'
-import Border from '@/components/ui/Border'
+import MainWrapper from "@/components/MainWrapper";
+import NavbarWrapper from "@/components/NavbarWrapper";
+import SidebarWrapper from "@/components/SidebarWrapper";
 
 const Home = () => {
   return (
     <>
-      <div className="min-h-screen flex flex-col">
+      <div className="flex min-h-screen flex-col">
         <NavbarWrapper />
 
         <div className="flex flex-1">
           <SidebarWrapper />
-          <div className="flex-1 flex flex-col overflow-hidden">
-            <Border style="border-b-[1px] border-gray-600 hidden xl:block" />
-
-            <main className="flex-1 overflow-x-auto scrollable-container whitespace-nowrap">
-              <Main />
-            </main>
-          </div>
+          <MainWrapper />
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

@@ -1,40 +1,40 @@
-'use client'
+"use client";
 
-import useToggleColor from '@/src/store/toggleColor'
+import useToggleColor from "@/src/store/toggleColor";
 
-import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
-import { useMediaQuery } from 'react-responsive'
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
 type TSidebar = {
-  handleOpenNewBoard: () => void
-}
+  handleOpenNewBoard: () => void;
+};
 
 const Sidebar = ({ handleOpenNewBoard }: TSidebar) => {
-  const [sideBarOpen, setSideBarOpen] = useState(true)
-  const [isMediumScreen, setIsMediumScreen] = useState(false)
-  const isOn = useToggleColor((state) => state.isOn)
-  const toggle = useToggleColor((state) => state.toggle)
+  const [sideBarOpen, setSideBarOpen] = useState(true);
+  const [isMediumScreen, setIsMediumScreen] = useState(false);
+  const isOn = useToggleColor((state) => state.isOn);
+  const toggle = useToggleColor((state) => state.toggle);
 
   // Detect screen size changes
-  const isMedium = useMediaQuery({ query: '(min-width: 643px)' })
+  const isMedium = useMediaQuery({ query: "(min-width: 643px)" });
 
   useEffect(() => {
     // Trigger animation only when transitioning from small to medium
     if (isMedium) {
-      setIsMediumScreen(true)
+      setIsMediumScreen(true);
     } else {
-      setIsMediumScreen(false)
+      setIsMediumScreen(false);
     }
-  }, [isMedium])
+  }, [isMedium]);
 
   const handleSideBarOpen = () => {
-    setSideBarOpen((prev) => !prev)
-  }
+    setSideBarOpen((prev) => !prev);
+  };
 
   const closeSideBar = () => {
-    setSideBarOpen(!sideBarOpen)
-  }
+    setSideBarOpen(!sideBarOpen);
+  };
 
   return (
     <>
@@ -45,18 +45,18 @@ const Sidebar = ({ handleOpenNewBoard }: TSidebar) => {
             isMediumScreen ? { x: 0, opacity: 1 } : { x: -150, opacity: 0 }
           }
           transition={{ duration: 0.5 }}
-          className=" w-[274px] md:w-[290px] border-r-[1px] border-gray-600 bg-foreground hidden sm:flex"
+          className={`${isOn ? "border-gray-300" : "border-gray-600"} hidden w-[274px] border-r-[1px] bg-foreground sm:flex md:w-[290px]`}
         >
           <div
-            className={`${isOn ? 'bg-Neutral-Primary' : 'bg-foreground'} flex flex-col flex-1 items-start text-Neutral-Secondary pb-7`}
+            className={`${isOn ? "bg-Neutral-Primary" : "bg-foreground"} flex flex-1 flex-col items-start pb-7 text-Neutral-Secondary`}
           >
-            <h2 className="pt-4 pb-3 pl-8 text-sm font-semibold tracking-widest">
+            <h2 className="pb-3 pl-8 pt-4 text-sm font-semibold tracking-widest">
               ALL BOARDS (3)
             </h2>
 
             <div className="flex flex-col text-sm tracking-wider">
               <div
-                className={`${isOn ? 'hover:bg-Neutral-forth' : 'hover:bg-Neutral-Primary'} pl-8 md:pr-9 py-4  hover:text-Primary-button hover:rounded-r-full font-semibold group transition-all duration-700 ease-in-out cursor-pointer`}
+                className={`${isOn ? "hover:bg-Neutral-forth" : "hover:bg-Neutral-Primary"} group cursor-pointer py-4 pl-8 font-semibold transition-all duration-700 ease-in-out hover:rounded-r-full hover:text-Primary-button md:pr-9`}
               >
                 <div className="flex items-center gap-x-4">
                   <svg
@@ -73,7 +73,7 @@ const Sidebar = ({ handleOpenNewBoard }: TSidebar) => {
               </div>
 
               <div
-                className={`${isOn ? 'hover:bg-Neutral-forth' : 'hover:bg-Neutral-Primary'} pl-8 md:pr-9 py-4  hover:text-Primary-button hover:rounded-r-full font-semibold group transition-all duration-700 ease-in-out cursor-pointer`}
+                className={`${isOn ? "hover:bg-Neutral-forth" : "hover:bg-Neutral-Primary"} group cursor-pointer py-4 pl-8 font-semibold transition-all duration-700 ease-in-out hover:rounded-r-full hover:text-Primary-button md:pr-9`}
               >
                 <div className="flex items-center gap-x-4">
                   <svg
@@ -90,7 +90,7 @@ const Sidebar = ({ handleOpenNewBoard }: TSidebar) => {
               </div>
 
               <div
-                className={`${isOn ? 'hover:bg-Neutral-forth' : 'hover:bg-Neutral-Primary'} pl-8 md:pr-9 py-4  hover:text-Primary-button hover:rounded-r-full font-semibold group transition-all duration-700 ease-in-out cursor-pointer`}
+                className={`${isOn ? "hover:bg-Neutral-forth" : "hover:bg-Neutral-Primary"} group cursor-pointer py-4 pl-8 font-semibold transition-all duration-700 ease-in-out hover:rounded-r-full hover:text-Primary-button md:pr-9`}
               >
                 <div className="flex items-center gap-x-4">
                   <svg
@@ -107,7 +107,7 @@ const Sidebar = ({ handleOpenNewBoard }: TSidebar) => {
               </div>
 
               <div
-                className="pl-8 pr-9 py-4 font-semibold text-Primary-button transition-all duration-300 cursor-pointer"
+                className="cursor-pointer py-4 pl-8 pr-9 font-semibold text-Primary-button transition-all duration-300"
                 onClick={handleOpenNewBoard}
               >
                 <div className="flex items-center gap-x-4">
@@ -129,7 +129,7 @@ const Sidebar = ({ handleOpenNewBoard }: TSidebar) => {
             <div className="mt-auto">
               <div className="pl-8">
                 <div
-                  className={`${isOn ? 'bg-Neutral-fifth' : 'bg-background'} flex items-center justify-between px-12 lg:px-14 rounded-md py-4 gap-x-6`}
+                  className={`${isOn ? "bg-Neutral-fifth" : "bg-background"} flex items-center justify-between gap-x-6 rounded-md px-12 py-4 lg:px-14`}
                 >
                   <svg
                     width="19"
@@ -142,21 +142,15 @@ const Sidebar = ({ handleOpenNewBoard }: TSidebar) => {
                     ></path>
                   </svg>
 
-                  <label className="relative inline-flex items-center cursor-pointer">
+                  <label className="relative inline-flex cursor-pointer items-center">
                     <input
                       type="checkbox"
-                      className="sr-only peer"
+                      className="peer sr-only"
                       onChange={toggle}
                       checked={isOn}
+                      id="lightModeToggle"
                     />
-                    <div
-                      className="w-12 h-6 bg-Primary-button 
-              rounded-full peer peer-checked:after:translate-x-6 
-              peer-checked:after:border-white after:content-[''] after:absolute 
-              after:top-1 after:left-1 after:bg-white after:border-gray-300 
-              after:border after:rounded-full after:h-4 after:w-4 after:transition-all after:duration-300
-              peer-checked:bg-indigo-500"
-                    ></div>
+                    <div className="peer h-6 w-12 rounded-full bg-Primary-button after:absolute after:left-1 after:top-1 after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:duration-700 after:content-[''] peer-checked:bg-indigo-500 peer-checked:after:translate-x-6 peer-checked:after:border-white"></div>
                   </label>
 
                   <svg
@@ -173,7 +167,7 @@ const Sidebar = ({ handleOpenNewBoard }: TSidebar) => {
               </div>
 
               <div
-                className="pl-8 pr-14 hover:bg-Neutral-Primary py-4 hover:text-Primary-button rounded-r-full group transition-all duration-700 ease-in-out cursor-pointer"
+                className="group cursor-pointer rounded-r-full py-4 pl-8 pr-14 transition-all duration-700 ease-in-out hover:bg-Neutral-Primary hover:text-Primary-button"
                 onClick={closeSideBar}
               >
                 <div className="flex items-center gap-x-5 font-semibold">
@@ -194,10 +188,10 @@ const Sidebar = ({ handleOpenNewBoard }: TSidebar) => {
         </motion.div>
       ) : (
         <div
-          className="absolute bottom-0 mb-7 cursor-pointer hidden sm:flex"
+          className="absolute bottom-0 mb-7 hidden cursor-pointer sm:flex"
           onClick={handleSideBarOpen}
         >
-          <div className="px-5 bg-Primary-button rounded-r-full py-5">
+          <div className="rounded-r-full bg-Primary-button px-5 py-5">
             <svg
               width="16"
               height="11"
@@ -210,7 +204,7 @@ const Sidebar = ({ handleOpenNewBoard }: TSidebar) => {
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

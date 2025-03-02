@@ -23,6 +23,10 @@ body {
     --button-light: hsl(243, 100%, 82%);
     --button-dark: hsl(226, 26%, 19%);
     --secondary: hsl(0, 78%, 63%);
+
+    /* form color */
+    --form-background: hsl(242, 49%, 88%);
+    --checkMark: hsl(242, 48%, 47%);
   }
 }
 
@@ -79,5 +83,11 @@ body {
 
   .backgroundOpacity {
     background-color: hsl(240, 14%, 16%);
+  }
+
+  #subTask:has(input[type='checkbox']:checked) {
+    background-color: hsl(245, 46%, 95%);
+    color: var(--neutral2);
+    text-decoration: line-through;
   }
 }

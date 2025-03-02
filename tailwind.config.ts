@@ -25,6 +25,12 @@ const config: Config = {
           button: 'var(--button)',
           buttonLight: 'var(--button-light)',
           buttonDark: 'var(--button-dark)'
+        },
+        Form: {
+          Primary: 'var(--form-background)'
+        },
+        CheckBox: {
+          Primary: 'var(--checkMark)'
         }
       }
     }

@@ -4,14 +4,30 @@ import Button from './ui/Button'
 import Editboard from './shared/Editboard'
 import { useEffect, useRef, useState } from 'react'
 import useToggleColor from '@/src/store/toggleColor'
+import SubTask from './SubTask'
 
 const Main = () => {
   const [edit, setEdit] = useState(false)
-  const refEdit = useRef<HTMLDivElement>(null)
+  const [openSubTask, setOpenSubTask] = useState(false)
   const isOn = useToggleColor((state) => state.isOn)
+
+  const refEdit = useRef<HTMLDivElement>(null)
+  const refSubTask = useRef<HTMLDivElement>(null)
+  const handleOpenSubTask = () => {
+    setOpenSubTask((prev) => !prev)
+  }
 
   const openEdit = () => {
     setEdit((prev) => !prev)
+  }
+
+  const handleClickSubTask = (event: MouseEvent) => {
+    if (
+      refSubTask.current &&
+      !refSubTask.current.contains(event.target as Node)
+    ) {
+      setOpenSubTask(false)
+    }
   }
 
   const handleClickEdit = (event: MouseEvent) => {
@@ -19,6 +35,18 @@ const Main = () => {
       setEdit(false)
     }
   }
+
+  useEffect(() => {
+    if (openSubTask) {
+      document.addEventListener('mousedown', handleClickSubTask)
+    } else {
+      document.removeEventListener('mousedown', handleClickSubTask)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickSubTask)
+    }
+  }, [openSubTask])
 
   useEffect(() => {
     if (edit) {
@@ -42,264 +70,10 @@ const Main = () => {
       >
         <div className="flex gap-x-6">
           {/* tasks */}
-          <div className="w-72 space-y-6">
+          <div className="w-72 space-y-6" onClick={handleOpenSubTask}>
             <div className="flex items-center gap-x-2">
               <div className="h-4 w-4 rounded-full bg-yellow-400"></div>
               <h2 className="text-Neutral-Secondary">Todo (2)</h2>
-            </div>
-
-            <div>
-              <div
-                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
-              >
-                <h3
-                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
-                >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Doloremque nulla modi explicabo ipsa. Rerum velit, repudiandae
-                  facilis dolorem temporibus quod beatae asperiores ea vero
-                  eligendi optio! Libero quod id quos!
-                </h3>
-                <h4 className="text-xs text-Neutral-Secondary">
-                  2 of 3 subtasks
-                </h4>
-              </div>
-            </div>
-
-            <div>
-              <div
-                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
-              >
-                <h3
-                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
-                >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Doloremque nulla modi explicabo ipsa. Rerum velit, repudiandae
-                  facilis dolorem temporibus quod beatae asperiores ea vero
-                  eligendi optio! Libero quod id quos!
-                </h3>
-                <h4 className="text-xs text-Neutral-Secondary">
-                  2 of 3 subtasks
-                </h4>
-              </div>
-            </div>
-
-            <div>
-              <div
-                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
-              >
-                <h3
-                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
-                >
-                  Lorem ipsum dolor
-                </h3>
-                <h4 className="text-xs text-Neutral-Secondary">
-                  2 of 3 subtasks
-                </h4>
-              </div>
-            </div>
-          </div>
-
-          <div className="w-72 space-y-6">
-            <div className="flex items-center gap-x-2">
-              <div className="h-4 w-4 rounded-full bg-yellow-400"></div>
-              <h2 className="text-Neutral-Secondary">Todo (2)</h2>
-            </div>
-
-            <div>
-              <div
-                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
-              >
-                <h3
-                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
-                >
-                  Lorem ipsum dolor sit amet consectetur
-                </h3>
-                <h4 className="text-xs text-Neutral-Secondary">
-                  2 of 3 subtasks
-                </h4>
-              </div>
-            </div>
-
-            <div>
-              <div
-                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
-              >
-                <h3
-                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
-                >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Doloremque nulla modi explicabo ipsa.
-                </h3>
-                <h4 className="text-xs text-Neutral-Secondary">
-                  2 of 3 subtasks
-                </h4>
-              </div>
-            </div>
-
-            <div>
-              <div
-                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
-              >
-                <h3
-                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
-                >
-                  Lorem ipsum dolor
-                </h3>
-                <h4 className="text-xs text-Neutral-Secondary">
-                  2 of 3 subtasks
-                </h4>
-              </div>
-            </div>
-          </div>
-
-          <div className="w-72 space-y-6">
-            <div className="flex items-center gap-x-2">
-              <div className="h-4 w-4 rounded-full bg-yellow-400"></div>
-              <h2 className="text-Neutral-Secondary">Todo (2)</h2>
-            </div>
-
-            <div>
-              <div
-                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
-              >
-                <h3
-                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
-                >
-                  Lorem ipsum dolor
-                </h3>
-                <h4 className="text-xs text-Neutral-Secondary">
-                  2 of 3 subtasks
-                </h4>
-              </div>
-            </div>
-
-            <div>
-              <div
-                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
-              >
-                <h3
-                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
-                >
-                  Lorem ipsum dolor
-                </h3>
-                <h4 className="text-xs text-Neutral-Secondary">
-                  2 of 3 subtasks
-                </h4>
-              </div>
-            </div>
-
-            <div>
-              <div
-                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
-              >
-                <h3
-                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
-                >
-                  Lorem ipsum dolor
-                </h3>
-                <h4 className="text-xs text-Neutral-Secondary">
-                  2 of 3 subtasks
-                </h4>
-              </div>
-            </div>
-          </div>
-
-          <div className="w-72 space-y-6">
-            <div className="flex items-center gap-x-2">
-              <div className="h-4 w-4 rounded-full bg-yellow-400"></div>
-              <h2 className="text-Neutral-Secondary">Todo (2)</h2>
-            </div>
-
-            <div>
-              <div
-                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
-              >
-                <h3
-                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
-                >
-                  Lorem ipsum dolor sit amet
-                </h3>
-                <h4 className="text-xs text-Neutral-Secondary">
-                  2 of 3 subtasks
-                </h4>
-              </div>
-            </div>
-
-            <div>
-              <div
-                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
-              >
-                <h3
-                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
-                >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Doloremque nulla modi explicabo ipsa. Rerum velit, repudiandae
-                  facilis dolorem temporibus quod beatae asperiores ea vero
-                  eligendi optio! Libero quod id quos!
-                </h3>
-                <h4 className="text-xs text-Neutral-Secondary">
-                  2 of 3 subtasks
-                </h4>
-              </div>
-            </div>
-
-            <div>
-              <div
-                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
-              >
-                <h3
-                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
-                >
-                  Lorem ipsum dolor
-                </h3>
-                <h4 className="text-xs text-Neutral-Secondary">
-                  2 of 3 subtasks
-                </h4>
-              </div>
-            </div>
-          </div>
-
-          <div className="w-72 space-y-6">
-            <div className="flex items-center gap-x-2">
-              <div className="h-4 w-4 rounded-full bg-yellow-400"></div>
-              <h2 className="text-Neutral-Secondary">Todo (2)</h2>
-            </div>
-
-            <div>
-              <div
-                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
-              >
-                <h3
-                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
-                >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Doloremque nulla modi explicabo ipsa. Rerum velit, repudiandae
-                  facilis dolorem temporibus quod beatae asperiores ea vero
-                  eligendi optio! Libero quod id quos!
-                </h3>
-                <h4 className="text-xs text-Neutral-Secondary">
-                  2 of 3 subtasks
-                </h4>
-              </div>
-            </div>
-
-            <div>
-              <div
-                className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
-              >
-                <h3
-                  className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
-                >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Doloremque nulla modi explicabo ipsa. Rerum velit, repudiandae
-                  facilis dolorem temporibus quod beatae asperiores ea vero
-                  eligendi optio! Libero quod id quos!
-                </h3>
-                <h4 className="text-xs text-Neutral-Secondary">
-                  2 of 3 subtasks
-                </h4>
-              </div>
             </div>
 
             <div>
@@ -329,6 +103,7 @@ const Main = () => {
         </div>
       </motion.div>
       {edit && <Editboard refEdit={refEdit} />}
+      {openSubTask && <SubTask refSubTask={refSubTask} />}
     </>
   )
 }

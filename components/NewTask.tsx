@@ -130,7 +130,7 @@ const NewTask = ({ refAddNewTask }: TNewTask) => {
                   required: true,
                   onChange: (e) => handleChange(e)
                 })}
-                className={`${isOn ? 'bg-Neutral-Primary' : 'border-gray-600 bg-foreground'} group w-full cursor-pointer appearance-none rounded-md border-[1px] p-2 shadow-2xl shadow-Primary-buttonDark hover:border-Primary-button focus:outline-none`}
+                className={`${isOn ? 'bg-Neutral-Primary' : 'border-gray-600 bg-foreground'} group w-full cursor-pointer appearance-none rounded-md border-[1px] p-3 hover:border-Primary-button focus:outline-none`}
               >
                 <option value="" disabled hidden>
                   Select Column

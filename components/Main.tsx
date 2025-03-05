@@ -5,14 +5,27 @@ import Editboard from './shared/Editboard'
 import { useEffect, useRef, useState } from 'react'
 import useToggleColor from '@/src/store/toggleColor'
 import SubTask from './SubTask'
-
+import SubTaskModel from './SubTaskModel'
+import DeleteBoard from './deleteBoard'
 const Main = () => {
   const [edit, setEdit] = useState(false)
   const [openSubTask, setOpenSubTask] = useState(false)
+  const [openSubTaskModel, setOpenSubTaskModel] = useState(false)
+  const [openDeleteBoard, setOpenDeleteBoard] = useState(false)
   const isOn = useToggleColor((state) => state.isOn)
 
   const refEdit = useRef<HTMLDivElement>(null)
   const refSubTask = useRef<HTMLDivElement>(null)
+  const refSubTaskModel = useRef<HTMLDivElement>(null)
+
+  const openDeleteBoardModel = () => {
+    setOpenDeleteBoard((prev) => !prev)
+  }
+
+  const handleOpenSubTaskModel = () => {
+    setOpenSubTaskModel((prev) => !prev)
+  }
+
   const handleOpenSubTask = () => {
     setOpenSubTask((prev) => !prev)
   }
@@ -33,6 +46,15 @@ const Main = () => {
   const handleClickEdit = (event: MouseEvent) => {
     if (refEdit.current && !refEdit.current.contains(event.target as Node)) {
       setEdit(false)
+    }
+  }
+
+  const handleClickSubTaskModel = (event: MouseEvent) => {
+    if (
+      refSubTaskModel.current &&
+      !refSubTaskModel.current.contains(event.target as Node)
+    ) {
+      setOpenSubTaskModel(false)
     }
   }
 
@@ -60,6 +82,20 @@ const Main = () => {
     }
   }, [edit])
 
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout
+    if (openSubTaskModel) {
+      timeoutId = setTimeout(() => {
+        document.addEventListener('mousedown', handleClickSubTaskModel)
+      }, 450)
+    }
+
+    return () => {
+      clearTimeout(timeoutId)
+      document.removeEventListener('mousedown', handleClickSubTaskModel)
+    }
+  }, [openSubTaskModel])
+
   return (
     <>
       <motion.div
@@ -70,13 +106,13 @@ const Main = () => {
       >
         <div className="flex gap-x-6">
           {/* tasks */}
-          <div className="w-72 space-y-6" onClick={handleOpenSubTask}>
+          <div className="w-72 space-y-6">
             <div className="flex items-center gap-x-2">
               <div className="h-4 w-4 rounded-full bg-yellow-400"></div>
               <h2 className="text-Neutral-Secondary">Todo (2)</h2>
             </div>
 
-            <div>
+            <div onClick={handleOpenSubTask} className="cursor-pointer">
               <div
                 className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
               >
@@ -103,7 +139,19 @@ const Main = () => {
         </div>
       </motion.div>
       {edit && <Editboard refEdit={refEdit} />}
-      {openSubTask && <SubTask refSubTask={refSubTask} />}
+      {openSubTask && (
+        <SubTask
+          refSubTask={refSubTask}
+          handleOpenSubTaskModel={handleOpenSubTaskModel}
+        />
+      )}
+      {openSubTaskModel && (
+        <SubTaskModel
+          refSubTaskModel={refSubTaskModel}
+          openDeleteBoardModel={openDeleteBoardModel}
+        />
+      )}
+      {openDeleteBoard && <DeleteBoard />}
     </>
   )
 }

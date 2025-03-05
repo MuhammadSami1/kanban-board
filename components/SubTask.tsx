@@ -3,9 +3,10 @@ import React, { useState } from 'react'
 
 type TEditBorad = {
   refSubTask: React.RefObject<HTMLDivElement>
+  handleOpenSubTaskModel: () => void
 }
 
-const SubTask = ({ refSubTask }: TEditBorad) => {
+const SubTask = ({ refSubTask, handleOpenSubTaskModel }: TEditBorad) => {
   const [selectedOption, setSelectedOption] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -26,7 +27,7 @@ const SubTask = ({ refSubTask }: TEditBorad) => {
             Research pricing points of various competitors and trial different
             business models
           </div>
-          <div>
+          <div onClick={handleOpenSubTaskModel}>
             <svg
               width="5"
               height="20"

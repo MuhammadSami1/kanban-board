@@ -12,7 +12,7 @@ const deleteBoard = ({ refDelete }: TDeleteBoard) => {
   return (
     <div className="fixed inset-0 flex h-full items-center justify-center bg-black bg-opacity-50">
       <motion.div
-        className={`${isOn ? 'bg-Neutral-Primary' : 'bg-foreground'} flex w-[350px] flex-col rounded-lg px-6 py-6 sm:w-[450px] lg:w-[500px]`}
+        className={`${isOn ? 'bg-Neutral-Primary' : 'bg-foreground'} flex w-[350px] flex-col rounded-lg px-6 py-6 sm:w-[450px] lg:w-[500px] whitespace-normal`}
         initial={{ opacity: 0, rotate: 0 }}
         animate={{ opacity: 1, rotate: -360 }}
         transition={{

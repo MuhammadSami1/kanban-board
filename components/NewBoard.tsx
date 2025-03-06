@@ -6,12 +6,14 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { AddNewBoardFormSchema } from '@/src/lib/validation'
 import useToggleColor from '@/src/store/toggleColor'
+import globalBoard from '@/src/store/globalBoard'
 
 type TNewBoard = {
   refNewBoard: React.RefObject<HTMLDivElement>
 }
 
 const NewBoard = ({ refNewBoard }: TNewBoard) => {
+  const addNewBoard = globalBoard((state) => state.addNewBoard)
   const {
     register,
     handleSubmit,
@@ -19,9 +21,7 @@ const NewBoard = ({ refNewBoard }: TNewBoard) => {
   } = useForm<AddNewBoardForm>({
     resolver: yupResolver(AddNewBoardFormSchema)
   })
-  const onSubmit = (data: AddNewBoardForm) => {
-    console.log('Form data submitted:', data)
-  }
+  const onSubmit = (data: AddNewBoardForm) => {}
 
   const isOn = useToggleColor((state) => state.isOn)
 

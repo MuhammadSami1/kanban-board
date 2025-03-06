@@ -7,27 +7,55 @@ import useToggleColor from '@/src/store/toggleColor'
 import SubTask from './SubTask'
 import SubTaskModel from './SubTaskModel'
 import DeleteBoard from './deleteBoard'
+
 const Main = () => {
   const [edit, setEdit] = useState(false)
   const [openSubTask, setOpenSubTask] = useState(false)
   const [openSubTaskModel, setOpenSubTaskModel] = useState(false)
   const [openDeleteBoard, setOpenDeleteBoard] = useState(false)
+  const [editModel, setEditModel] = useState(false)
   const isOn = useToggleColor((state) => state.isOn)
 
   const refEdit = useRef<HTMLDivElement>(null)
   const refSubTask = useRef<HTMLDivElement>(null)
   const refSubTaskModel = useRef<HTMLDivElement>(null)
+  const refDelete = useRef<HTMLDivElement>(null)
+  const refEditModel = useRef<HTMLDivElement>(null)
+
+  const openEditModel = () => {
+    setEditModel((prev) => !prev)
+    setOpenSubTaskModel((prev) => !prev)
+  }
 
   const openDeleteBoardModel = () => {
     setOpenDeleteBoard((prev) => !prev)
+    setOpenSubTaskModel((prev) => !prev)
   }
 
   const handleOpenSubTaskModel = () => {
     setOpenSubTaskModel((prev) => !prev)
   }
 
+  const handleClickEditModel = (event: MouseEvent) => {
+    if (
+      refEditModel.current &&
+      !refEditModel.current.contains(event.target as Node)
+    ) {
+      setEditModel(false)
+    }
+  }
+
   const handleOpenSubTask = () => {
     setOpenSubTask((prev) => !prev)
+  }
+
+  const handleClickDelete = (event: MouseEvent) => {
+    if (
+      refDelete.current &&
+      !refDelete.current.contains(event.target as Node)
+    ) {
+      setOpenDeleteBoard(false)
+    }
   }
 
   const openEdit = () => {
@@ -96,6 +124,29 @@ const Main = () => {
     }
   }, [openSubTaskModel])
 
+  useEffect(() => {
+    if (editModel) {
+      document.addEventListener('mousedown', handleClickEditModel)
+    } else {
+      document.removeEventListener('mousedown', handleClickEditModel)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickEditModel)
+    }
+  }, [editModel])
+
+  useEffect(() => {
+    if (openDeleteBoard) {
+      document.addEventListener('mousedown', handleClickDelete)
+    } else {
+      document.removeEventListener('mousedown', handleClickDelete)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickDelete)
+    }
+  }, [openDeleteBoard])
   return (
     <>
       <motion.div
@@ -149,9 +200,11 @@ const Main = () => {
         <SubTaskModel
           refSubTaskModel={refSubTaskModel}
           openDeleteBoardModel={openDeleteBoardModel}
+          openEditModel={openEditModel}
         />
       )}
-      {openDeleteBoard && <DeleteBoard />}
+      {openDeleteBoard && <DeleteBoard refDelete={refDelete} />}
+      {editModel && <Editboard refEdit={refEditModel} />}
     </>
   )
 }

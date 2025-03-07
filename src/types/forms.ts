@@ -12,5 +12,5 @@ export type NewTaskForm = {
 
 export type AddNewBoardForm = {
   boradName: string
-  boradColmn: string
+  boradColmn: { name: string }[]
 }

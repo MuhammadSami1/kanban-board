@@ -8,6 +8,7 @@ import ResetBoard from './ResetBoard'
 import DeleteBoard from './deleteBoard'
 import NewTask from './NewTask'
 import SidebarMini from './SidebarMini'
+import NewBoard from './NewBoard'
 
 const NavbarWrapper = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -17,6 +18,7 @@ const NavbarWrapper = () => {
   const [deleteBoard, setDeleteBoard] = useState(false)
   const [addNewTask, setAddNewTask] = useState(false)
   const [sideBarMini, setSideBarMini] = useState(false)
+  const [openNewBoard, setOpenNewBoard] = useState(false)
 
   const refMenu = useRef<HTMLDivElement>(null)
   const refEdit = useRef<HTMLDivElement>(null)
@@ -25,6 +27,11 @@ const NavbarWrapper = () => {
   const refDelete = useRef<HTMLDivElement>(null)
   const refAddNewTask = useRef<HTMLDivElement>(null)
   const refSideBarMini = useRef<HTMLDivElement>(null)
+  const refNewBoard = useRef<HTMLDivElement>(null)
+
+  const handleOpenNewBoard = () => {
+    setOpenNewBoard((prev) => !prev)
+  }
 
   const handleClickSideBarMini = (event: MouseEvent) => {
     if (
@@ -32,6 +39,15 @@ const NavbarWrapper = () => {
       !refSideBarMini.current.contains(event.target as Node)
     ) {
       setSideBarMini(false)
+    }
+  }
+
+  const handleNewBoard = (event: MouseEvent) => {
+    if (
+      refNewBoard.current &&
+      !refNewBoard.current.contains(event.target as Node)
+    ) {
+      setOpenNewBoard(false)
     }
   }
 
@@ -105,6 +121,18 @@ const NavbarWrapper = () => {
   const handleOpen = () => {
     setIsOpen((prev) => !prev)
   }
+
+  useEffect(() => {
+    if (openNewBoard) {
+      document.addEventListener('mousedown', handleNewBoard)
+    } else {
+      document.removeEventListener('mousedown', handleNewBoard)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleNewBoard)
+    }
+  }, [openNewBoard])
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout
@@ -211,7 +239,18 @@ const NavbarWrapper = () => {
       {resetBoard && <ResetBoard refReset={refReset} />}
       {deleteBoard && <DeleteBoard refDelete={refDelete} />}
       {addNewTask && <NewTask refAddNewTask={refAddNewTask} />}
-      {sideBarMini && <SidebarMini refSideBarMini={refSideBarMini} />}
+      {sideBarMini && (
+        <SidebarMini
+          refSideBarMini={refSideBarMini}
+          handleOpenNewBoard={handleOpenNewBoard}
+        />
+      )}
+      {openNewBoard && (
+        <NewBoard
+          refNewBoard={refNewBoard}
+          handleOpenNewBoard={handleOpenNewBoard}
+        />
+      )}
     </div>
   )
 }

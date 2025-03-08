@@ -10,9 +10,10 @@ import globalBoard from '@/src/store/globalBoard'
 
 type TNewBoard = {
   refNewBoard: React.RefObject<HTMLDivElement>
+  handleOpenNewBoard: () => void
 }
 
-const NewBoard = ({ refNewBoard }: TNewBoard) => {
+const NewBoard = ({ refNewBoard, handleOpenNewBoard }: TNewBoard) => {
   const addNewBoard = globalBoard((state) => state.addNewBoard)
 
   const {
@@ -39,8 +40,8 @@ const NewBoard = ({ refNewBoard }: TNewBoard) => {
       data.boradName,
       data.boradColmn.map((col) => col.name)
     )
-
     reset()
+    handleOpenNewBoard()
   }
 
   const isOn = useToggleColor((state) => state.isOn)

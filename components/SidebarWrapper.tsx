@@ -34,7 +34,12 @@ const SidebarWrapper = () => {
   return (
     <>
       <Sidebar handleOpenNewBoard={handleOpenNewBoard} />
-      {openNewBoard && <NewBoard refNewBoard={refNewBoard} />}
+      {openNewBoard && (
+        <NewBoard
+          refNewBoard={refNewBoard}
+          handleOpenNewBoard={handleOpenNewBoard}
+        />
+      )}
     </>
   )
 }

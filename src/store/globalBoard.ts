@@ -3,11 +3,15 @@ import Board from '../types/Board'
 
 type GlobalBoard = {
   board: Board[]
+  selectedBoard: number | null
+  setSelectedBoard: (boardId: number | null) => void
   addNewBoard: (boardName: string, boardColumn: string[]) => void
 }
 
 const globalBoard = create<GlobalBoard>((set) => ({
   board: [],
+  selectedBoard: null,
+  setSelectedBoard: (boardId) => set({ selectedBoard: boardId }),
   addNewBoard: (boardName, boardColumn) =>
     set((state) => ({
       board: [
@@ -23,6 +27,14 @@ const globalBoard = create<GlobalBoard>((set) => ({
         }
       ]
     }))
+
+  // addNewTask: (title, description, Subtasks, status) => set((state) => ({
+  //   board:[
+  //     ...state.board{
+
+  //     }
+  //   ]
+  // }))
 }))
 
 export default globalBoard

@@ -1,15 +1,23 @@
+import globalBoard from '@/src/store/globalBoard'
 import useToggleColor from '@/src/store/toggleColor'
 import { useMediaQuery } from 'react-responsive'
 
 type TSidebarMini = {
   refSideBarMini: React.RefObject<HTMLDivElement>
+  handleOpenNewBoard: () => void
 }
 
-const SidebarMini = ({ refSideBarMini }: TSidebarMini) => {
+const SidebarMini = ({ refSideBarMini, handleOpenNewBoard }: TSidebarMini) => {
   const isMedium = useMediaQuery({ query: '(min-width: 540px)' })
   const isOn = useToggleColor((state) => state.isOn)
   const toggle = useToggleColor((state) => state.toggle)
+  const board = globalBoard((state) => state.board)
+  const selectedBoard = globalBoard((state) => state.selectedBoard)
+  const setSelectedBoard = globalBoard((state) => state.setSelectedBoard)
 
+  const handleOnClick = (id: number) => {
+    setSelectedBoard(id)
+  }
   return (
     <div className="fixed inset-0 h-full bg-black bg-opacity-50 sm:hidden">
       <div
@@ -22,62 +30,34 @@ const SidebarMini = ({ refSideBarMini }: TSidebarMini) => {
         ref={refSideBarMini}
       >
         <h2 className="px-4 pb-3 text-sm font-semibold tracking-widest">
-          ALL BOARDS (3)
+          ALL BOARDS ({board.length})
         </h2>
 
         <div className="flex flex-col text-sm tracking-wider">
-          <div
-            className={`${isOn ? 'hover:bg-Neutral-forth' : 'hover:bg-Neutral-Primary'} group cursor-pointer py-4 font-semibold transition-all duration-700 ease-in-out hover:rounded-r-full hover:text-Primary-button`}
-          >
-            <div className="ml-6 flex items-center gap-x-2">
-              <svg
-                width="16"
-                height="16"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="#828FA3"
-                className="group-hover:fill-Primary-button"
-              >
-                <path d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"></path>
-              </svg>
-              <h2>Example Board</h2>
+          {board.map((items) => (
+            <div
+              className={`${isOn ? 'hover:bg-Neutral-forth' : 'hover:bg-Neutral-Primary'} group cursor-pointer py-4 font-semibold transition-all duration-700 ease-in-out hover:rounded-r-full hover:text-Primary-button ${selectedBoard === items.id && 'bg-Primary-button text-Neutral-Primary rounded-r-full'}`}
+              key={items.id}
+              onClick={() => handleOnClick(items.id)}
+            >
+              <div className="ml-6 flex items-center gap-x-2">
+                <svg
+                  width="16"
+                  height="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="#828FA3"
+                  className="group-hover:fill-Primary-button"
+                >
+                  <path d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"></path>
+                </svg>
+                <h2>{items.boardName}</h2>
+              </div>
             </div>
-          </div>
-
+          ))}
           <div
-            className={`${isOn ? 'hover:bg-Neutral-forth' : 'hover:bg-Neutral-Primary'} group cursor-pointer py-4 font-semibold transition-all duration-700 ease-in-out hover:rounded-r-full hover:text-Primary-button`}
+            className="cursor-pointer py-4 font-semibold text-Primary-button transition-all duration-300 "
+            onClick={handleOpenNewBoard}
           >
-            <div className="ml-6 flex items-center gap-x-2">
-              <svg
-                width="16"
-                height="16"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="#828FA3"
-                className="group-hover:fill-Primary-button"
-              >
-                <path d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"></path>
-              </svg>
-              <h2>Example Board</h2>
-            </div>
-          </div>
-
-          <div
-            className={`${isOn ? 'hover:bg-Neutral-forth' : 'hover:bg-Neutral-Primary'} group cursor-pointer py-4 font-semibold transition-all duration-700 ease-in-out hover:rounded-r-full hover:text-Primary-button`}
-          >
-            <div className="ml-6 flex items-center gap-x-2">
-              <svg
-                width="16"
-                height="16"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="#828FA3"
-                className="group-hover:fill-Primary-button"
-              >
-                <path d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"></path>
-              </svg>
-              <h2>Example Board</h2>
-            </div>
-          </div>
-
-          <div className="cursor-pointer py-4 font-semibold text-Primary-button transition-all duration-300">
             <div className="ml-6 flex items-center gap-x-2">
               <svg
                 width="16"

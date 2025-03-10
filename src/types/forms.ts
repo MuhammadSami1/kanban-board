@@ -6,7 +6,7 @@ export type EditForm = {
 export type NewTaskForm = {
   title: string
   description: string
-  subtask: string
+  subtask: { title: string }[]
   status: string
 }
 

@@ -1,11 +1,11 @@
-import { useState } from 'react'
 import Button from './ui/Button'
 import { motion } from 'framer-motion'
-import { useForm } from 'react-hook-form'
+import { useFieldArray, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { NewTaskForm } from '@/src/types/forms'
 import { NewTaskSchema } from '@/src/lib/validation'
 import useToggleColor from '@/src/store/toggleColor'
+import globalBoard from '@/src/store/globalBoard'
 
 type TNewTask = {
   refAddNewTask: React.RefObject<HTMLDivElement>
@@ -14,15 +14,55 @@ type TNewTask = {
 const NewTask = ({ refAddNewTask }: TNewTask) => {
   const {
     register,
+    control,
+    reset,
+    handleSubmit,
     formState: { errors }
   } = useForm<NewTaskForm>({
-    resolver: yupResolver(NewTaskSchema)
+    resolver: yupResolver(NewTaskSchema),
+    defaultValues: {
+      title: '',
+      description: '',
+      subtask: [{ title: '' }]
+    }
   })
-  const [selectedOption, setSelectedOption] = useState('')
-  const isOn = useToggleColor((state) => state.isOn)
 
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOption(event.target.value)
+  const isOn = useToggleColor((state) => state.isOn)
+  const addNewTask = globalBoard((state) => state.addNewTask)
+  const board = globalBoard((state) => state.board)
+  const selectedBoard = globalBoard((state) => state.selectedBoard)
+
+  const selectedBoardColumn =
+    board.find((b) => b.id === selectedBoard)?.boardColumn || []
+
+  const { append, remove, fields } = useFieldArray({
+    control,
+    name: 'subtask'
+  })
+
+  const handleAddColumn = () => {
+    append({ title: '' })
+  }
+  const handleRemoveColumn = (id: number) => {
+    remove(id)
+  }
+
+  const onSubmit = (data: NewTaskForm) => {
+    if (selectedBoard) {
+      const boardId = selectedBoard
+      const columnName = data.status
+
+      addNewTask(
+        boardId,
+        columnName,
+        data.title,
+        data.description,
+        data.status,
+        data.subtask.map((subtask) => subtask.title)
+      )
+
+      reset()
+    }
   }
 
   return (
@@ -41,6 +81,7 @@ const NewTask = ({ refAddNewTask }: TNewTask) => {
         </div>
 
         <form
+          onSubmit={handleSubmit(onSubmit)}
           className={`${isOn ? 'text-Neutral-Secondary' : 'text-Neutral-Primary'} flex flex-col gap-y-5 py-3`}
         >
           <div className="flex flex-col gap-y-1">
@@ -80,36 +121,41 @@ const NewTask = ({ refAddNewTask }: TNewTask) => {
             <label htmlFor="subtask" className="text-xs">
               Subtasks
             </label>
-            <div className="flex justify-between">
-              <input
-                type="text"
-                {...register('subtask', { required: true })}
-                className={`${isOn ? 'bg-Neutral-Primary' : 'border-gray-600 bg-foreground'} w-64 rounded-md border-[1px] p-2 focus:outline-none sm:w-[350px] lg:w-96`}
-              />
-              <Button>
-                <svg
-                  width="15"
-                  height="15"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="#828FA3"
-                >
-                  <g fillRule="evenodd">
-                    <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"></path>
-                    <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z"></path>
-                  </g>
-                </svg>
-              </Button>
-            </div>
-            {errors.subtask && (
-              <p className="mt-1 text-sm text-red-600">
-                {errors.subtask.message}
-              </p>
-            )}
+            {fields.map((items, i) => (
+              <>
+                <div className="flex justify-between" key={items.id}>
+                  <input
+                    type="text"
+                    {...register(`subtask.${i}.title`, { required: true })}
+                    className={`${isOn ? 'bg-Neutral-Primary' : 'border-gray-600 bg-foreground'} w-64 rounded-md border-[1px] p-2 focus:outline-none sm:w-[350px] lg:w-96`}
+                  />
+                  <Button onClick={() => handleRemoveColumn(i)}>
+                    <svg
+                      width="15"
+                      height="15"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="#828FA3"
+                    >
+                      <g fillRule="evenodd">
+                        <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z"></path>
+                        <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z"></path>
+                      </g>
+                    </svg>
+                  </Button>
+                </div>
+                {errors.subtask?.[i]?.title && (
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.subtask[i]?.title?.message}
+                  </p>
+                )}
+              </>
+            ))}
           </div>
 
           <Button
             className={`${isOn ? 'bg-Neutral-forth' : 'bg-Neutral-Primary'} text-md w-full transform rounded-3xl font-semibold text-Primary-button transition-all duration-300 ease-in-out hover:scale-105`}
             size="lg"
+            onClick={handleAddColumn}
           >
             + Add New Subtask
           </Button>
@@ -125,19 +171,19 @@ const NewTask = ({ refAddNewTask }: TNewTask) => {
             <div className="relative text-xs">
               <select
                 id="column"
-                value={selectedOption}
                 {...register('status', {
-                  required: true,
-                  onChange: (e) => handleChange(e)
+                  required: true
                 })}
                 className={`${isOn ? 'bg-Neutral-Primary' : 'border-gray-600 bg-foreground'} group w-full cursor-pointer appearance-none rounded-md border-[1px] p-3 hover:border-Primary-button focus:outline-none`}
               >
                 <option value="" disabled hidden>
                   Select Column
                 </option>
-                <option value="Option 1">todo</option>
-                <option value="Option 2">in progress</option>
-                <option value="Option 3">done</option>
+                {selectedBoardColumn.map((column) => (
+                  <option key={column.id} value={column.name}>
+                    {column.name}
+                  </option>
+                ))}
               </select>
               {errors.status && (
                 <span className="text-xs text-red-500">

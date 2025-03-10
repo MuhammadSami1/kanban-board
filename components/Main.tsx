@@ -15,15 +15,19 @@ const Main = () => {
   const [openSubTaskModel, setOpenSubTaskModel] = useState(false)
   const [openDeleteBoard, setOpenDeleteBoard] = useState(false)
   const [editModel, setEditModel] = useState(false)
-  const isOn = useToggleColor((state) => state.isOn)
 
+  const isOn = useToggleColor((state) => state.isOn)
   const board = globalBoard((state) => state.board)
+  const selectedBoard = globalBoard((state) => state.selectedBoard)
 
   const refEdit = useRef<HTMLDivElement>(null)
   const refSubTask = useRef<HTMLDivElement>(null)
   const refSubTaskModel = useRef<HTMLDivElement>(null)
   const refDelete = useRef<HTMLDivElement>(null)
   const refEditModel = useRef<HTMLDivElement>(null)
+
+  const selectedBoardColumn =
+    board.find((items) => items.id === selectedBoard)?.boardColumn || []
 
   const openEditModel = () => {
     setEditModel((prev) => !prev)
@@ -160,34 +164,30 @@ const Main = () => {
       >
         <div className="flex gap-x-6">
           {/* tasks */}
-          {board.map((items) => (
-            <>
-              {items.boardColumn.map((items) => (
-                <div className="w-72 space-y-6" key={items.id}>
-                  <div className="flex items-center gap-x-2">
-                    <div className="h-4 w-4 rounded-full bg-yellow-400"></div>
-                    <h2 className="text-Neutral-Secondary">
-                      {`${items.name}`} (2)
-                    </h2>
-                  </div>
+          {selectedBoardColumn.map((items) => (
+            <div className="w-72 space-y-6" key={items.id}>
+              <div className="flex items-center gap-x-2">
+                <div className="h-4 w-4 rounded-full bg-yellow-400"></div>
+                <h2 className="text-Neutral-Secondary">
+                  {`${items.name}`} (2)
+                </h2>
+              </div>
 
-                  <div onClick={handleOpenSubTask} className="cursor-pointer">
-                    <div
-                      className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
-                    >
-                      <h3
-                        className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
-                      >
-                        Lorem ipsum dolor
-                      </h3>
-                      <h4 className="text-xs text-Neutral-Secondary">
-                        2 of 3 subtasks
-                      </h4>
-                    </div>
-                  </div>
+              <div onClick={handleOpenSubTask} className="cursor-pointer">
+                <div
+                  className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+                >
+                  <h3
+                    className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                  >
+                    Lorem ipsum dolor
+                  </h3>
+                  <h4 className="text-xs text-Neutral-Secondary">
+                    2 of 3 subtasks
+                  </h4>
                 </div>
-              ))}
-            </>
+              </div>
+            </div>
           ))}
         </div>
 

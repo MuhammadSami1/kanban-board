@@ -6,6 +6,14 @@ type GlobalBoard = {
   selectedBoard: number | null
   setSelectedBoard: (boardId: number | null) => void
   addNewBoard: (boardName: string, boardColumn: string[]) => void
+  addNewTask: (
+    boardId: number,
+    columnName: string,
+    title: string,
+    description: string,
+    status: string,
+    subtask: string[]
+  ) => void
 }
 
 const globalBoard = create<GlobalBoard>((set) => ({
@@ -26,15 +34,39 @@ const globalBoard = create<GlobalBoard>((set) => ({
           }))
         }
       ]
+    })),
+
+  addNewTask: (boardId, columnName, title, description, status, subtask) =>
+    set((state) => ({
+      board: state.board.map((board) =>
+        board.id === boardId
+          ? {
+              ...board,
+              boardColumn: board.boardColumn.map((column) =>
+                column.name === columnName
+                  ? {
+                      ...column,
+                      task: [
+                        ...column.task,
+                        {
+                          id: column.task.length + 1,
+                          title,
+                          description,
+                          status,
+                          subtask: subtask.map((subtaskItem, index) => ({
+                            id: index + 1,
+                            title: subtaskItem,
+                            isCompleted: false
+                          }))
+                        }
+                      ]
+                    }
+                  : column
+              )
+            }
+          : board
+      )
     }))
-
-  // addNewTask: (title, description, Subtasks, status) => set((state) => ({
-  //   board:[
-  //     ...state.board{
-
-  //     }
-  //   ]
-  // }))
 }))
 
 export default globalBoard

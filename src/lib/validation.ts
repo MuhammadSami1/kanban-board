@@ -20,14 +20,19 @@ export const NewTaskSchema = yup.object().shape({
     .string()
     .required('Description is required')
     .max(50, 'Description must be less than 50 characters'),
-  subtask: yup
-    .string()
-    .required('Subtask is required')
-    .max(50, 'Subtask must be less than 50 characters'),
   status: yup
     .string()
     .required('Status is required')
-    .oneOf(['Option 1', 'Option 2', 'Option 3'], 'Invalid status')
+    .oneOf(['Option 1', 'Option 2', 'Option 3'], 'Invalid status'),
+  subtask: yup
+    .array()
+    .of(
+      yup.object().shape({
+        title: yup.string().required('Title is required')
+      })
+    )
+    .required('Subtask is required')
+    .max(50, 'Subtask must be less than 50 characters')
 })
 
 export const AddNewBoardFormSchema = yup.object().shape({

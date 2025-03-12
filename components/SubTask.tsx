@@ -1,5 +1,5 @@
+import globalBoard from '@/src/store/globalBoard'
 import { motion } from 'framer-motion'
-import React, { useState } from 'react'
 
 type TEditBorad = {
   refSubTask: React.RefObject<HTMLDivElement>
@@ -7,10 +7,22 @@ type TEditBorad = {
 }
 
 const SubTask = ({ refSubTask, handleOpenSubTaskModel }: TEditBorad) => {
-  const [selectedOption, setSelectedOption] = useState('')
+  const board = globalBoard((state) => state.board)
+  const selectedBoard = globalBoard((state) => state.selectedBoard)
+  const updateSubtaskCompletion = globalBoard(
+    (state) => state.updateSubtaskCompletion
+  )
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOption(e.target.value)
+  const selectedBoardColumn =
+    board
+      .find((b) => b.id === selectedBoard)
+      ?.boardColumn.map((item) => item) || []
+
+  const handleCheckboxChange = (
+    taskId: string | number,
+    isCompleted: boolean
+  ) => {
+    updateSubtaskCompletion(taskId, !isCompleted)
   }
 
   return (
@@ -22,70 +34,78 @@ const SubTask = ({ refSubTask, handleOpenSubTaskModel }: TEditBorad) => {
         className="bg-Neutral-Primary flex w-[350px] flex-col rounded-lg px-6 py-6 sm:w-[450px] lg:w-[500px]"
         ref={refSubTask}
       >
-        <div className="text-md font-semibold flex items-center justify-between">
-          <div className="max-w-80 whitespace-normal">
-            Research pricing points of various competitors and trial different
-            business models
-          </div>
-          <div onClick={handleOpenSubTaskModel}>
-            <svg
-              width="5"
-              height="20"
-              xmlns="http://www.w3.org/2000/svg"
-              className="cursor-pointer"
-            >
-              <g fill="#828FA3" fillRule="evenodd">
-                <circle cx="2.308" cy="2.308" r="2.308"></circle>
-                <circle cx="2.308" cy="10" r="2.308"></circle>
-                <circle cx="2.308" cy="17.692" r="2.308"></circle>
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div className="whitespace-normal text-xs text-Neutral-Secondary py-4">
-          We know what we're planning to build for version one. Now we need to
-          finalise the first pricing model we'll use. Keep iterating the
-          subtasks until we have a coherent proposition.
-        </div>
+        {selectedBoardColumn.map((items) => (
+          <div key={items.id}>
+            {items.task.map((item) => (
+              <div key={item.id}>
+                <div className="text-md font-semibold flex items-center justify-between">
+                  <div className="max-w-80 whitespace-normal">{item.title}</div>
+                  <div onClick={handleOpenSubTaskModel}>
+                    <svg
+                      width="5"
+                      height="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="cursor-pointer"
+                    >
+                      <g fill="#828FA3" fillRule="evenodd">
+                        <circle cx="2.308" cy="2.308" r="2.308"></circle>
+                        <circle cx="2.308" cy="10" r="2.308"></circle>
+                        <circle cx="2.308" cy="17.692" r="2.308"></circle>
+                      </g>
+                    </svg>
+                  </div>
+                </div>
+                <div className="whitespace-normal text-xs text-Neutral-Secondary py-4">
+                  {item.description}
+                </div>
+                <div className="text-Neutral-Secondary">
+                  <div className="text-xs font-semibold">
+                    Subtasks ({item.subtask.length} of 3)
+                  </div>
 
-        <div className="text-Neutral-Secondary">
-          <div className="text-xs font-semibold">Subtasks (2 of 3)</div>
+                  {item.subtask.map((task) => (
+                    <div
+                      className="flex flex-col gap-y-2 my-4 text-sm text-Neutral-tertiary"
+                      key={task.id}
+                    >
+                      <div
+                        className="flex gap-x-3  p-3 rounded-md bg-Form-Primary transition-all duration-500 ease-in-out"
+                        id="subTask"
+                      >
+                        <input
+                          type="checkbox"
+                          name="subTaskCheckbox"
+                          id="subTaskCheckbox"
+                          checked={task.isCompleted}
+                          className="accent-CheckBox-Primary"
+                          onChange={() =>
+                            handleCheckboxChange(task.id, task.isCompleted)
+                          }
+                        />
 
-          <div className="flex flex-col gap-y-2 my-4 text-sm text-Neutral-tertiary">
-            <div
-              className="flex gap-x-3  p-3 rounded-md bg-Form-Primary transition-all duration-500 ease-in-out"
-              id="subTask"
-            >
-              <input
-                type="checkbox"
-                name="subTaskCheckbox"
-                id="subTaskCheckbox"
-                className="accent-CheckBox-Primary"
-              />
-
-              <div>Math</div>
+                        <div>{task.title}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+            <div className="relative text-xs">
+              <div className="text-Neutral-Secondary font-bold py-2">
+                Current Status
+              </div>
+              <select
+                id="subTaskColumn"
+                className="bg-Neutral-Primary border-gray-300 group w-full cursor-pointer appearance-none rounded-md border-[1px] p-3  hover:border-Primary-button focus:outline-none"
+              >
+                <option value="" disabled hidden>
+                  Select Column
+                </option>
+                <option value={items.name}>{items.name}</option>
+              </select>
             </div>
           </div>
-        </div>
-
-        <div className="relative text-xs">
-          <div className="text-Neutral-Secondary font-bold py-2">
-            Current Status
-          </div>
-          <select
-            id="subTaskColumn"
-            value={selectedOption}
-            onChange={(e) => handleChange(e)}
-            className="bg-Neutral-Primary border-gray-300 group w-full cursor-pointer appearance-none rounded-md border-[1px] p-3  hover:border-Primary-button focus:outline-none"
-          >
-            <option value="" disabled hidden>
-              Select Column
-            </option>
-            <option value="Option 1">todo</option>
-            <option value="Option 2">in progress</option>
-            <option value="Option 3">done</option>
-          </select>
-        </div>
+        ))}
       </motion.div>
     </div>
   )

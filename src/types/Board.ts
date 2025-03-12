@@ -1,11 +1,11 @@
 type SubTask = {
-  id: number
+  id: number | string
   title: string
   isCompleted: boolean
 }
 
 type Task = {
-  id: number
+  id: number | string
   title: string
   description: string
   status: string
@@ -13,7 +13,7 @@ type Task = {
 }
 
 export type BoardColumn = {
-  id: number
+  id: number | string
   name: string
   task: Task[]
 }

@@ -15,15 +15,21 @@ export const NewTaskSchema = yup.object().shape({
   title: yup
     .string()
     .required('Title is required')
-    .max(50, 'Title must be less than 50 characters'),
+    .max(15, 'Title must be less than 15 characters'),
   description: yup
     .string()
     .required('Description is required')
-    .max(50, 'Description must be less than 50 characters'),
+    .max(500, 'Description must be less than 50 characters'),
   status: yup
     .string()
     .required('Status is required')
-    .oneOf(['Option 1', 'Option 2', 'Option 3'], 'Invalid status'),
+    .test('valid-status', 'Invalid status', function (value) {
+      const { selectedBoardColumn } = this.options.context || {}
+      if (!selectedBoardColumn) return false // No columns available
+      return selectedBoardColumn.some(
+        (column: { name: string }) => column.name === value
+      )
+    }),
   subtask: yup
     .array()
     .of(
@@ -32,18 +38,24 @@ export const NewTaskSchema = yup.object().shape({
       })
     )
     .required('Subtask is required')
-    .max(50, 'Subtask must be less than 50 characters')
+    .min(1, 'At least one subtask is required')
+    .max(15, 'Subtask must be less than 15 characters')
 })
 
 export const AddNewBoardFormSchema = yup.object().shape({
-  boradName: yup.string().required('Board Name is required'),
+  boradName: yup
+    .string()
+    .required('Board Name is required')
+    .max(10, 'Board Column must be less than 10 characters'),
   boradColmn: yup
     .array()
     .of(
       yup.object().shape({
-        name: yup.string().required('Column name is required')
+        name: yup
+          .string()
+          .required('Column name is required')
+          .max(15, 'Column name must be less than 15 characters')
       })
     )
     .required('Board Column is required')
-    .max(50, 'Board Column must be less than 50 characters')
 })

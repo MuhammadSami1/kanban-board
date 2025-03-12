@@ -225,6 +225,7 @@ const NavbarWrapper = () => {
         openSideBarMini={openSideBarMini}
         sideBarMini={sideBarMini}
       />
+
       {isOpen && (
         <NavbarModel
           openEdit={openEdit}
@@ -234,17 +235,32 @@ const NavbarWrapper = () => {
           openResetBoard={openResetBoard}
         />
       )}
+
       {edit && <Editboard refEdit={refEdit} />}
-      {clearBoard && <ClearBoard refClear={refClear} />}
-      {resetBoard && <ResetBoard refReset={refReset} />}
-      {deleteBoard && <DeleteBoard refDelete={refDelete} />}
-      {addNewTask && <NewTask refAddNewTask={refAddNewTask} />}
+
+      {clearBoard && (
+        <ClearBoard refClear={refClear} setClearBoard={setClearBoard} />
+      )}
+
+      {resetBoard && (
+        <ResetBoard refReset={refReset} setResetBoard={setResetBoard} />
+      )}
+
+      {deleteBoard && (
+        <DeleteBoard refDelete={refDelete} setDeleteBoard={setDeleteBoard} />
+      )}
+
+      {addNewTask && (
+        <NewTask refAddNewTask={refAddNewTask} setAddNewTask={setAddNewTask} />
+      )}
+
       {sideBarMini && (
         <SidebarMini
           refSideBarMini={refSideBarMini}
           handleOpenNewBoard={handleOpenNewBoard}
         />
       )}
+
       {openNewBoard && (
         <NewBoard
           refNewBoard={refNewBoard}

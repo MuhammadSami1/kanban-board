@@ -164,29 +164,36 @@ const Main = () => {
       >
         <div className="flex gap-x-6">
           {/* tasks */}
+
           {selectedBoardColumn.map((items) => (
             <div className="w-72 space-y-6" key={items.id}>
               <div className="flex items-center gap-x-2">
                 <div className="h-4 w-4 rounded-full bg-yellow-400"></div>
                 <h2 className="text-Neutral-Secondary">
-                  {`${items.name}`} (2)
+                  {`${items.name} (${items.task.length})`}
                 </h2>
               </div>
 
-              <div onClick={handleOpenSubTask} className="cursor-pointer">
+              {items.task.map((item) => (
                 <div
-                  className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
+                  onClick={handleOpenSubTask}
+                  className="cursor-pointer"
+                  key={item.id}
                 >
-                  <h3
-                    className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                  <div
+                    className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
                   >
-                    Lorem ipsum dolor
-                  </h3>
-                  <h4 className="text-xs text-Neutral-Secondary">
-                    2 of 3 subtasks
-                  </h4>
+                    <h3
+                      className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
+                    >
+                      {item.title}
+                    </h3>
+                    <h4 className="text-xs text-Neutral-Secondary">
+                      2 of {item.subtask.length} subtasks
+                    </h4>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
           ))}
         </div>
@@ -200,13 +207,16 @@ const Main = () => {
           </Button>
         </div>
       </motion.div>
+
       {edit && <Editboard refEdit={refEdit} />}
+
       {openSubTask && (
         <SubTask
           refSubTask={refSubTask}
           handleOpenSubTaskModel={handleOpenSubTaskModel}
         />
       )}
+
       {openSubTaskModel && (
         <SubTaskModel
           refSubTaskModel={refSubTaskModel}
@@ -214,7 +224,14 @@ const Main = () => {
           openEditModel={openEditModel}
         />
       )}
-      {openDeleteBoard && <DeleteBoard refDelete={refDelete} />}
+
+      {openDeleteBoard && (
+        <DeleteBoard
+          refDelete={refDelete}
+          setDeleteBoard={setOpenDeleteBoard}
+        />
+      )}
+
       {editModel && <Editboard refEdit={refEditModel} />}
     </>
   )

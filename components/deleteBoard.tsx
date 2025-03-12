@@ -5,10 +5,15 @@ import useToggleColor from '@/src/store/toggleColor'
 
 type TDeleteBoard = {
   refDelete: React.RefObject<HTMLDivElement>
+  setDeleteBoard: (value: boolean | ((prev: boolean) => boolean)) => void
 }
 
-const deleteBoard = ({ refDelete }: TDeleteBoard) => {
+const deleteBoard = ({ refDelete, setDeleteBoard }: TDeleteBoard) => {
   const isOn = useToggleColor((state) => state.isOn)
+
+  const handleClose = () => {
+    setDeleteBoard((prev) => !prev)
+  }
   return (
     <div className="fixed inset-0 flex h-full items-center justify-center bg-black bg-opacity-50">
       <motion.div
@@ -39,6 +44,7 @@ const deleteBoard = ({ refDelete }: TDeleteBoard) => {
           <Button
             className={`${isOn ? 'bg-Neutral-forth' : 'bg-Neutral-Primary'} w-full rounded-3xl text-xs font-medium text-Primary-button md:font-semibold`}
             size="lg"
+            onClick={handleClose}
           >
             Cancel
           </Button>

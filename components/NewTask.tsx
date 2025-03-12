@@ -9,9 +9,18 @@ import globalBoard from '@/src/store/globalBoard'
 
 type TNewTask = {
   refAddNewTask: React.RefObject<HTMLDivElement>
+  setAddNewTask: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const NewTask = ({ refAddNewTask }: TNewTask) => {
+const NewTask = ({ refAddNewTask, setAddNewTask }: TNewTask) => {
+  const isOn = useToggleColor((state) => state.isOn)
+  const addNewTask = globalBoard((state) => state.addNewTask)
+  const board = globalBoard((state) => state.board)
+  const selectedBoard = globalBoard((state) => state.selectedBoard)
+
+  const selectedBoardColumn =
+    board.find((b) => b.id === selectedBoard)?.boardColumn || []
+
   const {
     register,
     control,
@@ -23,17 +32,13 @@ const NewTask = ({ refAddNewTask }: TNewTask) => {
     defaultValues: {
       title: '',
       description: '',
-      subtask: [{ title: '' }]
+      subtask: [{ title: '' }],
+      status: ''
+    },
+    context: {
+      selectedBoardColumn
     }
   })
-
-  const isOn = useToggleColor((state) => state.isOn)
-  const addNewTask = globalBoard((state) => state.addNewTask)
-  const board = globalBoard((state) => state.board)
-  const selectedBoard = globalBoard((state) => state.selectedBoard)
-
-  const selectedBoardColumn =
-    board.find((b) => b.id === selectedBoard)?.boardColumn || []
 
   const { append, remove, fields } = useFieldArray({
     control,
@@ -57,11 +62,11 @@ const NewTask = ({ refAddNewTask }: TNewTask) => {
         columnName,
         data.title,
         data.description,
-        data.status,
+        columnName,
         data.subtask.map((subtask) => subtask.title)
       )
-
       reset()
+      setAddNewTask((prev: boolean) => !prev)
     }
   }
 

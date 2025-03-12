@@ -1,14 +1,18 @@
-import React from 'react'
 import Button from './ui/Button'
 import { motion } from 'framer-motion'
 import useToggleColor from '@/src/store/toggleColor'
 
 type TResetBoard = {
   refReset: React.RefObject<HTMLDivElement>
+  setResetBoard: (value: boolean | ((prev: boolean) => boolean)) => void
 }
 
-const ResetBoard = ({ refReset }: TResetBoard) => {
+const ResetBoard = ({ refReset, setResetBoard }: TResetBoard) => {
   const isOn = useToggleColor((state) => state.isOn)
+
+  const handleClose = () => {
+    setResetBoard((prev) => !prev)
+  }
   return (
     <div className="fixed inset-0 flex h-full items-center justify-center bg-black bg-opacity-50">
       <motion.div
@@ -40,6 +44,7 @@ const ResetBoard = ({ refReset }: TResetBoard) => {
           <Button
             className={`${isOn ? 'bg-Neutral-forth' : 'bg-Neutral-Primary'} w-full rounded-3xl text-xs font-medium text-Primary-button md:font-semibold`}
             size="lg"
+            onClick={handleClose}
           >
             Cancel
           </Button>

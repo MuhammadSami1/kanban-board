@@ -2,14 +2,22 @@ import React from 'react'
 import Button from './ui/Button'
 import { motion } from 'framer-motion'
 import useToggleColor from '@/src/store/toggleColor'
+import globalBoard from '@/src/store/globalBoard'
 
 type TClearBoard = {
   refClear: React.RefObject<HTMLDivElement>
   setClearBoard: (value: boolean | ((prev: boolean) => boolean)) => void
+  id: number | null
 }
 
-const ClearBoard = ({ refClear, setClearBoard }: TClearBoard) => {
+const ClearBoard = ({ refClear, setClearBoard, id }: TClearBoard) => {
   const isOn = useToggleColor((state) => state.isOn)
+  const clearBoard = globalBoard((state) => state.clearBoard)
+
+  const handleClear = (id: number | null) => {
+    clearBoard(id)
+    setClearBoard((prev) => !prev)
+  }
 
   const handleClose = () => {
     setClearBoard((prev) => !prev)
@@ -38,6 +46,7 @@ const ClearBoard = ({ refClear, setClearBoard }: TClearBoard) => {
           <Button
             className="w-full rounded-3xl bg-secondary text-xs font-medium text-Neutral-Primary md:font-semibold"
             size="lg"
+            onClick={() => handleClear(id)}
           >
             Clear
           </Button>

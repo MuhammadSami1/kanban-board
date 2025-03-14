@@ -1,14 +1,23 @@
 import Button from './ui/Button'
 import { motion } from 'framer-motion'
 import useToggleColor from '@/src/store/toggleColor'
+import globalBoard from '@/src/store/globalBoard'
 
 type TResetBoard = {
   refReset: React.RefObject<HTMLDivElement>
   setResetBoard: (value: boolean | ((prev: boolean) => boolean)) => void
+  id: number | null
 }
 
-const ResetBoard = ({ refReset, setResetBoard }: TResetBoard) => {
+const ResetBoard = ({ refReset, setResetBoard, id }: TResetBoard) => {
   const isOn = useToggleColor((state) => state.isOn)
+  const resetBoard = globalBoard((state) => state.resetBoard)
+
+  const handleReset = (id: number | null) => {
+    resetBoard(id)
+    setResetBoard((prev) => !prev)
+    console.log(id)
+  }
 
   const handleClose = () => {
     setResetBoard((prev) => !prev)
@@ -38,6 +47,7 @@ const ResetBoard = ({ refReset, setResetBoard }: TResetBoard) => {
           <Button
             className="w-full rounded-3xl bg-secondary text-xs font-medium text-Neutral-Primary md:font-semibold"
             size="lg"
+            onClick={() => handleReset(id)}
           >
             Reset
           </Button>

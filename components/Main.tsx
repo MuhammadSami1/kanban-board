@@ -6,8 +6,9 @@ import { useEffect, useRef, useState } from 'react'
 import useToggleColor from '@/src/store/toggleColor'
 import SubTask from './SubTask'
 import SubTaskModel from './SubTaskModel'
-import DeleteBoard from './deleteBoard'
+
 import globalBoard from '@/src/store/globalBoard'
+import NewTaskDeleteBoard from './NewTaskDeleteBoard'
 
 const Main = () => {
   const [edit, setEdit] = useState(false)
@@ -170,7 +171,7 @@ const Main = () => {
               <div className="flex items-center gap-x-2">
                 <div className="h-4 w-4 rounded-full bg-yellow-400"></div>
                 <h2 className="text-Neutral-Secondary">
-                  {`${items.name} (${items.task.length})`}
+                  {`${items.name} (${items.task?.length})`}
                 </h2>
               </div>
 
@@ -226,9 +227,10 @@ const Main = () => {
       )}
 
       {openDeleteBoard && (
-        <DeleteBoard
+        <NewTaskDeleteBoard
           refDelete={refDelete}
           setDeleteBoard={setOpenDeleteBoard}
+          id={selectedBoard}
         />
       )}
 

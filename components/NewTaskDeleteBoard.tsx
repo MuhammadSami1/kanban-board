@@ -3,18 +3,22 @@ import { motion } from 'framer-motion'
 import useToggleColor from '@/src/store/toggleColor'
 import globalBoard from '@/src/store/globalBoard'
 
-type TDeleteBoard = {
+type TNewTaskDeleteBoard = {
   refDelete: React.RefObject<HTMLDivElement>
   setDeleteBoard: (value: boolean | ((prev: boolean) => boolean)) => void
   id: number | null
 }
 
-const deleteBoard = ({ refDelete, setDeleteBoard, id }: TDeleteBoard) => {
+const NewTaskDeleteBoard = ({
+  refDelete,
+  setDeleteBoard,
+  id
+}: TNewTaskDeleteBoard) => {
   const isOn = useToggleColor((state) => state.isOn)
-  const deleteBoard = globalBoard((state) => state.deleteBoard)
+  const deleteTask = globalBoard((state) => state.deleteTask)
 
   const handleDelete = (id: number | null) => {
-    deleteBoard(id)
+    deleteTask(id)
     setDeleteBoard((prev) => !prev)
   }
 
@@ -62,4 +66,4 @@ const deleteBoard = ({ refDelete, setDeleteBoard, id }: TDeleteBoard) => {
   )
 }
 
-export default deleteBoard
+export default NewTaskDeleteBoard

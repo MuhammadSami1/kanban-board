@@ -1,29 +1,7 @@
 import { create } from 'zustand'
-import Board from '../types/Board'
+
 import { v4 as uuidv4 } from 'uuid'
-
-type GlobalBoard = {
-  board: Board[]
-  selectedBoard: number | null
-
-  setSelectedBoard: (boardId: number | null) => void
-
-  addNewBoard: (boardName: string, boardColumn: string[]) => void
-
-  addNewTask: (
-    boardId: number,
-    columnName: string,
-    title: string,
-    description: string,
-    status: string,
-    subtask: string[]
-  ) => void
-
-  updateSubtaskCompletion: (
-    taskId: string | number,
-    isCompleted: boolean
-  ) => void
-}
+import GlobalBoard from '../types/globalBoard'
 
 const globalBoard = create<GlobalBoard>((set) => ({
   board: [],
@@ -99,6 +77,39 @@ const globalBoard = create<GlobalBoard>((set) => ({
           }))
         }))
       }))
+    })),
+
+  deleteBoard: (id) =>
+    set((state) => ({
+      board: state.board.filter((items) => items.id != id)
+    })),
+
+  deleteTask: (id) =>
+    set((state) => ({
+      board: state.board.map((board) => ({
+        ...board,
+        boardColumn: board.boardColumn.map((column) => ({
+          ...column,
+          task: column.task.filter((task) => task.id !== id)
+        }))
+      }))
+    })),
+
+  resetBoard: (id) =>
+    set((state) => ({
+      board: state.board.filter((board) => board.id !== id)
+    })),
+
+  clearBoard: (id) =>
+    set((state) => ({
+      board: state.board.map((board) =>
+        board.id === id
+          ? {
+              ...board,
+              boardColumn: []
+            }
+          : board
+      )
     }))
 }))
 

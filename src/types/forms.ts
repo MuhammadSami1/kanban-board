@@ -1,6 +1,6 @@
 export type EditForm = {
   boradName: string
-  boradColmn: string
+  boradColmn: { name: string }[]
 }
 
 export type NewTaskForm = {

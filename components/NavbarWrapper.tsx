@@ -9,8 +9,11 @@ import DeleteBoard from './deleteBoard'
 import NewTask from './NewTask'
 import SidebarMini from './SidebarMini'
 import NewBoard from './NewBoard'
+import globalBoard from '@/src/store/globalBoard'
 
 const NavbarWrapper = () => {
+  const selectedBoard = globalBoard((state) => state.selectedBoard)
+
   const [isOpen, setIsOpen] = useState(false)
   const [edit, setEdit] = useState(false)
   const [clearBoard, setClearBoard] = useState(false)
@@ -236,18 +239,32 @@ const NavbarWrapper = () => {
         />
       )}
 
-      {edit && <Editboard refEdit={refEdit} />}
+      {edit && selectedBoard && (
+        <Editboard refEdit={refEdit} setEdit={setEdit} />
+      )}
 
       {clearBoard && (
-        <ClearBoard refClear={refClear} setClearBoard={setClearBoard} />
+        <ClearBoard
+          refClear={refClear}
+          setClearBoard={setClearBoard}
+          id={selectedBoard}
+        />
       )}
 
       {resetBoard && (
-        <ResetBoard refReset={refReset} setResetBoard={setResetBoard} />
+        <ResetBoard
+          refReset={refReset}
+          setResetBoard={setResetBoard}
+          id={selectedBoard}
+        />
       )}
 
       {deleteBoard && (
-        <DeleteBoard refDelete={refDelete} setDeleteBoard={setDeleteBoard} />
+        <DeleteBoard
+          refDelete={refDelete}
+          setDeleteBoard={setDeleteBoard}
+          id={selectedBoard}
+        />
       )}
 
       {addNewTask && (

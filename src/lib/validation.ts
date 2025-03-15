@@ -4,9 +4,17 @@ export const EditFormSchema = yup.object().shape({
   boradName: yup
     .string()
     .required('Board Name is required')
-    .max(50, 'Board Name must be less than 50 characters'),
+    .max(10, 'Board Name must be less than 10 characters'),
   boradColmn: yup
-    .string()
+    .array()
+    .of(
+      yup.object().shape({
+        name: yup
+          .string()
+          .required('Column name is required')
+          .max(15, 'Column name must be less than 15 characters')
+      })
+    )
     .required('Board Column is required')
     .max(50, 'Board Column must be less than 50 characters')
 })

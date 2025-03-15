@@ -1,4 +1,4 @@
-import Board from '../types/Board'
+import Board, { BoardColumn } from '../types/Board'
 
 type GlobalBoard = {
   board: Board[]
@@ -13,6 +13,8 @@ type GlobalBoard = {
   resetBoard: (id: number | null) => void
 
   clearBoard: (id: number | null) => void
+
+  editBoard: (id: number, boradName: string, boradColmn: BoardColumn[]) => void
 
   addNewBoard: (boardName: string, boardColumn: string[]) => void
 

@@ -15,6 +15,7 @@ type TNewBoard = {
 
 const NewBoard = ({ refNewBoard, handleOpenNewBoard }: TNewBoard) => {
   const addNewBoard = globalBoard((state) => state.addNewBoard)
+  const isOn = useToggleColor((state) => state.isOn)
 
   const {
     register,
@@ -43,8 +44,6 @@ const NewBoard = ({ refNewBoard, handleOpenNewBoard }: TNewBoard) => {
     reset()
     handleOpenNewBoard()
   }
-
-  const isOn = useToggleColor((state) => state.isOn)
 
   const handleAddColumn = () => {
     append({ name: '' })

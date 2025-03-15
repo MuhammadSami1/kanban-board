@@ -110,6 +110,19 @@ const globalBoard = create<GlobalBoard>((set) => ({
             }
           : board
       )
+    })),
+
+  editBoard: (id, boradName, boradColmn) =>
+    set((state) => ({
+      board: state.board.map((board) =>
+        board.id === id
+          ? {
+              ...board,
+              boardName: boradName,
+              boardColumn: boradColmn
+            }
+          : board
+      )
     }))
 }))
 

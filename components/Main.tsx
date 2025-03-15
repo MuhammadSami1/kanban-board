@@ -9,6 +9,7 @@ import SubTaskModel from './SubTaskModel'
 
 import globalBoard from '@/src/store/globalBoard'
 import NewTaskDeleteBoard from './NewTaskDeleteBoard'
+import EditTask from './EditTask'
 
 const Main = () => {
   const [edit, setEdit] = useState(false)
@@ -209,7 +210,9 @@ const Main = () => {
         </div>
       </motion.div>
 
-      {edit && <Editboard refEdit={refEdit} />}
+      {edit && selectedBoard && (
+        <Editboard refEdit={refEdit} setEdit={setEdit} />
+      )}
 
       {openSubTask && (
         <SubTask
@@ -234,7 +237,7 @@ const Main = () => {
         />
       )}
 
-      {editModel && <Editboard refEdit={refEditModel} />}
+      {editModel && <EditTask refEdit={refEditModel} />}
     </>
   )
 }

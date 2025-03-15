@@ -239,7 +239,9 @@ const NavbarWrapper = () => {
         />
       )}
 
-      {edit && <Editboard refEdit={refEdit} />}
+      {edit && selectedBoard && (
+        <Editboard refEdit={refEdit} setEdit={setEdit} />
+      )}
 
       {clearBoard && (
         <ClearBoard

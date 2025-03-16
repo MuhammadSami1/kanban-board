@@ -31,6 +31,13 @@ type GlobalBoard = {
     taskId: string | number,
     isCompleted: boolean
   ) => void
+
+  moveTaskWithinColumn: (
+    boardId: number | string,
+    columnId: number | string,
+    activeId: number | string,
+    overId: number | string
+  ) => void
 }
 
 export default GlobalBoard

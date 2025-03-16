@@ -66,7 +66,7 @@ const Sidebar = ({ handleOpenNewBoard }: TSidebar) => {
             <div className="flex flex-col text-sm tracking-wider">
               {board.map((items) => (
                 <div
-                  className={`${isOn ? 'hover:bg-Neutral-forth' : 'hover:bg-Neutral-Primary'} group cursor-pointer py-4 pl-8 font-semibold transition-all duration-700 ease-in-out hover:rounded-r-full hover:text-Primary-button md:pr-9 ${selectedBoard === items.id && 'bg-Primary-button text-Neutral-Primary rounded-r-full'}`}
+                  className={`${isOn ? 'hover:bg-Neutral-forth' : 'hover:bg-Neutral-Primary'} group cursor-pointer py-4 pl-8 font-semibold transition-all duration-500 ease-in-out hover:rounded-r-full hover:text-Primary-button md:pr-9 ${selectedBoard === items.id && 'bg-Primary-button text-Neutral-Primary rounded-r-full'}`}
                   key={items.id}
                   onClick={() => handleOnClick(items.id)}
                 >
@@ -128,7 +128,7 @@ const Sidebar = ({ handleOpenNewBoard }: TSidebar) => {
                       checked={isOn}
                       id="lightModeToggle"
                     />
-                    <div className="peer h-6 w-12 rounded-full bg-Primary-button after:absolute after:left-1 after:top-1 after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:duration-700 after:content-[''] peer-checked:bg-indigo-500 peer-checked:after:translate-x-6 peer-checked:after:border-white"></div>
+                    <div className="peer h-6 w-12 rounded-full bg-Primary-button after:absolute after:left-1 after:top-1 after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:duration-500 after:content-[''] peer-checked:bg-indigo-500 peer-checked:after:translate-x-6 peer-checked:after:border-white"></div>
                   </label>
 
                   <svg
@@ -145,7 +145,7 @@ const Sidebar = ({ handleOpenNewBoard }: TSidebar) => {
               </div>
 
               <div
-                className="group cursor-pointer rounded-r-full py-4 pl-8 pr-14 transition-all duration-700 ease-in-out hover:bg-Neutral-Primary hover:text-Primary-button"
+                className="group cursor-pointer rounded-r-full py-4 pl-8 pr-14 transition-all duration-500 ease-in-out hover:bg-Neutral-Primary hover:text-Primary-button"
                 onClick={closeSideBar}
               >
                 <div className="flex items-center gap-x-5 font-semibold">

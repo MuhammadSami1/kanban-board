@@ -36,7 +36,7 @@ const SidebarMini = ({ refSideBarMini, handleOpenNewBoard }: TSidebarMini) => {
         <div className="flex flex-col text-sm tracking-wider">
           {board.map((items) => (
             <div
-              className={`${isOn ? 'hover:bg-Neutral-forth' : 'hover:bg-Neutral-Primary'} group cursor-pointer py-4 font-semibold transition-all duration-700 ease-in-out hover:rounded-r-full hover:text-Primary-button ${selectedBoard === items.id && 'bg-Primary-button text-Neutral-Primary rounded-r-full'}`}
+              className={`${isOn ? 'hover:bg-Neutral-forth' : 'hover:bg-Neutral-Primary'} group cursor-pointer py-4 font-semibold transition-all duration-500 ease-in-out hover:rounded-r-full hover:text-Primary-button ${selectedBoard === items.id && 'bg-Primary-button text-Neutral-Primary rounded-r-full'}`}
               key={items.id}
               onClick={() => handleOnClick(items.id)}
             >
@@ -95,7 +95,7 @@ const SidebarMini = ({ refSideBarMini, handleOpenNewBoard }: TSidebarMini) => {
                 checked={isOn}
                 id="lightModeToggle"
               />
-              <div className="peer h-6 w-12 rounded-full bg-Primary-button after:absolute after:left-1 after:top-1 after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:duration-700 after:content-[''] peer-checked:bg-indigo-500 peer-checked:after:translate-x-6 peer-checked:after:border-white"></div>
+              <div className="peer h-6 w-12 rounded-full bg-Primary-button after:absolute after:left-1 after:top-1 after:h-4 after:w-4 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:duration-500 after:content-[''] peer-checked:bg-indigo-500 peer-checked:after:translate-x-6 peer-checked:after:border-white"></div>
             </label>
 
             <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">

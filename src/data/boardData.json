@@ -1,0 +1,208 @@
+{
+  "board": [
+    {
+      "id": 1,
+      "boardName": "Project A",
+      "boardColumn": [
+        {
+          "id": "col1",
+          "name": "To Do",
+          "task": [
+            {
+              "id": "task1",
+              "title": "Design DB",
+              "description": "Design the database schema.",
+              "status": "To Do",
+              "subtask": [
+                {
+                  "id": "subtask1",
+                  "title": "Define tables",
+                  "isCompleted": false
+                },
+                {
+                  "id": "subtask2",
+                  "title": "Add relationships",
+                  "isCompleted": false
+                }
+              ]
+            },
+            {
+              "id": "task2",
+              "title": "Setup API",
+              "description": "Create REST API endpoints.",
+              "status": "To Do",
+              "subtask": [
+                {
+                  "id": "subtask3",
+                  "title": "Define routes",
+                  "isCompleted": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "col2",
+          "name": "In Progress",
+          "task": [
+            {
+              "id": "task3",
+              "title": "Auth System",
+              "description": "Implement OAuth2.",
+              "status": "In Progress",
+              "subtask": [
+                {
+                  "id": "subtask4",
+                  "title": "Setup OAuth2",
+                  "isCompleted": true
+                },
+                {
+                  "id": "subtask5",
+                  "title": "Integrate FE",
+                  "isCompleted": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "boardName": "Project B",
+      "boardColumn": [
+        {
+          "id": "col3",
+          "name": "To Do",
+          "task": [
+            {
+              "id": "task4",
+              "title": "UI Design",
+              "description": "Design the user interface.",
+              "status": "To Do",
+              "subtask": [
+                {
+                  "id": "subtask6",
+                  "title": "Create wireframes",
+                  "isCompleted": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "col4",
+          "name": "Done",
+          "task": [
+            {
+              "id": "task5",
+              "title": "Project Setup",
+              "description": "Initialize the project.",
+              "status": "Done",
+              "subtask": [
+                {
+                  "id": "subtask7",
+                  "title": "Create repo",
+                  "isCompleted": true
+                },
+                {
+                  "id": "subtask8",
+                  "title": "Setup structure",
+                  "isCompleted": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "col5",
+          "name": "Testing",
+          "task": [
+            {
+              "id": "task6",
+              "title": "Write Tests",
+              "description": "Write unit and integration tests.",
+              "status": "To Do",
+              "subtask": [
+                {
+                  "id": "subtask9",
+                  "title": "Unit tests",
+                  "isCompleted": false
+                },
+                {
+                  "id": "subtask10",
+                  "title": "Integration tests",
+                  "isCompleted": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "boardName": "Project C",
+      "boardColumn": [
+        {
+          "id": "col6",
+          "name": "To Do",
+          "task": [
+            {
+              "id": "task7",
+              "title": "Test Cases",
+              "description": "Write test cases.",
+              "status": "To Do",
+              "subtask": [
+                {
+                  "id": "subtask11",
+                  "title": "Unit tests",
+                  "isCompleted": false
+                },
+                {
+                  "id": "subtask12",
+                  "title": "Integration tests",
+                  "isCompleted": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "col7",
+          "name": "In Progress",
+          "task": [
+            {
+              "id": "task8",
+              "title": "Deploy App",
+              "description": "Deploy to production.",
+              "status": "In Progress",
+              "subtask": [
+                {
+                  "id": "subtask13",
+                  "title": "Setup server",
+                  "isCompleted": true
+                },
+                {
+                  "id": "subtask14",
+                  "title": "Deploy FE",
+                  "isCompleted": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "col8",
+          "name": "Review",
+          "task": []
+        },
+        {
+          "id": "col9",
+          "name": "Done",
+          "task": []
+        }
+      ]
+    }
+  ]
+}

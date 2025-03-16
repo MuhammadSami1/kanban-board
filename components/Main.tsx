@@ -10,6 +10,22 @@ import SubTaskModel from './SubTaskModel'
 import globalBoard from '@/src/store/globalBoard'
 import NewTaskDeleteBoard from './NewTaskDeleteBoard'
 import EditTask from './EditTask'
+import SortableTask from './SortableTask'
+import {
+  closestCenter,
+  DndContext,
+  DragEndEvent,
+  KeyboardSensor,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+  useSensors
+} from '@dnd-kit/core'
+import {
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy
+} from '@dnd-kit/sortable'
 
 const Main = () => {
   const [edit, setEdit] = useState(false)
@@ -17,10 +33,14 @@ const Main = () => {
   const [openSubTaskModel, setOpenSubTaskModel] = useState(false)
   const [openDeleteBoard, setOpenDeleteBoard] = useState(false)
   const [editModel, setEditModel] = useState(false)
+  const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null)
 
   const isOn = useToggleColor((state) => state.isOn)
   const board = globalBoard((state) => state.board)
   const selectedBoard = globalBoard((state) => state.selectedBoard)
+  const moveTaskWithinColumn = globalBoard(
+    (state) => state.moveTaskWithinColumn
+  )
 
   const refEdit = useRef<HTMLDivElement>(null)
   const refSubTask = useRef<HTMLDivElement>(null)
@@ -30,6 +50,33 @@ const Main = () => {
 
   const selectedBoardColumn =
     board.find((items) => items.id === selectedBoard)?.boardColumn || []
+
+  const onDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event
+
+    if (!over) return
+
+    if (active.id === over.id) return
+
+    const selectedBoardData = board.find((b) => b.id === selectedBoard)
+    if (!selectedBoardData) return
+
+    const column = selectedBoardData.boardColumn.find((col) =>
+      col.task.some((task) => task.id === active.id)
+    )
+    if (!column) return
+
+    if (selectedBoard !== null) {
+      moveTaskWithinColumn(selectedBoard, column.id, active.id, over.id)
+    }
+  }
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates
+    })
+  )
 
   const openEditModel = () => {
     setEditModel((prev) => !prev)
@@ -54,7 +101,8 @@ const Main = () => {
     }
   }
 
-  const handleOpenSubTask = () => {
+  const handleOpenSubTask = (taskId: string) => {
+    setSelectedTaskId(taskId)
     setOpenSubTask((prev) => !prev)
   }
 
@@ -167,35 +215,36 @@ const Main = () => {
         <div className="flex gap-x-6">
           {/* tasks */}
 
-          {selectedBoardColumn.map((items) => (
-            <div className="w-72 space-y-6" key={items.id}>
+          {selectedBoardColumn.map((board) => (
+            <div className="w-72 space-y-6" key={board.id}>
               <div className="flex items-center gap-x-2">
                 <div className="h-4 w-4 rounded-full bg-yellow-400"></div>
                 <h2 className="text-Neutral-Secondary">
-                  {`${items.name} (${items.task?.length})`}
+                  {`${board.name} (${board.task?.length})`}
                 </h2>
               </div>
-
-              {items.task.map((item) => (
-                <div
-                  onClick={handleOpenSubTask}
-                  className="cursor-pointer"
-                  key={item.id}
+              <DndContext
+                collisionDetection={closestCenter}
+                onDragEnd={onDragEnd}
+                sensors={sensors}
+              >
+                <SortableContext
+                  items={board.task.map((task) => task.id)}
+                  strategy={verticalListSortingStrategy}
                 >
-                  <div
-                    className={`${isOn ? 'bg-Neutral-Primary shadow-sm' : 'bg-foreground shadow-lg'} space-y-2 rounded-lg p-4 font-semibold shadow-Primary-buttonDark`}
-                  >
-                    <h3
-                      className={`${isOn ? 'text-Neutral-tertiary' : 'text-Neutral-Primary'} whitespace-normal break-words text-sm transition-all duration-300 hover:text-Primary-button`}
-                    >
-                      {item.title}
-                    </h3>
-                    <h4 className="text-xs text-Neutral-Secondary">
-                      2 of {item.subtask.length} subtasks
-                    </h4>
-                  </div>
-                </div>
-              ))}
+                  {board.task.map((item) => (
+                    <SortableTask
+                      key={item.id}
+                      id={item.id}
+                      title={item.title}
+                      handleOpenSubTask={() =>
+                        handleOpenSubTask(String(item.id))
+                      }
+                      length={item.subtask.length}
+                    />
+                  ))}
+                </SortableContext>
+              </DndContext>
             </div>
           ))}
         </div>
@@ -218,6 +267,7 @@ const Main = () => {
         <SubTask
           refSubTask={refSubTask}
           handleOpenSubTaskModel={handleOpenSubTaskModel}
+          taskId={selectedTaskId}
         />
       )}
 

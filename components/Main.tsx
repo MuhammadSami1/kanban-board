@@ -33,7 +33,7 @@ const Main = () => {
   const [openSubTaskModel, setOpenSubTaskModel] = useState(false)
   const [openDeleteBoard, setOpenDeleteBoard] = useState(false)
   const [editModel, setEditModel] = useState(false)
-  const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null)
+  const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null)
 
   const isOn = useToggleColor((state) => state.isOn)
   const board = globalBoard((state) => state.board)
@@ -78,6 +78,13 @@ const Main = () => {
     })
   )
 
+  function getRandomColor() {
+    const red = Math.floor(Math.random() * 256)
+    const green = Math.floor(Math.random() * 256)
+    const blue = Math.floor(Math.random() * 256)
+    return `rgb(${red}, ${green}, ${blue})`
+  }
+
   const openEditModel = () => {
     setEditModel((prev) => !prev)
     setOpenSubTaskModel((prev) => !prev)
@@ -101,7 +108,7 @@ const Main = () => {
     }
   }
 
-  const handleOpenSubTask = (taskId: string) => {
+  const handleOpenSubTask = (taskId: number | null) => {
     setSelectedTaskId(taskId)
     setOpenSubTask((prev) => !prev)
   }
@@ -218,7 +225,10 @@ const Main = () => {
           {selectedBoardColumn.map((board) => (
             <div className="w-72 space-y-6" key={board.id}>
               <div className="flex items-center gap-x-2">
-                <div className="h-4 w-4 rounded-full bg-yellow-400"></div>
+                <div
+                  className="h-4 w-4 rounded-full"
+                  style={{ backgroundColor: getRandomColor() }}
+                ></div>
                 <h2 className="text-Neutral-Secondary">
                   {`${board.name} (${board.task?.length})`}
                 </h2>
@@ -237,9 +247,7 @@ const Main = () => {
                       key={item.id}
                       id={item.id}
                       title={item.title}
-                      handleOpenSubTask={() =>
-                        handleOpenSubTask(String(item.id))
-                      }
+                      handleOpenSubTask={() => handleOpenSubTask(item.id)}
                       length={item.subtask.length}
                     />
                   ))}
@@ -283,7 +291,7 @@ const Main = () => {
         <NewTaskDeleteBoard
           refDelete={refDelete}
           setDeleteBoard={setOpenDeleteBoard}
-          id={selectedBoard}
+          id={selectedTaskId}
         />
       )}
 

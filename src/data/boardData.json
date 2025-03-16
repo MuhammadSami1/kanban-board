@@ -2,39 +2,44 @@
   "board": [
     {
       "id": 1,
-      "boardName": "Project A",
+      "boardName": "Project Alpha",
       "boardColumn": [
         {
-          "id": "col1",
+          "id": 1,
           "name": "To Do",
           "task": [
             {
-              "id": "task1",
-              "title": "Design DB",
-              "description": "Design the database schema.",
+              "id": 1,
+              "title": "Design Database Schema",
+              "description": "Create a detailed schema for the database.",
               "status": "To Do",
               "subtask": [
                 {
-                  "id": "subtask1",
-                  "title": "Define tables",
+                  "id": 1,
+                  "title": "Identify core tables",
                   "isCompleted": false
                 },
                 {
-                  "id": "subtask2",
-                  "title": "Add relationships",
+                  "id": 2,
+                  "title": "Define relationships",
                   "isCompleted": false
                 }
               ]
             },
             {
-              "id": "task2",
-              "title": "Setup API",
-              "description": "Create REST API endpoints.",
+              "id": 10,
+              "title": "Prepare Project Plan",
+              "description": "Create a detailed project plan with timelines.",
               "status": "To Do",
               "subtask": [
                 {
-                  "id": "subtask3",
-                  "title": "Define routes",
+                  "id": 20,
+                  "title": "Define milestones",
+                  "isCompleted": false
+                },
+                {
+                  "id": 21,
+                  "title": "Assign tasks to team members",
                   "isCompleted": false
                 }
               ]
@@ -42,23 +47,23 @@
           ]
         },
         {
-          "id": "col2",
+          "id": 2,
           "name": "In Progress",
           "task": [
             {
-              "id": "task3",
-              "title": "Auth System",
-              "description": "Implement OAuth2.",
+              "id": 2,
+              "title": "Develop REST API",
+              "description": "Implement RESTful services for the application.",
               "status": "In Progress",
               "subtask": [
                 {
-                  "id": "subtask4",
-                  "title": "Setup OAuth2",
+                  "id": 3,
+                  "title": "Setup Node.js environment",
                   "isCompleted": true
                 },
                 {
-                  "id": "subtask5",
-                  "title": "Integrate FE",
+                  "id": 4,
+                  "title": "Create API endpoints",
                   "isCompleted": false
                 }
               ]
@@ -69,21 +74,26 @@
     },
     {
       "id": 2,
-      "boardName": "Project B",
+      "boardName": "Project Beta",
       "boardColumn": [
         {
-          "id": "col3",
-          "name": "To Do",
+          "id": 3,
+          "name": "Backlog",
           "task": [
             {
-              "id": "task4",
-              "title": "UI Design",
-              "description": "Design the user interface.",
-              "status": "To Do",
+              "id": 3,
+              "title": "Market Analysis",
+              "description": "Conduct a thorough market analysis.",
+              "status": "Backlog",
               "subtask": [
                 {
-                  "id": "subtask6",
-                  "title": "Create wireframes",
+                  "id": 5,
+                  "title": "Identify competitors",
+                  "isCompleted": false
+                },
+                {
+                  "id": 6,
+                  "title": "Analyze market trends",
                   "isCompleted": false
                 }
               ]
@@ -91,47 +101,35 @@
           ]
         },
         {
-          "id": "col4",
-          "name": "Done",
+          "id": 4,
+          "name": "Design",
           "task": [
             {
-              "id": "task5",
-              "title": "Project Setup",
-              "description": "Initialize the project.",
-              "status": "Done",
+              "id": 4,
+              "title": "UI/UX Design",
+              "description": "Design user interfaces and experiences.",
+              "status": "Design",
               "subtask": [
-                {
-                  "id": "subtask7",
-                  "title": "Create repo",
-                  "isCompleted": true
-                },
-                {
-                  "id": "subtask8",
-                  "title": "Setup structure",
-                  "isCompleted": true
-                }
+                { "id": 7, "title": "Create wireframes", "isCompleted": true },
+                { "id": 8, "title": "Develop prototypes", "isCompleted": false }
               ]
             }
           ]
         },
         {
-          "id": "col5",
+          "id": 5,
           "name": "Testing",
           "task": [
             {
-              "id": "task6",
-              "title": "Write Tests",
-              "description": "Write unit and integration tests.",
-              "status": "To Do",
+              "id": 5,
+              "title": "Test Application",
+              "description": "Perform thorough testing of the application.",
+              "status": "Testing",
               "subtask": [
+                { "id": 9, "title": "Unit testing", "isCompleted": false },
                 {
-                  "id": "subtask9",
-                  "title": "Unit tests",
-                  "isCompleted": false
-                },
-                {
-                  "id": "subtask10",
-                  "title": "Integration tests",
+                  "id": 10,
+                  "title": "Integration testing",
                   "isCompleted": false
                 }
               ]
@@ -142,26 +140,26 @@
     },
     {
       "id": 3,
-      "boardName": "Project C",
+      "boardName": "Project Gamma",
       "boardColumn": [
         {
-          "id": "col6",
-          "name": "To Do",
+          "id": 6,
+          "name": "Ideation",
           "task": [
             {
-              "id": "task7",
-              "title": "Test Cases",
-              "description": "Write test cases.",
-              "status": "To Do",
+              "id": 6,
+              "title": "Brainstorming",
+              "description": "Generate ideas for the new project.",
+              "status": "Ideation",
               "subtask": [
                 {
-                  "id": "subtask11",
-                  "title": "Unit tests",
+                  "id": 11,
+                  "title": "List potential features",
                   "isCompleted": false
                 },
                 {
-                  "id": "subtask12",
-                  "title": "Integration tests",
+                  "id": 12,
+                  "title": "Prioritize features",
                   "isCompleted": false
                 }
               ]
@@ -169,23 +167,38 @@
           ]
         },
         {
-          "id": "col7",
-          "name": "In Progress",
+          "id": 7,
+          "name": "Development",
           "task": [
             {
-              "id": "task8",
-              "title": "Deploy App",
-              "description": "Deploy to production.",
-              "status": "In Progress",
+              "id": 7,
+              "title": "Code Features",
+              "description": "Implement the prioritized features.",
+              "status": "Development",
               "subtask": [
                 {
-                  "id": "subtask13",
-                  "title": "Setup server",
+                  "id": 13,
+                  "title": "Setup development environment",
                   "isCompleted": true
                 },
+                { "id": 14, "title": "Code feature A", "isCompleted": false },
+                { "id": 15, "title": "Code feature B", "isCompleted": false }
+              ]
+            },
+            {
+              "id": 11,
+              "title": "Optimize Performance",
+              "description": "Improve the performance of the application.",
+              "status": "Development",
+              "subtask": [
                 {
-                  "id": "subtask14",
-                  "title": "Deploy FE",
+                  "id": 22,
+                  "title": "Profile application",
+                  "isCompleted": false
+                },
+                {
+                  "id": 23,
+                  "title": "Refactor slow code",
                   "isCompleted": false
                 }
               ]
@@ -193,14 +206,44 @@
           ]
         },
         {
-          "id": "col8",
+          "id": 8,
           "name": "Review",
-          "task": []
+          "task": [
+            {
+              "id": 8,
+              "title": "Code Review",
+              "description": "Review the code for quality and standards.",
+              "status": "Review",
+              "subtask": [
+                { "id": 16, "title": "Peer review", "isCompleted": false },
+                { "id": 17, "title": "Refactor code", "isCompleted": false }
+              ]
+            }
+          ]
         },
         {
-          "id": "col9",
-          "name": "Done",
-          "task": []
+          "id": 9,
+          "name": "Deployment",
+          "task": [
+            {
+              "id": 9,
+              "title": "Deploy Application",
+              "description": "Deploy the application to production.",
+              "status": "Deployment",
+              "subtask": [
+                {
+                  "id": 18,
+                  "title": "Prepare deployment pipeline",
+                  "isCompleted": false
+                },
+                {
+                  "id": 19,
+                  "title": "Monitor deployment",
+                  "isCompleted": false
+                }
+              ]
+            }
+          ]
         }
       ]
     }

@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import boardData from '@/src/data/boardData.json'
-import { v4 as uuidv4 } from 'uuid'
+// import { v4 as uuidv4 } from 'uuid'
 import GlobalBoard from '../types/globalBoard'
 import { arrayMove } from '@dnd-kit/sortable'
 
@@ -18,8 +18,8 @@ const globalBoard = create<GlobalBoard>((set) => ({
         {
           id: state.board.length + 1,
           boardName,
-          boardColumn: boardColumn.map((column) => ({
-            id: uuidv4(),
+          boardColumn: boardColumn.map((column, i) => ({
+            id: i + 1,
             name: column,
             task: []
           }))
@@ -40,12 +40,12 @@ const globalBoard = create<GlobalBoard>((set) => ({
                       task: [
                         ...column.task,
                         {
-                          id: uuidv4(),
+                          id: column.task.length + 1,
                           title,
                           description,
                           status,
-                          subtask: subtask.map((subtaskItem) => ({
-                            id: uuidv4(),
+                          subtask: subtask.map((subtaskItem, i) => ({
+                            id: i + 1,
                             title: subtaskItem,
                             isCompleted: false
                           }))

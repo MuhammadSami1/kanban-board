@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 type TEditBoard = {
   refSubTask: React.RefObject<HTMLDivElement>
   handleOpenSubTaskModel: () => void
-  taskId: string | null // Add taskId as a prop
+  taskId: number | null // Add taskId as a prop
 }
 
 const SubTask = ({

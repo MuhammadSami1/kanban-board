@@ -58,7 +58,7 @@ const Editboard = ({ refEdit, setEdit }: TEditBorad) => {
         id,
         data.boradName,
         data.boradColmn.map((column, index) => ({
-          id: selectedBoardColumn[index]?.id || '',
+          id: selectedBoardColumn[index]?.id || index + 1,
           name: column.name,
           task: selectedBoardColumn[index]?.task || []
         }))

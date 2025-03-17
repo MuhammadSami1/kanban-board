@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion'
 import Button from './ui/Button'
 import Editboard from './shared/Editboard'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import useToggleColor from '@/src/store/toggleColor'
 import SubTask from './SubTask'
 import SubTaskModel from './SubTaskModel'
@@ -48,8 +48,9 @@ const Main = () => {
   const refDelete = useRef<HTMLDivElement>(null)
   const refEditModel = useRef<HTMLDivElement>(null)
 
-  const selectedBoardColumn =
-    board.find((items) => items.id === selectedBoard)?.boardColumn || []
+  const selectedBoardColumn = useMemo(() => {
+    return board.find((items) => items.id === selectedBoard)?.boardColumn || []
+  }, [board, selectedBoard])
 
   const onDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
@@ -84,6 +85,9 @@ const Main = () => {
     const blue = Math.floor(Math.random() * 256)
     return `rgb(${red}, ${green}, ${blue})`
   }
+  const boardColors = useMemo(() => {
+    return selectedBoardColumn.map(() => getRandomColor())
+  }, [selectedBoardColumn])
 
   const openEditModel = () => {
     setEditModel((prev) => !prev)
@@ -222,12 +226,12 @@ const Main = () => {
         <div className="flex gap-x-6">
           {/* tasks */}
 
-          {selectedBoardColumn.map((board) => (
+          {selectedBoardColumn.map((board, index) => (
             <div className="w-72 space-y-6" key={board.id}>
               <div className="flex items-center gap-x-2">
                 <div
                   className="h-4 w-4 rounded-full"
-                  style={{ backgroundColor: getRandomColor() }}
+                  style={{ backgroundColor: boardColors[index] }}
                 ></div>
                 <h2 className="text-Neutral-Secondary">
                   {`${board.name} (${board.task?.length})`}

@@ -1,4 +1,4 @@
-type SubTask = {
+export type SubTask = {
   id: number
   title: string
   isCompleted: boolean

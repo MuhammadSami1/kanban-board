@@ -10,16 +10,22 @@ import { NewTaskForm } from '@/src/types/forms'
 
 type TEditTask = {
   refEdit: React.RefObject<HTMLDivElement>
+  taskId: number | null
+  setEdit: (value: boolean | ((prev: boolean) => boolean)) => void
 }
 
-const EditTask = ({ refEdit }: TEditTask) => {
+const EditTask = ({ refEdit, taskId, setEdit }: TEditTask) => {
   const isOn = useToggleColor((state) => state.isOn)
-  const addNewTask = globalBoard((state) => state.addNewTask)
   const board = globalBoard((state) => state.board)
   const selectedBoard = globalBoard((state) => state.selectedBoard)
+  // const editTask = globalBoard((state) => state.editTask)
 
   const selectedBoardColumn =
     board.find((b) => b.id === selectedBoard)?.boardColumn || []
+
+  const task = selectedBoardColumn
+    .find((b) => b.id === taskId)
+    ?.task.find((v) => v.id === taskId)
 
   const {
     register,
@@ -30,10 +36,10 @@ const EditTask = ({ refEdit }: TEditTask) => {
   } = useForm<NewTaskForm>({
     resolver: yupResolver(NewTaskSchema),
     defaultValues: {
-      title: '',
-      description: '',
-      subtask: [{ title: '' }],
-      status: ''
+      title: task?.title || '',
+      description: task?.description || '',
+      subtask: task?.subtask || [],
+      status: task?.status || ''
     },
     context: {
       selectedBoardColumn
@@ -53,20 +59,19 @@ const EditTask = ({ refEdit }: TEditTask) => {
   }
 
   const onSubmit = (data: NewTaskForm) => {
-    if (selectedBoard) {
-      const boardId = selectedBoard
-      const columnName = data.status
-
-      addNewTask(
-        boardId,
-        columnName,
-        data.title,
-        data.description,
-        columnName,
-        data.subtask.map((subtask) => subtask.title)
-      )
-      reset()
-    }
+    // if (selectedBoard && taskId !== null) {
+    //   editTask(
+    //     data.title,
+    //     data.description,
+    //     taskId,
+    //     data.subtask.map((sub) => ({
+    //       title: sub.title
+    //     }))
+    //   )
+    // }
+    console.log(data)
+    reset()
+    setEdit((prev) => !prev)
   }
 
   return (

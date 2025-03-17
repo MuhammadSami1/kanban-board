@@ -248,7 +248,7 @@ const Main = () => {
                       id={item.id}
                       title={item.title}
                       handleOpenSubTask={() => handleOpenSubTask(item.id)}
-                      length={item.subtask.length}
+                      length={item.subtask ? item.subtask.length : 0}
                     />
                   ))}
                 </SortableContext>
@@ -295,7 +295,13 @@ const Main = () => {
         />
       )}
 
-      {editModel && <EditTask refEdit={refEditModel} />}
+      {editModel && (
+        <EditTask
+          refEdit={refEditModel}
+          taskId={selectedTaskId}
+          setEdit={setEdit}
+        />
+      )}
     </>
   )
 }

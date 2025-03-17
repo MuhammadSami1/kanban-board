@@ -4,7 +4,7 @@ import { CSS } from '@dnd-kit/utilities'
 
 type TSortableTask = {
   title: string
-  id: string | number
+  id: number
   handleOpenSubTask: (taskId: string) => void
   length: number
 }

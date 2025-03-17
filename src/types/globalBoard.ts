@@ -18,12 +18,12 @@ type GlobalBoard = {
 
   addNewBoard: (boardName: string, boardColumn: string[]) => void
 
-  // editTask: (
-  //   taskTitle: string,
-  //   taskDescription: string,
-  //   taskId: number,
-  //   subtask: { title: string }[]
-  // ) => void
+  editTask: (
+    taskTitle: string,
+    taskDescription: string,
+    taskId: number,
+    subtask: { title: string }[]
+  ) => void
 
   addNewTask: (
     boardId: number,

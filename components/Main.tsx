@@ -38,6 +38,7 @@ const Main = () => {
   const isOn = useToggleColor((state) => state.isOn)
   const board = globalBoard((state) => state.board)
   const selectedBoard = globalBoard((state) => state.selectedBoard)
+
   const moveTaskWithinColumn = globalBoard(
     (state) => state.moveTaskWithinColumn
   )
@@ -307,7 +308,7 @@ const Main = () => {
         <EditTask
           refEdit={refEditModel}
           taskId={selectedTaskId}
-          setEdit={setEdit}
+          setEdit={setEditModel}
         />
       )}
     </>

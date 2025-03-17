@@ -127,28 +127,28 @@ const globalBoard = create<GlobalBoard>()(
           )
         })),
 
-      // editTask: (taskTitle, taskDescription, taskId, subtask) =>
-      //   set((state) => ({
-      //     board: state.board.map((board) => ({
-      //       ...board,
-      //       boardColumn: board.boardColumn.map((column) => ({
-      //         ...column,
-      //         task: column.task.map((task) =>
-      //           task.id === taskId
-      //             ? {
-      //                 ...task,
-      //                 title: taskTitle,
-      //                 description: taskDescription,
-      //                 subtask: task.subtask.map((b) => ({
-      //                   ...b,
-      //                   title: subtask
-      //                 }))
-      //               }
-      //             : task
-      //         )
-      //       }))
-      //     }))
-      //   })),
+      editTask: (taskTitle, taskDescription, taskId, subtask) =>
+        set((state) => ({
+          board: state.board.map((board) => ({
+            ...board,
+            boardColumn: board.boardColumn.map((column) => ({
+              ...column,
+              task: column.task.map((task) =>
+                task.id === taskId
+                  ? {
+                      ...task,
+                      title: taskTitle,
+                      description: taskDescription,
+                      subtask: task.subtask.map((b, index) => ({
+                        ...b,
+                        title: subtask[index]?.title || b.title
+                      }))
+                    }
+                  : task
+              )
+            }))
+          }))
+        })),
 
       moveTaskWithinColumn: (boardId, columnId, activeId, overId) =>
         set((state) => ({

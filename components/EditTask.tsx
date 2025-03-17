@@ -18,7 +18,7 @@ const EditTask = ({ refEdit, taskId, setEdit }: TEditTask) => {
   const isOn = useToggleColor((state) => state.isOn)
   const board = globalBoard((state) => state.board)
   const selectedBoard = globalBoard((state) => state.selectedBoard)
-  // const editTask = globalBoard((state) => state.editTask)
+  const editTask = globalBoard((state) => state.editTask)
 
   const selectedBoardColumn =
     board.find((b) => b.id === selectedBoard)?.boardColumn || []
@@ -59,17 +59,17 @@ const EditTask = ({ refEdit, taskId, setEdit }: TEditTask) => {
   }
 
   const onSubmit = (data: NewTaskForm) => {
-    // if (selectedBoard && taskId !== null) {
-    //   editTask(
-    //     data.title,
-    //     data.description,
-    //     taskId,
-    //     data.subtask.map((sub) => ({
-    //       title: sub.title
-    //     }))
-    //   )
-    // }
-    console.log(data)
+    if (selectedBoard && taskId !== null) {
+      editTask(
+        data.title,
+        data.description,
+        taskId,
+        data.subtask.map((sub) => ({
+          title: sub.title
+        }))
+      )
+    }
+
     reset()
     setEdit((prev) => !prev)
   }
@@ -207,7 +207,7 @@ const EditTask = ({ refEdit, taskId, setEdit }: TEditTask) => {
             size="lg"
             type="submit"
           >
-            Create Task
+            Save Changes
           </Button>
         </form>
       </motion.div>

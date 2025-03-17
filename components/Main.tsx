@@ -248,7 +248,11 @@ const Main = () => {
                       id={item.id}
                       title={item.title}
                       handleOpenSubTask={() => handleOpenSubTask(item.id)}
-                      length={item.subtask ? item.subtask.length : 0}
+                      totalLength={item.subtask ? item.subtask.length : 0}
+                      length={
+                        item.subtask.filter((subtask) => subtask.isCompleted)
+                          .length
+                      }
                     />
                   ))}
                 </SortableContext>

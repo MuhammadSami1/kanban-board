@@ -6,6 +6,7 @@ type TSortableTask = {
   title: string
   id: number
   handleOpenSubTask: (taskId: string) => void
+  totalLength: number
   length: number
 }
 
@@ -13,6 +14,7 @@ const SortableTask = ({
   title,
   handleOpenSubTask,
   id,
+  totalLength,
   length
 }: TSortableTask) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -42,7 +44,7 @@ const SortableTask = ({
           {title}
         </h3>
         <h4 className="text-xs text-Neutral-Secondary">
-          2 of {length} subtasks
+          {length} of {totalLength} subtasks
         </h4>
       </div>
     </div>

@@ -4,6 +4,12 @@ import { tSignUp } from '@/src/types/authTypes'
 
 export async function signUp(params: tSignUp) {
   const { uid, name, email } = params
+  if (!uid) {
+    return {
+      success: false,
+      message: 'UID is required'
+    }
+  }
   try {
     const userRecord = await db.collection('users').doc(uid).get()
 

@@ -39,7 +39,7 @@ const page = () => {
       toast.error(result?.message || 'An error occurred')
       return
     }
-    toast.success('Account created successfully. Please sign in.')
+    toast.success('Account created successfully.')
     router.push('/')
     reset()
   }

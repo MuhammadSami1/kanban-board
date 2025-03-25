@@ -67,3 +67,15 @@ export const AddNewBoardFormSchema = yup.object().shape({
     )
     .required('Board Column is required')
 })
+
+export const SignUp = yup.object().shape({
+  name: yup
+    .string()
+    .required('Name is required')
+    .matches(/^[A-Za-z\s]+$/, 'Invalid Name'),
+  email: yup.string().email('Invalid email').required('Email is required'),
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters')
+})

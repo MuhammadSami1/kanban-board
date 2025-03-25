@@ -33,7 +33,7 @@ const deleteBoard = ({ refDelete, setDeleteBoard, id }: TDeleteBoard) => {
         ref={refDelete}
       >
         <div className="text-lg font-medium text-secondary md:font-semibold">
-          Delete this Task?
+          Delete this Board?
         </div>
 
         <p className="py-6 text-xs leading-5 text-Neutral-Secondary">

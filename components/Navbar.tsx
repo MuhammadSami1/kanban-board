@@ -7,7 +7,7 @@ import { signOut } from 'firebase/auth'
 import { auth } from '@/firebase/client'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-
+// types
 type TNavbar = {
   handleOpen: () => void
   openAddNewTask: () => void

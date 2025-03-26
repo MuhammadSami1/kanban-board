@@ -7,5 +7,9 @@ export type tSignUp = {
 
 export type tSignIn = {
   email: string
+  password: string
+}
+export type tSignInRequest = {
+  email: string
   idToken: string
 }

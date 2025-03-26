@@ -1,6 +1,12 @@
 import { motion } from 'framer-motion'
 import Border from './ui/Border'
 import useToggleColor from '@/src/store/toggleColor'
+import Link from 'next/link'
+import { logOut } from '@/src/lib/actions/auth.action'
+import { signOut } from 'firebase/auth'
+import { auth } from '@/firebase/client'
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 
 type TNavbar = {
   handleOpen: () => void
@@ -16,6 +22,30 @@ const Navbar = ({
   sideBarMini
 }: TNavbar) => {
   const isOn = useToggleColor((state) => state.isOn)
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  // Check auth state on component mount
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setIsAuthenticated(!!user)
+    })
+    return () => unsubscribe()
+  }, [])
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth)
+
+      await logOut()
+      toast.success('Logged out successfully')
+
+      window.location.reload()
+    } catch (error) {
+      console.error('Error during logout:', error)
+    }
+  }
+
   return (
     <>
       <nav
@@ -28,6 +58,7 @@ const Navbar = ({
             animate={{ y: 0, opacity: 1 }}
             transition={{ type: 'spring', stiffness: 100, damping: 10 }}
           >
+            {/* Left side of navbar (logo, board name) */}
             <div className="flex items-center gap-3">
               <div className="flex items-center">
                 <svg
@@ -62,7 +93,7 @@ const Navbar = ({
                   </g>
                 </svg>
                 <Border
-                  style={`${isOn ? 'border-gray-300' : 'border-gray-600'} hidden h-20 border-r-[1px]  sm:ml-24 sm:flex md:ml-28 md:h-24`}
+                  style={`${isOn ? 'border-gray-300' : 'border-gray-600'} hidden h-20 border-r-[1px] sm:ml-24 sm:flex md:ml-28 md:h-24`}
                 />
               </div>
 
@@ -124,7 +155,8 @@ const Navbar = ({
               )}
             </div>
 
-            <div className="flex items-center gap-3 sm:gap-7">
+            {/* Right side of navbar (buttons, menu) */}
+            <div className="flex items-center gap-3 justify-center">
               <div
                 className="cursor-pointer rounded-2xl bg-Primary-button px-4 py-2 hover:bg-Primary-buttonLight md:rounded-3xl md:px-5 md:py-3"
                 onClick={openAddNewTask}
@@ -145,6 +177,19 @@ const Navbar = ({
                 </span>
               </div>
 
+              {isAuthenticated ? (
+                <button
+                  onClick={handleLogout}
+                  className="cursor-pointer rounded-2xl bg-Primary-button px-2 py-1 hover:bg-Primary-buttonLight md:rounded-3xl md:px-6 md:py-3 text-Neutral-Primary"
+                >
+                  Logout
+                </button>
+              ) : (
+                <button className="cursor-pointer rounded-2xl bg-Primary-button px-2 py-1 hover:bg-Primary-buttonLight md:rounded-3xl md:px-6 md:py-3 text-Neutral-Primary">
+                  <Link href="/signIn">Sign In</Link>
+                </button>
+              )}
+
               <svg
                 width="5"
                 height="20"
@@ -163,7 +208,7 @@ const Navbar = ({
         </div>
       </nav>
       <Border
-        style={`${isOn ? 'border-gray-300' : 'border-gray-600'} border-b-[1px]  xl:hidden hidden sm:flex`}
+        style={`${isOn ? 'border-gray-300' : 'border-gray-600'} border-b-[1px] xl:hidden hidden sm:flex`}
       />
     </>
   )

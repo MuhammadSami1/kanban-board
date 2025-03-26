@@ -1,15 +1,15 @@
 'use client'
 import Button from '@/components/ui/Button'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { SignUp } from '@/src/lib/validation'
+import { SignIn } from '@/src/lib/validation'
 import Link from 'next/link'
-import { tSignUp } from '@/src/types/authTypes'
+import { tSignIn } from '@/src/types/authTypes'
 import { useForm } from 'react-hook-form'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '@/firebase/client'
-import { signUp } from '@/src/lib/actions/auth.action'
-import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '@/firebase/client'
+import toast from 'react-hot-toast'
+import { signIn } from '@/src/lib/actions/auth.action'
 import { useState } from 'react'
 
 const page = () => {
@@ -20,56 +20,45 @@ const page = () => {
     handleSubmit,
     reset,
     formState: { errors }
-  } = useForm<tSignUp>({
-    resolver: yupResolver(SignUp),
-    defaultValues: {
-      name: '',
-      email: '',
-      password: ''
-    }
+  } = useForm<tSignIn>({
+    resolver: yupResolver(SignIn)
   })
 
-  const onSubmit = async (data: tSignUp) => {
+  const onSubmit = async (data: tSignIn) => {
     setIsLoading(true)
-    const { email, name, password } = data
-    const userCredentials = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    )
-    const result = await signUp({
-      uid: userCredentials.user.uid,
-      name: name!,
-      email,
-      password
-    })
-    if (!result?.success) {
-      toast.error(result?.message || 'An error occurred')
-      return
+    const { email, password } = data
+    try {
+      const userCredentials = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
+      const idToken = await userCredentials.user.getIdToken()
+      if (!idToken) {
+        toast.error('Sign in Failed. Please try again.')
+        return
+      }
+
+      await signIn({
+        email,
+        idToken
+      })
+
+      toast.success('Signed in successfully.')
+      router.push('/')
+      reset()
+    } catch (error: any) {
+      toast.error(error.Message)
+    } finally {
+      setIsLoading(false)
     }
-    toast.success('Account created successfully.')
-    router.push('/')
-    reset()
   }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background text-white">
       <div className="w-full max-w-md rounded-lg bg-foreground p-8 shadow-lg">
-        <h2 className="mb-6 text-center text-2xl font-semibold">Sign Up</h2>
+        <h2 className="mb-6 text-center text-2xl font-semibold">Sign In</h2>
         <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <label className="mb-2 block text-sm" htmlFor="name">
-              Name
-            </label>
-            <input
-              type="text"
-              {...register('name', { required: true })}
-              className="w-full rounded-md p-3 text-white border-[1px] border-gray-600 bg-foreground focus:outline-none"
-            />
-            {errors.name && (
-              <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
-            )}
-          </div>
           <div>
             <label className="mb-2 block text-sm" htmlFor="email">
               Email
@@ -108,16 +97,16 @@ const page = () => {
             type="submit"
             disabled={isLoading}
           >
-            {isLoading ? 'Signing up...' : 'Sign Up'}
+            {isLoading ? 'Signing in...' : 'Sign In'}
           </Button>
         </form>
         <p className="mt-4 text-center text-sm text-gray-400">
-          Already have an account?
+          Don't have an account?
           <Link
-            href="/signIn"
+            href="/signUp"
             className="ml-1 text-Primary-button hover:underline"
           >
-            Sign In
+            Sign Up
           </Link>
         </p>
       </div>

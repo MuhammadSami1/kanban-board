@@ -1,6 +1,7 @@
 'use server'
-import { db } from '@/firebase/admin'
-import { tSignUp } from '@/src/types/authTypes'
+import { db, auth } from '@/firebase/admin'
+import { tSignInRequest, tSignUp } from '@/src/types/authTypes'
+import { cookies } from 'next/headers'
 
 export async function signUp(params: tSignUp) {
   const { uid, name, email } = params
@@ -43,5 +44,58 @@ export async function signUp(params: tSignUp) {
       success: false,
       message: 'Failed to create an account'
     }
+  }
+}
+
+export async function signIn(params: tSignInRequest) {
+  const { email, idToken } = params
+  try {
+    const userRecord = await auth.getUserByEmail(email)
+    if (!userRecord) {
+      return {
+        success: false,
+        message: 'User not found'
+      }
+    }
+
+    await setSessionCookie(idToken)
+
+    return {
+      success: true,
+      message: 'User signed in successfully'
+    }
+  } catch (e: any) {
+    console.error('Error signing in', e)
+
+    return {
+      success: false,
+      message: 'Failed to sign in'
+    }
+  }
+}
+
+export async function setSessionCookie(idToken: string) {
+  const cookieStore = await cookies()
+
+  const sessionCookie = await auth.createSessionCookie(idToken, {
+    expiresIn: 60 * 60 * 24 * 7 * 1000
+  })
+
+  cookieStore.set('session', sessionCookie, {
+    maxAge: 60 * 60 * 24 * 7,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/'
+  })
+}
+
+export async function logOut() {
+  const cookieStore = cookies()
+  cookieStore.delete('session')
+
+  return {
+    success: true,
+    message: 'User signed out successfully'
   }
 }

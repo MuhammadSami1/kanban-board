@@ -41,6 +41,7 @@ const nextConfig = {
   reactStrictMode: false,
   images: {
     domains: ['cdn.shopify.com'], // add the url of images here in case you want to use them in the app
+    domains: ['lh3.googleusercontent.com', 'ui-avatars.com'],
     remotePatterns: [
       {
         protocol: 'https',

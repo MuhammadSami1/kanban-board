@@ -31,6 +31,7 @@ const page = () => {
 
   const onSubmit = async (data: tSignUp) => {
     setIsLoading(true)
+
     const { email, name, password } = data
     const userCredentials = await createUserWithEmailAndPassword(
       auth,
